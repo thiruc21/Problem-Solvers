@@ -40,6 +40,18 @@ public class Create_mc {
 	public Create_mc() {
 		initialize();
 	}
+	
+	public void mc_to_db(String question, String[] answers, int answer) throws IndexOutOfBoundsException {
+		
+		if(answer > answers.length) {
+			
+			throw new IndexOutOfBoundsException();
+			
+		}
+		
+		//Here is where some Database stuff will be done... IDK
+		
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -86,7 +98,7 @@ public class Create_mc {
 		lblQuestion.setVerticalAlignment(SwingConstants.TOP);
 		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblQuestion.setForeground(new Color(0, 255, 0));
-		lblQuestion.setBounds(81, 11, 312, 84);
+		lblQuestion.setBounds(81, 11, 350, 84);
 		frame.getContentPane().add(lblQuestion);
 		
 		JLabel lblAnswer = new JLabel("Answer: ");
@@ -178,6 +190,9 @@ public class Create_mc {
 					rdbtnA5.setText(options[4]);
 					rdbtnA6.setText(options[5]);
 					// Call function to insert into database using back-end here 
+					
+					mc_to_db(question, options, answer_index);
+					
 					JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
 					} catch(NumberFormatException e) {
 						JOptionPane.showMessageDialog(new JLabel(), "Please input a number between 1-6", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
