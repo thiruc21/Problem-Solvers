@@ -11,11 +11,14 @@ import java.awt.BorderLayout;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JButton;
 
 public class Add_questions_gui {
 
   private JFrame frame;
-  private JTextField textField;
 
   /**
    * Launch the application.
@@ -47,35 +50,32 @@ public class Add_questions_gui {
     frame = new JFrame();
     frame.getContentPane().setLayout(null);
     
-    @SuppressWarnings("rawtypes")
-    JList list = new JList();
-    list.setBounds(40, 11, 356, 164);
-    frame.getContentPane().add(list);
+    JLabel lblSelectTheQuestions = new JLabel("Select the questions to add:");
+    lblSelectTheQuestions.setBounds(30, 20, 166, 14);
+    frame.getContentPane().add(lblSelectTheQuestions);
+        
+    String[] questions = new String[7];
+    questions[0] = "a";
+    questions[1] = "b";
+    questions[2] = "c";
+    questions[3] = "d";
+    questions[4] = "e";
+    questions[5] = "f";
+    questions[6] = "g";
+    showQuestionsList(questions);
     
-    String[] q = new String[3];
-    q[0] = "a";
-    q[1] = "b";
-    q[2] = "c";
-    showQuestionsList(list, q);
-    
-    textField = new JTextField();
-    textField.setBounds(40, 230, 86, 20);
-    frame.getContentPane().add(textField);
-    textField.setColumns(10);
-    
-    JLabel lblEnter = new JLabel("Enter the numbers of the questions you want to insert:");
-    lblEnter.setBounds(40, 205, 356, 14);
-    frame.getContentPane().add(lblEnter);
+    JButton btnNewButton = new JButton("Add questions");
+    btnNewButton.setBounds(30, questions.length*30+80, 120, 23);
+    frame.getContentPane().add(btnNewButton);
   }
   
-  @SuppressWarnings("unchecked")
-  private void showQuestionsList(@SuppressWarnings("rawtypes") JList list, String questions[]) {
-    @SuppressWarnings("rawtypes")
-    DefaultListModel dlm = new DefaultListModel();
-    for(int i = 1; i < questions.length+1; i++) {
-      dlm.addElement(i + ". " + questions[i-1]);
+  private void showQuestionsList(String questions[]) {
+    JCheckBox newCheckBox;
+    for(int i = 0; i < questions.length; i++) {
+      newCheckBox= new JCheckBox(questions[i]);
+      newCheckBox.setBounds(30, 50+i*30, 97, 23);
+      frame.getContentPane().add(newCheckBox);
     }
-    list.setModel(dlm);
   }
 }
 
