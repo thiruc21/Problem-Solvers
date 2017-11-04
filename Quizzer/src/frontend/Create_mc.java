@@ -41,7 +41,7 @@ public class Create_mc {
 		initialize();
 	}
 	
-	public void mc_to_db(String question, String[] answers, int answer) throws IndexOutOfBoundsException {
+	public void mc_to_db(String title, String question, String[] answers, int answer) throws IndexOutOfBoundsException {
 		
 		if(answer > answers.length) {
 			
@@ -50,6 +50,8 @@ public class Create_mc {
 		}
 		
 		//Here is where some Database stuff will be done... IDK
+		
+		backend.DataFillTool.insert(title, question, answers, answer);
 		
 	}
 
@@ -191,7 +193,7 @@ public class Create_mc {
 					rdbtnA6.setText(options[5]);
 					// Call function to insert into database using back-end here 
 					
-					mc_to_db(question, options, answer_index);
+					mc_to_db("TITLE GOES HERE", question, options, answer_index);
 					
 					JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
 					} catch(NumberFormatException e) {
