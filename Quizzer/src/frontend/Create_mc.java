@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+
+
+
 public class Create_mc {
 
 	private JFrame frame;
@@ -41,18 +44,16 @@ public class Create_mc {
 		initialize();
 	}
 	
-	public void mc_to_db(String title, String question, String[] answers, int answer) throws IndexOutOfBoundsException {
-		
-		if(answer > answers.length) {
-			
-			throw new IndexOutOfBoundsException();
-			
-		}
-		
-		//Here is where some Database stuff will be done... IDK
-		
+	public boolean mc_to_db(String title, String question, String[] answers, String answer) {
+
+		//Here is where some Database stuff will be done... IDK	
+		try {
 		backend.DataFillTool.insert(title, question, answers, answer);
-		
+		} catch (IllegalArgumentException e){
+			JOptionPane.showMessageDialog(new JLabel(), "Unable to insert question. Please input a unique question label.", "Error", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -113,6 +114,21 @@ public class Create_mc {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] options = new String[6];
 				boolean validAnswer = false;
+				String label = "";
+				while (!validAnswer) {
+					label = JOptionPane.showInputDialog(null, "What would you like to use as the question's label?", "Tag used to refer to this specific question", JOptionPane.INFORMATION_MESSAGE);
+					if (label == null) {
+						return;
+					}
+					if (label.isEmpty()) {
+						JOptionPane.showMessageDialog(new JLabel(), "Label is mandatory.", "Label needed", JOptionPane.INFORMATION_MESSAGE);
+						validAnswer = false;
+						
+					} else {
+						validAnswer = true;
+					}
+				}
+				validAnswer = false;
 				String question = "";
 				while (!validAnswer) {
 					question = JOptionPane.showInputDialog(null, "What is the question?", "Multiple Choice Question Creation (2-6 options)", JOptionPane.INFORMATION_MESSAGE);
@@ -183,19 +199,19 @@ public class Create_mc {
 						throw new NumberFormatException();
 					}
 					validAnswer = true;
-					lblQuestion.setText("<html><body style='width: 133px'>"+question);
-					lblAnswer.setText("<html><body style='width: 237px'>Answer: "+options[answer_index-1]);
-					rdbtnA1.setText(options[0]);
-					rdbtnA2.setText(options[1]);
-					rdbtnA3.setText(options[2]);
-					rdbtnA4.setText(options[3]);
-					rdbtnA5.setText(options[4]);
-					rdbtnA6.setText(options[5]);
+					
 					// Call function to insert into database using back-end here 
-					
-					mc_to_db("TITLE GOES HERE", question, options, answer_index);
-					
-					JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
+					if (mc_to_db(label, question, options, options[answer_index-1])) {
+						lblQuestion.setText("<html><body style='width: 133px'>"+question);
+						lblAnswer.setText("<html><body style='width: 237px'>Answer: "+options[answer_index-1]);
+						rdbtnA1.setText(options[0]);
+						rdbtnA2.setText(options[1]);
+						rdbtnA3.setText(options[2]);
+						rdbtnA4.setText(options[3]);
+						rdbtnA5.setText(options[4]);
+						rdbtnA6.setText(options[5]);
+						JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
+					}
 					} catch(NumberFormatException e) {
 						JOptionPane.showMessageDialog(new JLabel(), "Please input a number between 1-6", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
 						

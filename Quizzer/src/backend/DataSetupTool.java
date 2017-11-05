@@ -15,22 +15,32 @@ public class DataSetupTool {
       st.executeUpdate(q);
       
       q = "CREATE TABLE QUESTION " +
-          "(Q_ID INT PRIMARY KEY, " +
-          " LABEL CHAR(50), " + 
+          "(Q_ID INTEGER PRIMARY KEY, " +
+          " LABEL CHAR(50) UNIQUE, " + 
           " QUESTION_TEXT CHAR(250) NOT NULL," + 
-          " CORRECT_ANSWER INT NOT NULL)";
+          " CORRECT_ANSWER_ID INT NOT NULL)";
+      // correct_answer is the answer_id of the right answer
+      // label is UNIQUE.
       st.executeUpdate(q);
       
       q = "DROP TABLE IF EXISTS ANSWER";
       st.executeUpdate(q);
       
       q = "CREATE TABLE ANSWER " +
-          "(A_ID INT PRIMARY KEY, " +
+          "(A_ID INTEGER PRIMARY KEY, " +
           " Q_ID INT NOT NULL, " +
           " ANSWER_TEXT CHAR(250) NOT NULL, " +
           " FOREIGN KEY (Q_ID) REFERENCES QUESTION (Q_ID))";
       st.executeUpdate(q);
+      // Void rows are used for intermediate steps when creating new questions
+      q = "INSERT INTO QUESTION " + 
+	          "VALUES(NULL, '" + "void" + "', '" + "VOID FIRST ROW" + "', " + "1" + ")";
+	      st.executeUpdate(q);
       
+      q = "INSERT INTO ANSWER " +
+	          "VALUES(" + "NULL, 1, '" + "VOID FIRST ROW" + "')";
+	      st.executeUpdate(q);
+      	
       st.close();
       conn.close();
           

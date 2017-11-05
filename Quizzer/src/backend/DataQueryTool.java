@@ -18,7 +18,7 @@ public class DataQueryTool {
         int id = rs.getInt("Q_ID");
         String label = rs.getString("LABEL");
         String q_text = rs.getString("QUESTION_TEXT");
-        int correct_id = rs.getInt("CORRECT_ANSWER");
+        int correct_id = rs.getInt("CORRECT_ANSWER_ID");
         System.out.println("ID:" + id + " LABEL:" + label + " QUESTION:" + q_text + " CORRECT_ID:" + correct_id);
       }
       
@@ -43,4 +43,54 @@ public class DataQueryTool {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
     }
   }
+  
+  // Returns the answer's id having inputted the answer's text
+  public static int answer_query(String answer_text) {
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  int a_id = 1;
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM ANSWER WHERE ANSWER_TEXT = '" + answer_text + "'";
+	  st = conn.prepareStatement(q);	
+	  rs = st.executeQuery();
+      if(rs.next()) {
+        a_id = rs.getInt("A_ID");
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return a_id;
+  }
+  
+//Returns the question's id having inputted the question's label
+ public static int question_query(String question_label) {
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  int q_id = 1;
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM QUESTION WHERE LABEL = '" + question_label + "'" +
+			  "ORDER BY Q_ID DESC";
+	  st = conn.prepareStatement(q);	
+     rs = st.executeQuery();
+     if(rs.next()) {
+       q_id = rs.getInt("Q_ID");
+     }
+     st.close();
+     conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return q_id;
+ }
+  
 }
