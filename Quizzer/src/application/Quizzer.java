@@ -11,9 +11,6 @@ import javax.swing.JOptionPane;
 import frontend.Add_questions_gui;
 import frontend.Create_mc;
 import frontend.View_questions_gui;
-import frontend.View_question_details;
-
-import backend.DataQueryTool;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;

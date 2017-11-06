@@ -95,7 +95,7 @@ public class DataSetupTool {
 		  //    st.executeUpdate(q);
 	      
 	      q = "INSERT INTO ANSWER " +
-		      "VALUES(" + "NULL, 1, '" + "VOID FIRST ROW" + "')";
+		      "VALUES(" + "NULL, 0, '" + "VOID FIRST ROW" + "')";
 		  st.executeUpdate(q);
 		  
 		 // Create assigned_questions table

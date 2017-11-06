@@ -1,6 +1,5 @@
 package frontend;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -54,14 +53,6 @@ public class View_question_details {
         frame.setBounds(100, 100, 510, 421);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
-        
-        final JButton btnCreate = new JButton("Create Question");
-        btnCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
-    
-        btnCreate.setBackground(new Color(0, 0, 0));
-        btnCreate.setForeground(new Color(124, 252, 0));
-        btnCreate.setBounds(109, 321, 133, 50);
-        frame.getContentPane().add(btnCreate);
         
         JRadioButton[] rdbtn = new JRadioButton[6];
         
@@ -117,13 +108,13 @@ public class View_question_details {
         final JLabel lblAnswer = new JLabel("Answer: ");
         lblAnswer.setForeground(new Color(124, 252, 0));
         lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblAnswer.setBounds(252, 321, 237, 50);
+        lblAnswer.setBounds(119, 319, 322, 50);
         frame.getContentPane().add(lblAnswer);
         
         final JButton btnNewButton = new JButton("Back");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Quizzer app = new Quizzer(true);
+                View_questions_gui app = new View_questions_gui();
                 app.frame.setVisible(true);
                 frame.dispose();
             }
