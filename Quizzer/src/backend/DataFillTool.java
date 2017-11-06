@@ -103,9 +103,12 @@ public static void addAssignedQuestion(int ass_id, String q_id) {
 	      q = "INSERT INTO ASSIGNED_QUESTIONS " +
 	          "VALUES(" + Integer.toString(ass_id) + ", " + q_id + ");";
 	      st.executeUpdate(q);
+	      st.close();
+		  conn.close();
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
+	 
   }
   
 }

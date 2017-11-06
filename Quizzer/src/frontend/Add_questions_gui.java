@@ -11,9 +11,6 @@ import backend.DataQueryTool;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class Add_questions_gui {
@@ -52,7 +49,7 @@ public class Add_questions_gui {
     frame.getContentPane().setLayout(null);
     frame.setBounds(100, 100, 510, 421);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    JLabel lblSelectTheQuestions = new JLabel("Select the questions to add:");
+    JLabel lblSelectTheQuestions = new JLabel("Select the questions to assign:");
     lblSelectTheQuestions.setForeground(new Color(124, 252, 0));
     lblSelectTheQuestions.setFont(new Font("Tahoma", Font.BOLD, 12));
     lblSelectTheQuestions.setBounds(30, 20, 268, 14);
@@ -73,9 +70,13 @@ public class Add_questions_gui {
 	    listBox(questions);
   }
   
-  private void listBox(String questions[]) {  
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    JList list = new JList(questions);
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private void listBox(String questions[]) {  
+    DefaultListModel listModel = new DefaultListModel();
+    JList list = new JList(listModel);
+    for(int i = 0; i < questions.length; i++) {
+    	listModel.addElement(questions[i]);
+    }
     list.setForeground(new Color(124, 252, 0));
     list.setBackground(new Color(0, 0, 0));
     list.setVisibleRowCount(5);
@@ -84,7 +85,7 @@ public class Add_questions_gui {
     scrollPane.setBounds(30, 50, 400, 200);
     frame.getContentPane().add(scrollPane);
      
-    JButton btnNewButton = new JButton("Add questions");
+    JButton btnNewButton = new JButton("Assign questions");
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		if (list.isSelectionEmpty()) {
@@ -95,15 +96,16 @@ public class Add_questions_gui {
     			// Insert Q_ID into the table assigned_questions here
     			// Make and invoke the function by DataFillTool.insertfunctionname(selected_qid)
     			DataFillTool.addAssignedQuestion(1, selected_qid);
+    			listModel.removeElementAt(list.getSelectedIndex());
+    			//list.remove(list.getSelectedIndex());
     		}
-    		// Refresh the list after insertion
-    		refreshList();
+    		
     	}
     });
     btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
     btnNewButton.setBackground(new Color(0, 0, 0));
     btnNewButton.setForeground(new Color(124, 252, 0));
-    btnNewButton.setBounds(30, 297, 120, 23);
+    btnNewButton.setBounds(30, 297, 132, 23);
     frame.getContentPane().add(btnNewButton);
     
     JButton btnBack = new JButton("Back");
@@ -116,10 +118,9 @@ public class Add_questions_gui {
     });
     btnBack.setBackground(new Color(0, 0, 0));
     btnBack.setForeground(new Color(124, 252, 0));
-    btnBack.setBounds(172, 297, 126, 23);
+    btnBack.setBounds(172, 297, 137, 23);
     frame.getContentPane().add(btnBack);
        
   }
-  
 }
 

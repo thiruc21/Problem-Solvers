@@ -104,10 +104,18 @@ public class Quizzer {
 		
 		btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				backend.DataSetupTool.main(null);
-				JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
-				btnCreate.setEnabled(true);
-				btnAssign.setEnabled(true);
+				try {
+					if (backend.DataSetupTool.initialize()) {
+					JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
+					btnCreate.setEnabled(true);
+					btnAssign.setEnabled(true);
+					} else {
+						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
+					System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+				}
 			}
 		});
 	}
