@@ -219,3 +219,5 @@ pip-log.txt
 *.class
 Quizzer/bin/frontend/Create_mc$2.class
 *.class
+Quizzer/bin/frontend/Create_mc$2.class
+*.class
