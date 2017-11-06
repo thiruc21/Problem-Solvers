@@ -68,7 +68,7 @@ public class Create_mc {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        JButton btnCreate = new JButton("Create Question");
+        final JButton btnCreate = new JButton("Create Question");
         btnCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
     
         btnCreate.setBackground(new Color(0, 0, 0));
@@ -76,62 +76,62 @@ public class Create_mc {
         btnCreate.setBounds(109, 321, 133, 50);
         frame.getContentPane().add(btnCreate);
         
-        JRadioButton rdbtnA2 = new JRadioButton("Answer 2");
+        final JRadioButton rdbtnA2 = new JRadioButton("Answer 2");
         rdbtnA2.setForeground(new Color(124, 252, 0));
         rdbtnA2.setBackground(new Color(0, 0, 0));
         rdbtnA2.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA2.setBounds(109, 138, 312, 23);
         frame.getContentPane().add(rdbtnA2);
         
-        JRadioButton rdbtnA1 = new JRadioButton("Answer 1");
+        final JRadioButton rdbtnA1 = new JRadioButton("Answer 1");
         rdbtnA1.setBackground(new Color(0, 0, 0));
         rdbtnA1.setForeground(new Color(124, 252, 0));
         rdbtnA1.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA1.setBounds(109, 102, 312, 23);
         frame.getContentPane().add(rdbtnA1);
         
-        JRadioButton rdbtnA3 = new JRadioButton("Answer 3");
+        final JRadioButton rdbtnA3 = new JRadioButton("Answer 3");
         rdbtnA3.setForeground(new Color(124, 252, 0));
         rdbtnA3.setBackground(new Color(0, 0, 0));
         rdbtnA3.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA3.setBounds(109, 170, 312, 23);
         frame.getContentPane().add(rdbtnA3);
         
-        JRadioButton rdbtnA4 = new JRadioButton("Answer 4");
+        final JRadioButton rdbtnA4 = new JRadioButton("Answer 4");
         rdbtnA4.setForeground(new Color(124, 252, 0));
         rdbtnA4.setBackground(new Color(0, 0, 0));
         rdbtnA4.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA4.setBounds(109, 206, 312, 23);
         frame.getContentPane().add(rdbtnA4);
         
-        JRadioButton rdbtnA5 = new JRadioButton("Answer 5");
+        final JRadioButton rdbtnA5 = new JRadioButton("Answer 5");
         rdbtnA5.setForeground(new Color(124, 252, 0));
         rdbtnA5.setBackground(new Color(0, 0, 0));
         rdbtnA5.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA5.setBounds(109, 242, 312, 23);
         frame.getContentPane().add(rdbtnA5);
         
-        JRadioButton rdbtnA6 = new JRadioButton("Answer 6");
+        final JRadioButton rdbtnA6 = new JRadioButton("Answer 6");
         rdbtnA6.setForeground(new Color(124, 252, 0));
         rdbtnA6.setBackground(new Color(0, 0, 0));
         rdbtnA6.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA6.setBounds(109, 277, 312, 23);
         frame.getContentPane().add(rdbtnA6);
         
-        JLabel lblQuestion = new JLabel("Question");
+        final JLabel lblQuestion = new JLabel("Question");
         lblQuestion.setVerticalAlignment(SwingConstants.TOP);
         lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblQuestion.setForeground(new Color(173, 255, 47));
         lblQuestion.setBounds(109, 11, 350, 84);
         frame.getContentPane().add(lblQuestion);
         
-        JLabel lblAnswer = new JLabel("Answer: ");
+        final JLabel lblAnswer = new JLabel("Answer: ");
         lblAnswer.setForeground(new Color(124, 252, 0));
         lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblAnswer.setBounds(252, 321, 237, 50);
         frame.getContentPane().add(lblAnswer);
         
-        JButton btnNewButton = new JButton("Back");
+        final JButton btnNewButton = new JButton("Back");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Quizzer app = new Quizzer(true);

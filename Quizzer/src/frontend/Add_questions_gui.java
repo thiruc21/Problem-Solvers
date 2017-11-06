@@ -72,8 +72,8 @@ public class Add_questions_gui {
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
 private void listBox(String questions[]) {  
-    DefaultListModel listModel = new DefaultListModel();
-    JList list = new JList(listModel);
+    final DefaultListModel listModel = new DefaultListModel();
+    final JList list = new JList(listModel);
     for(int i = 0; i < questions.length; i++) {
     	listModel.addElement(questions[i]);
     }
@@ -81,11 +81,11 @@ private void listBox(String questions[]) {
     list.setBackground(new Color(0, 0, 0));
     list.setVisibleRowCount(5);
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    JScrollPane scrollPane = new JScrollPane(list);
+    final JScrollPane scrollPane = new JScrollPane(list);
     scrollPane.setBounds(30, 50, 400, 200);
     frame.getContentPane().add(scrollPane);
      
-    JButton btnNewButton = new JButton("Assign questions");
+    final JButton btnNewButton = new JButton("Assign questions");
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		if (list.isSelectionEmpty()) {
@@ -108,7 +108,7 @@ private void listBox(String questions[]) {
     btnNewButton.setBounds(30, 297, 132, 23);
     frame.getContentPane().add(btnNewButton);
     
-    JButton btnBack = new JButton("Back");
+    final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		Quizzer app = new Quizzer(true);

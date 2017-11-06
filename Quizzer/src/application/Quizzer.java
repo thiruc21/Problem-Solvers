@@ -67,7 +67,7 @@ public class Quizzer {
 		btnSetup.setBounds(10, 130, 158, 53);
 		frame.getContentPane().add(btnSetup);
 		
-		JButton btnCreate = new JButton("Create MC Question");
+		final JButton btnCreate = new JButton("Create MC Question");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			Create_mc mc = new Create_mc();
@@ -88,7 +88,7 @@ public class Quizzer {
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
-		JButton btnAssign = new JButton("Assign questions");
+		final JButton btnAssign = new JButton("Assign questions");
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Add_questions_gui aq = new Add_questions_gui();
