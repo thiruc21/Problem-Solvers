@@ -1,4 +1,4 @@
-package gui;
+package frontend;
 
 import java.awt.EventQueue;
 import javax.swing.*;
