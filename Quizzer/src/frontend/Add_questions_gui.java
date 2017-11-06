@@ -1,12 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JLabel;
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class Add_questions_gui {
 
@@ -46,7 +41,7 @@ public class Add_questions_gui {
     lblSelectTheQuestions.setBounds(30, 20, 166, 14);
     frame.getContentPane().add(lblSelectTheQuestions);
         
-    String[] questions = new String[7];
+    String[] questions = new String[10];
     questions[0] = "a";
     questions[1] = "b";
     questions[2] = "c";
@@ -54,25 +49,26 @@ public class Add_questions_gui {
     questions[4] = "e";
     questions[5] = "f";
     questions[6] = "g";
-    checkBoxes(questions);
-    listBoxes(questions);
+    questions[7] = "h";
+    questions[8] = "i";
+    questions[9] = "j";
+    //checkBoxes(questions);
+    listBox(questions);
   }
   
-  private void listBoxes(String questions[]) {
-    JList list = new JList();
-    list.setBounds(272, 69, 120, 139);
-    frame.getContentPane().add(list);    
-  }
-  private void checkBoxes(String questions[]) {
-    JCheckBox newCheckBox;
-    for(int i = 0; i < questions.length; i++) {
-      newCheckBox= new JCheckBox(questions[i]);
-      newCheckBox.setBounds(30, 50+i*30, 97, 23);
-      frame.getContentPane().add(newCheckBox);
-    }
+  private void listBox(String questions[]) {  
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    JList list = new JList(questions);
+    list.setVisibleRowCount(5);
+    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JScrollPane scrollPane = new JScrollPane(list);
+    scrollPane.setBounds(30, 50, 200, 139);
+    frame.getContentPane().add(scrollPane);
+     
     JButton btnNewButton = new JButton("Add questions");
-    btnNewButton.setBounds(30, questions.length*30+80, 120, 23);
+    btnNewButton.setBounds(30, 200, 120, 23);
     frame.getContentPane().add(btnNewButton);
+       
   }
 }
 
