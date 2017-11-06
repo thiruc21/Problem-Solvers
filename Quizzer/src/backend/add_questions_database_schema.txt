@@ -1,0 +1,2 @@
+
+create table Questions(Course varchar(6), Assignment varchar(16), Question varchar(256))
