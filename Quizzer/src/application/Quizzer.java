@@ -10,21 +10,27 @@ import javax.swing.JOptionPane;
 
 import frontend.Add_questions_gui;
 import frontend.Create_mc;
+import frontend.View_questions_gui;
+import frontend.View_question_details;
+
+import backend.DataQueryTool;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.io.File;
 
 public class Quizzer {
-	private boolean setup = false;
-	public JFrame frame;
+  private boolean setup;
+  public JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+    
+    EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Quizzer window = new Quizzer();
@@ -40,9 +46,14 @@ public class Quizzer {
 	 * Create the application.
 	 */
 	public Quizzer() {
+    File chk_exist = new File("quizzer.db");
+    if (chk_exist.exists() && !chk_exist.isDirectory()) {
+      setup = true;
+    } else {
+      setup = false;
+    }
 		initialize();
 	}
-	
 	/**
 	 * Create the application.
 	 */
@@ -50,6 +61,8 @@ public class Quizzer {
 		setup = set;
 		initialize();
 	}
+
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -96,6 +109,7 @@ public class Quizzer {
 				frame.dispose();
 			}
 		});
+    
 		if (!setup)
 			btnAssign.setEnabled(false);
 		btnAssign.setBackground(Color.YELLOW);
@@ -118,5 +132,25 @@ public class Quizzer {
 				}
 			}
 		});
+    
+    
+    final JButton btnView = new JButton("View questions");
+		btnView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				View_questions_gui aq = new View_questions_gui();
+				aq.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+    
+    if (!setup)
+			btnView.setEnabled(false);
+		btnView.setBackground(Color.YELLOW);
+		btnView.setBounds(10, 230, 158, 53);
+		frame.getContentPane().add(btnView);
+		
+    
+    
+    
 	}
 }

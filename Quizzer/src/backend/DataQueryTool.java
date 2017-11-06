@@ -94,6 +94,33 @@ public static List<String> get_unassigned(int ass_id) {
 	  }
 	return result;
 }
+// Return list of labels of all unassigned questions to the assignment id entered
+public static List<String> get_assigned(int ass_id) {
+	Connection conn;
+	PreparedStatement st;
+	String q;
+	ResultSet rs;
+	List<String> result = new ArrayList<String>();
+	try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM QUESTION WHERE Q_ID IN"+
+			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS)";
+			  
+	  st = conn.prepareStatement(q);	
+      rs = st.executeQuery();
+      while(rs.next()) {
+        result.add(Integer.toString(rs.getInt("Q_ID")));
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
+
+
 
 // Return a question's text having inputted the question's id 
 public static String question_text_query(int q_id) {
@@ -109,6 +136,77 @@ public static String question_text_query(int q_id) {
 	  rs = st.executeQuery();
       if(rs.next()) {
         result = rs.getString("QUESTION_TEXT");
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
+public static List<Integer> get_question_answer_ids(int q_id) {
+  	Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  List<Integer> result = new ArrayList<Integer>();
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT A_ID FROM ANSWER WHERE Q_ID = '" + q_id + "'";
+	  st = conn.prepareStatement(q);
+    
+    
+	  rs = st.executeQuery();
+      while(rs.next()) {
+        result.add(rs.getInt("A_ID"));
+        
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
+public static String get_answer_text(int a_id) {
+  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  String result = "";
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT ANSWER_TEXT FROM ANSWER WHERE A_ID = '" + a_id + "'";
+	  st = conn.prepareStatement(q);
+	  rs = st.executeQuery();
+      if(rs.next()) {
+        
+        result = rs.getString("ANSWER_TEXT");
+        
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
+public static int get_correct_answer_id(int q_id) {
+  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  int result = -1;
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT CORRECT_ANSWER_ID FROM QUESTION WHERE Q_ID = '" + q_id + "'";
+	  st = conn.prepareStatement(q);
+	  rs = st.executeQuery();
+      if(rs.next()) {
+        result = rs.getInt("CORRECT_ANSWER_ID");
       }
       st.close();
       conn.close();
