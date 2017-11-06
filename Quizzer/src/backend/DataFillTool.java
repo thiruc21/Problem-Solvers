@@ -92,4 +92,20 @@ public class DataFillTool {
 	  return true;
   }
   
+public static void addAssignedQuestion(int ass_id, String q_id) {
+	  Connection conn;
+	  Statement st;
+	  String q;
+	  try {
+	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	      st = conn.createStatement();
+
+	      q = "INSERT INTO ASSIGNED_QUESTIONS " +
+	          "VALUES(" + Integer.toString(ass_id) + ", " + q_id + ");";
+	      st.executeUpdate(q);
+	    } catch (Exception e) {
+	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	    }
+  }
+  
 }

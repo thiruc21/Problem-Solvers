@@ -6,10 +6,14 @@ import java.util.List;
 import javax.swing.*;
 
 import application.Quizzer;
+import backend.DataFillTool;
 import backend.DataQueryTool;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class Add_questions_gui {
@@ -90,7 +94,7 @@ public class Add_questions_gui {
     			String selected_qid = selected_value.substring(0, selected_value.indexOf(":"));
     			// Insert Q_ID into the table assigned_questions here
     			// Make and invoke the function by DataFillTool.insertfunctionname(selected_qid)
-    		
+    			DataFillTool.addAssignedQuestion(1, selected_qid);
     		}
     		// Refresh the list after insertion
     		refreshList();
@@ -116,5 +120,6 @@ public class Add_questions_gui {
     frame.getContentPane().add(btnBack);
        
   }
+  
 }
 
