@@ -38,9 +38,18 @@ public class DataSetupTool {
 	      st.executeUpdate(q);
       
       q = "INSERT INTO ANSWER " +
-	          "VALUES(" + "NULL, 1, '" + "VOID FIRST ROW" + "')";
-	      st.executeUpdate(q);
-      	
+	      "VALUES(" + "NULL, 1, '" + "VOID FIRST ROW" + "')";
+	  st.executeUpdate(q);
+	  
+	 // Create assigned_questions table
+	  q = "DROP TABLE IF EXISTS ASSIGNED_QUESTIONS";
+	  st.executeUpdate(q);
+	          
+	  q = "CREATE TABLE ASSIGNED_QUESTIONS" +
+	          "(Ass_ID INT, " +
+	          " Q_ID REFERENCES QUESTION(Q_ID))";
+	  st.executeUpdate(q);
+	  
       st.close();
       conn.close();
           
