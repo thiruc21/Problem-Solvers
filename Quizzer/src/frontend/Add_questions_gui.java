@@ -3,17 +3,9 @@ package gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.GridLayout;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
-import java.awt.BorderLayout;
 import javax.swing.JList;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 
 public class Add_questions_gui {
@@ -62,20 +54,25 @@ public class Add_questions_gui {
     questions[4] = "e";
     questions[5] = "f";
     questions[6] = "g";
-    showQuestionsList(questions);
-    
-    JButton btnNewButton = new JButton("Add questions");
-    btnNewButton.setBounds(30, questions.length*30+80, 120, 23);
-    frame.getContentPane().add(btnNewButton);
+    checkBoxes(questions);
+    listBoxes(questions);
   }
   
-  private void showQuestionsList(String questions[]) {
+  private void listBoxes(String questions[]) {
+    JList list = new JList();
+    list.setBounds(272, 69, 120, 139);
+    frame.getContentPane().add(list);    
+  }
+  private void checkBoxes(String questions[]) {
     JCheckBox newCheckBox;
     for(int i = 0; i < questions.length; i++) {
       newCheckBox= new JCheckBox(questions[i]);
       newCheckBox.setBounds(30, 50+i*30, 97, 23);
       frame.getContentPane().add(newCheckBox);
     }
+    JButton btnNewButton = new JButton("Add questions");
+    btnNewButton.setBounds(30, questions.length*30+80, 120, 23);
+    frame.getContentPane().add(btnNewButton);
   }
 }
 
