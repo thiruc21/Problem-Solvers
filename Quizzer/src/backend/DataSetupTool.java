@@ -33,9 +33,9 @@ public class DataSetupTool {
           " FOREIGN KEY (Q_ID) REFERENCES QUESTION (Q_ID))";
       st.executeUpdate(q);
       // Void rows are used for intermediate steps when creating new questions
-      q = "INSERT INTO QUESTION " + 
-	          "VALUES(NULL, '" + "void" + "', '" + "VOID FIRST ROW" + "', " + "1" + ")";
-	      st.executeUpdate(q);
+      //q = "INSERT INTO QUESTION " + 
+	  //        "VALUES(NULL, '" + "void" + "', '" + "VOID FIRST ROW" + "', " + "1" + ")";
+	  //    st.executeUpdate(q);
       
       q = "INSERT INTO ANSWER " +
 	      "VALUES(" + "NULL, 1, '" + "VOID FIRST ROW" + "')";

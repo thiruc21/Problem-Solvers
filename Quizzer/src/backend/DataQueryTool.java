@@ -1,6 +1,8 @@
 package backend;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataQueryTool {
   public static void main( String args[] ) {
@@ -67,6 +69,55 @@ public class DataQueryTool {
 	  }
 	return a_id;
   }
+// Return list of Q_ID of all unassigned questions to the assignment id entered
+public static List<String> get_unassigned(int ass_id) {
+	Connection conn;
+	PreparedStatement st;
+	String q;
+	ResultSet rs;
+	List<String> result = new ArrayList<String>();
+	try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM QUESTION WHERE Q_ID NOT IN"+
+			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS)";
+			  
+	  st = conn.prepareStatement(q);	
+      rs = st.executeQuery();
+      while(rs.next()) {
+        result.add(Integer.toString(rs.getInt("Q_ID")));
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
+
+// Return a question's text having inputted the question's id 
+public static String question_text_query(int q_id) {
+	Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  String result = "Question not found";
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT QUESTION_TEXT FROM QUESTION WHERE Q_ID = '" + q_id + "'";
+	  st = conn.prepareStatement(q);
+	  rs = st.executeQuery();
+      if(rs.next()) {
+        result = rs.getString("QUESTION_TEXT");
+      }
+      st.close();
+      conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return result;
+}
   
 //Returns the question's id having inputted the question's label
  public static int question_query(String question_label) {

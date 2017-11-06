@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import frontend.Add_questions_gui;
 import frontend.Create_mc;
 
 import java.awt.Font;
@@ -88,6 +89,13 @@ public class Quizzer {
 		frame.getContentPane().add(lblQuizzer);
 		
 		JButton btnAssign = new JButton("Assign questions");
+		btnAssign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Add_questions_gui aq = new Add_questions_gui();
+				aq.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		if (!setup)
 			btnAssign.setEnabled(false);
 		btnAssign.setBackground(Color.YELLOW);
