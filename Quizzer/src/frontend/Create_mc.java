@@ -68,7 +68,7 @@ public class Create_mc {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        final JButton btnCreate = new JButton("Create Question");
+        final JButton btnCreate = new JButton("Create New");
         btnCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
     
         btnCreate.setBackground(new Color(0, 0, 0));

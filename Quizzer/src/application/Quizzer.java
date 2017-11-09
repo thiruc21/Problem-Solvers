@@ -71,13 +71,13 @@ public class Quizzer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnSetup = new JButton("Setup database");
+		JButton btnSetup = new JButton("Setup Database");
 		btnSetup.setBackground(Color.YELLOW);
 		btnSetup.setForeground(Color.BLACK);
 		btnSetup.setBounds(10, 130, 158, 53);
 		frame.getContentPane().add(btnSetup);
 		
-		final JButton btnCreate = new JButton("Create MC Question");
+		final JButton btnCreate = new JButton("New MC Question");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			Create_mc mc = new Create_mc();
@@ -98,7 +98,7 @@ public class Quizzer {
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
-		final JButton btnAssign = new JButton("Assign questions");
+		final JButton btnAssign = new JButton("Assign Questions");
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Add_questions_gui aq = new Add_questions_gui();
@@ -131,7 +131,7 @@ public class Quizzer {
 		});
     
     
-    final JButton btnView = new JButton("View questions");
+    final JButton btnView = new JButton("View Assignment");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				View_questions_gui aq = new View_questions_gui();
