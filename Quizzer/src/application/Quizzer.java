@@ -19,6 +19,11 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 public class Quizzer {
+	
+	public final Color FOREGROUND = Color.GREEN;
+	public final Color BUTTON = Color.BLACK;
+	public final Color BACKGROUND = new Color(119, 136, 153);
+		
   private boolean setup;
   public JFrame frame;
 
@@ -66,14 +71,14 @@ public class Quizzer {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.BLUE);
+		frame.getContentPane().setBackground(BACKGROUND);
 		frame.setBounds(100, 100, 604, 402);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnSetup = new JButton("Setup Database");
-		btnSetup.setBackground(Color.YELLOW);
-		btnSetup.setForeground(Color.BLACK);
+		btnSetup.setBackground(BUTTON);
+		btnSetup.setForeground(FOREGROUND);
 		btnSetup.setBounds(10, 130, 158, 53);
 		frame.getContentPane().add(btnSetup);
 		
@@ -87,14 +92,14 @@ public class Quizzer {
 		});
 		if (!setup)
 			btnCreate.setEnabled(false);
-		btnCreate.setBackground(Color.YELLOW);
-		btnCreate.setForeground(Color.BLACK);
+		btnCreate.setBackground(BUTTON);
+		btnCreate.setForeground(FOREGROUND);
 		btnCreate.setBounds(196, 130, 158, 53);
 		frame.getContentPane().add(btnCreate);
 		
 		JLabel lblQuizzer = new JLabel("Quizzer");
 		lblQuizzer.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblQuizzer.setForeground(Color.YELLOW);
+		lblQuizzer.setForeground(FOREGROUND);
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
@@ -109,7 +114,8 @@ public class Quizzer {
     
 		if (!setup)
 			btnAssign.setEnabled(false);
-		btnAssign.setBackground(Color.YELLOW);
+		btnAssign.setBackground(BUTTON);
+		btnAssign.setForeground(FOREGROUND);
 		btnAssign.setBounds(391, 130, 166, 53);
 		frame.getContentPane().add(btnAssign);
 		
@@ -142,7 +148,8 @@ public class Quizzer {
     
     if (!setup)
 			btnView.setEnabled(false);
-		btnView.setBackground(Color.YELLOW);
+		btnView.setBackground(BUTTON);
+		btnView.setForeground(FOREGROUND);
 		btnView.setBounds(10, 230, 158, 53);
 		frame.getContentPane().add(btnView);
 		

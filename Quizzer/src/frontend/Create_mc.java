@@ -17,9 +17,26 @@ import javax.swing.SwingConstants;
 import application.Quizzer;
 
 
-
-
 public class Create_mc {
+	//Original: 124, 252, 0
+	
+	public final int FORERED = 124;
+
+	public final int FOREGREEN = 252;
+	
+	public final int FOREBLUE = 0;
+	
+	public Color FOREGROUND = new Color(FORERED, FOREGREEN, FOREBLUE);
+	
+	//Original: 119, 136, 153
+	
+	public final int BACKRED = 119;
+	
+	public final int BACKGREEN = 136;
+	
+	public final int BACKBLUE = 153;
+	
+	public Color BACKGROUND = new Color(BACKRED, BACKGREEN, BACKBLUE);
 
     public JFrame frame;
 
@@ -63,7 +80,7 @@ public class Create_mc {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.getContentPane().setBackground(new Color(119, 136, 153));
+        frame.getContentPane().setBackground(BACKGROUND);
         frame.setBounds(100, 100, 510, 421);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -72,12 +89,12 @@ public class Create_mc {
         btnCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
     
         btnCreate.setBackground(new Color(0, 0, 0));
-        btnCreate.setForeground(new Color(124, 252, 0));
+		btnCreate.setForeground(FOREGROUND);
         btnCreate.setBounds(109, 321, 133, 50);
         frame.getContentPane().add(btnCreate);
         
         final JRadioButton rdbtnA2 = new JRadioButton("Answer 2");
-        rdbtnA2.setForeground(new Color(124, 252, 0));
+        rdbtnA2.setForeground(FOREGROUND);
         rdbtnA2.setBackground(new Color(0, 0, 0));
         rdbtnA2.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA2.setBounds(109, 138, 312, 23);
@@ -85,34 +102,34 @@ public class Create_mc {
         
         final JRadioButton rdbtnA1 = new JRadioButton("Answer 1");
         rdbtnA1.setBackground(new Color(0, 0, 0));
-        rdbtnA1.setForeground(new Color(124, 252, 0));
+        rdbtnA1.setForeground(FOREGROUND);
         rdbtnA1.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA1.setBounds(109, 102, 312, 23);
         frame.getContentPane().add(rdbtnA1);
         
         final JRadioButton rdbtnA3 = new JRadioButton("Answer 3");
-        rdbtnA3.setForeground(new Color(124, 252, 0));
+        rdbtnA3.setForeground(FOREGROUND);
         rdbtnA3.setBackground(new Color(0, 0, 0));
         rdbtnA3.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA3.setBounds(109, 170, 312, 23);
         frame.getContentPane().add(rdbtnA3);
         
         final JRadioButton rdbtnA4 = new JRadioButton("Answer 4");
-        rdbtnA4.setForeground(new Color(124, 252, 0));
+        rdbtnA4.setForeground(FOREGROUND);
         rdbtnA4.setBackground(new Color(0, 0, 0));
         rdbtnA4.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA4.setBounds(109, 206, 312, 23);
         frame.getContentPane().add(rdbtnA4);
         
         final JRadioButton rdbtnA5 = new JRadioButton("Answer 5");
-        rdbtnA5.setForeground(new Color(124, 252, 0));
+        rdbtnA5.setForeground(FOREGROUND);
         rdbtnA5.setBackground(new Color(0, 0, 0));
         rdbtnA5.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA5.setBounds(109, 242, 312, 23);
         frame.getContentPane().add(rdbtnA5);
         
         final JRadioButton rdbtnA6 = new JRadioButton("Answer 6");
-        rdbtnA6.setForeground(new Color(124, 252, 0));
+        rdbtnA6.setForeground(FOREGROUND);
         rdbtnA6.setBackground(new Color(0, 0, 0));
         rdbtnA6.setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtnA6.setBounds(109, 277, 312, 23);
@@ -126,7 +143,7 @@ public class Create_mc {
         frame.getContentPane().add(lblQuestion);
         
         final JLabel lblAnswer = new JLabel("Answer: ");
-        lblAnswer.setForeground(new Color(124, 252, 0));
+        lblAnswer.setForeground(FOREGROUND);
         lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblAnswer.setBounds(252, 321, 237, 50);
         frame.getContentPane().add(lblAnswer);
@@ -141,7 +158,7 @@ public class Create_mc {
         });
         btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnNewButton.setBackground(new Color(0, 0, 0));
-        btnNewButton.setForeground(new Color(124, 252, 0));
+        btnNewButton.setForeground(FOREGROUND);
         btnNewButton.setBounds(10, 321, 78, 50);
         frame.getContentPane().add(btnNewButton);
         
