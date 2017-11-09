@@ -110,5 +110,25 @@ public static void addAssignedQuestion(int ass_id, String q_id) {
 	    }
 	 
   }
+
+public static void RemoveAssignedQuestion(int ass_id, String q_id) {
+	
+	Connection conn;
+	Statement st;
+	String q;
+	try {
+		conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+		st = conn.createStatement();
+
+		q = "DELETE FROM ASSIGNED_QUESTIONS " +
+	          "VALUES(" + Integer.toString(ass_id) + ", " + q_id + ");";
+		st.executeUpdate(q);
+		st.close();
+		conn.close();
+		} catch (Exception e) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	    }
+
+}
   
 }

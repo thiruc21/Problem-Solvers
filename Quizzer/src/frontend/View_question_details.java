@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import application.Quizzer;
+import backend.DataFillTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,6 @@ public class View_question_details {
     public View_question_details(int q_id) {
         initialize(q_id);
     }
-    
-    public boolean mc_to_db(String title, String question, String[] answers, String answer) {
-
-        //Here is where some Database stuff will be done... IDK 
-        try {
-        backend.DataFillTool.insert(title, question, answers, answer);
-        } catch (IllegalArgumentException e){
-            JOptionPane.showMessageDialog(new JLabel(), "Unable to insert question. Please input a unique question label.", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Initialize the contents of the frame.
@@ -55,13 +44,20 @@ public class View_question_details {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        final JButton btnCreate = new JButton("Create Question");
-        btnCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
+        
+        final JButton btnUnassign = new JButton("Unassign");
+        btnUnassign.setFont(new Font("Tahoma", Font.BOLD, 11));
     
-        btnCreate.setBackground(new Color(0, 0, 0));
-        btnCreate.setForeground(new Color(124, 252, 0));
-        btnCreate.setBounds(109, 321, 133, 50);
-        frame.getContentPane().add(btnCreate);
+        btnUnassign.setBackground(new Color(0, 0, 0));
+        btnUnassign.setForeground(new Color(124, 252, 0));
+        btnUnassign.setBounds(109, 321, 133, 50);
+        frame.getContentPane().add(btnUnassign);
+        btnUnassign.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	DataFillTool.RemoveAssignedQuestion(1, Integer.toString(q_id));
+            }
+        });
+        
         
         JRadioButton[] rdbtn = new JRadioButton[6];
         
@@ -136,6 +132,8 @@ public class View_question_details {
         
         String question_text = backend.DataQueryTool.question_text_query(q_id);
         List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
+        //TEST LINE:
+        //System.out.println(answer_ids.size());
         
         List<String> answer_texts = new ArrayList<String>();
         String correct_answer_text = "";
@@ -145,10 +143,13 @@ public class View_question_details {
           
           answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
           if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
+          //TEST LINE:
+          //System.out.println(i);
+          
+          if(i > 5) {break;} //WORK AROUND?
           rdbtn[i].setText( answer_texts.get(i) );
           ++i;
         }
-        
         
         lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
         lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
