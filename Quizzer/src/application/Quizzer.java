@@ -20,14 +20,19 @@ import java.io.File;
 
 public class Quizzer {
 	
-	public final Color FOREGROUND = Color.GREEN;
-	public final Color BUTTON = Color.BLACK;
-	public final Color BACKGROUND = new Color(119, 136, 153);
+	public final static Color FOREGROUND = new Color(124,252,0);
+	public final static Color BUTTON = Color.BLACK;
+	public final static Color BACKGROUND = new Color(119, 136, 153);
 	
-	public final int BTN_X = 158;
-	public final int BTN_Y = 53;
+	public final static int BTN_X = 158;
+	public final static int BTN_Y = 53;
 	
-	public final Font QUIZZERFONT = new Font("Tahoma", Font.PLAIN, 40);
+	public static final int DETAIL_BTN_X = 312;
+	public static final int DETAIL_BTN_Y = 23;
+	
+	public final static Font QUIZZERFONT = new Font("Tahoma", Font.PLAIN, 40);
+	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
+	
 		
   private boolean setup;
   public JFrame frame;

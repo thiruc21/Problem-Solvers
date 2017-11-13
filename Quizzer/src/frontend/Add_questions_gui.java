@@ -1,5 +1,7 @@
 package frontend;
 
+import application.Quizzer;
+
 import java.awt.EventQueue;
 import java.util.List;
 
@@ -45,12 +47,12 @@ public class Add_questions_gui {
    */
   private void initialize() {
     frame = new JFrame();
-    frame.getContentPane().setBackground(new Color(119, 136, 153));
+    frame.getContentPane().setBackground(Quizzer.BACKGROUND);
     frame.getContentPane().setLayout(null);
     frame.setBounds(100, 100, 510, 421);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JLabel lblSelectTheQuestions = new JLabel("Select the questions to assign:");
-    lblSelectTheQuestions.setForeground(new Color(124, 252, 0));
+    lblSelectTheQuestions.setForeground(Quizzer.FOREGROUND);
     lblSelectTheQuestions.setFont(new Font("Tahoma", Font.BOLD, 12));
     lblSelectTheQuestions.setBounds(30, 20, 268, 14);
     frame.getContentPane().add(lblSelectTheQuestions);
@@ -77,8 +79,8 @@ private void listBox(String questions[]) {
     for(int i = 0; i < questions.length; i++) {
     	listModel.addElement(questions[i]);
     }
-    list.setForeground(new Color(124, 252, 0));
-    list.setBackground(new Color(0, 0, 0));
+    list.setForeground(Quizzer.FOREGROUND);
+    list.setBackground(Quizzer.BUTTON);
     list.setVisibleRowCount(5);
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     final JScrollPane scrollPane = new JScrollPane(list);
@@ -103,8 +105,8 @@ private void listBox(String questions[]) {
     	}
     });
     btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-    btnNewButton.setBackground(new Color(0, 0, 0));
-    btnNewButton.setForeground(new Color(124, 252, 0));
+    btnNewButton.setBackground(Quizzer.BUTTON);
+    btnNewButton.setForeground(Quizzer.FOREGROUND);
     btnNewButton.setBounds(30, 297, 132, 23);
     frame.getContentPane().add(btnNewButton);
     
@@ -116,8 +118,8 @@ private void listBox(String questions[]) {
             frame.dispose();
     	}
     });
-    btnBack.setBackground(new Color(0, 0, 0));
-    btnBack.setForeground(new Color(124, 252, 0));
+    btnBack.setBackground(Quizzer.BUTTON);
+    btnBack.setForeground(Quizzer.FOREGROUND);
     btnBack.setBounds(172, 297, 137, 23);
     frame.getContentPane().add(btnBack);
        
