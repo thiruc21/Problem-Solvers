@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import application.Quizzer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +20,14 @@ import java.util.List;
 public class View_question_details {
 
     public JFrame frame;
-
-
-
+    
+    public boolean student;
+    
     /**
      * Create the application.
      */
-    public View_question_details(int q_id) {
+    public View_question_details(int q_id, boolean student) {
+    	this.student = student;
         initialize(q_id);
     }
     
@@ -105,16 +104,12 @@ public class View_question_details {
         lblQuestion.setBounds(109, 11, 350, 84);
         frame.getContentPane().add(lblQuestion);
         
-        final JLabel lblAnswer = new JLabel("Answer: ");
-        lblAnswer.setForeground(new Color(124, 252, 0));
-        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblAnswer.setBounds(119, 319, 322, 50);
-        frame.getContentPane().add(lblAnswer);
         
         final JButton btnNewButton = new JButton("Back");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 View_questions_gui app = new View_questions_gui();
+                app.student = student;
                 app.frame.setVisible(true);
                 frame.dispose();
             }
@@ -125,24 +120,40 @@ public class View_question_details {
         btnNewButton.setBounds(10, 321, 78, 50);
         frame.getContentPane().add(btnNewButton);
         
-        String question_text = backend.DataQueryTool.question_text_query(q_id);
-        List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
-        
-        List<String> answer_texts = new ArrayList<String>();
-        String correct_answer_text = "";
-        int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
-        int i = 0;
-        for (Integer an_answer_id : answer_ids) {
-          
-          answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
-          if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
-          rdbtn[i].setText( answer_texts.get(i) );
-          ++i;
+        if (!student) {
+	        final JLabel lblAnswer = new JLabel("Answer: ");
+	        lblAnswer.setForeground(new Color(124, 252, 0));
+	        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
+	        lblAnswer.setBounds(119, 319, 322, 50);
+	        frame.getContentPane().add(lblAnswer);
+	       
+	        List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
+	        List<String> answer_texts = new ArrayList<String>();
+	        String correct_answer_text = "";
+	        int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
+	        int i = 0;
+	        for (Integer an_answer_id : answer_ids) {
+	          answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
+	          if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
+	          rdbtn[i].setText( answer_texts.get(i) );
+	          ++i;
+	        }
+	        lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
+        } else {
+            final JButton btnSubmitButton = new JButton("Submit");
+            btnSubmitButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+            btnSubmitButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+            btnSubmitButton.setBackground(new Color(0, 0, 0));
+            btnSubmitButton.setForeground(new Color(124, 252, 0));
+            btnSubmitButton.setBounds(100, 321, 78, 50);
+            frame.getContentPane().add(btnSubmitButton);
         }
-        
-        
+        String question_text = backend.DataQueryTool.question_text_query(q_id);
         lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
-        lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
         
     }
 }

@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 
 import java.io.File;
 
+
 public class Quizzer {
 	
 	public final Color FOREGROUND = Color.GREEN;
@@ -141,6 +142,7 @@ public class Quizzer {
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				View_questions_gui aq = new View_questions_gui();
+				aq.student = false;
 				aq.frame.setVisible(true);
 				frame.dispose();
 			}

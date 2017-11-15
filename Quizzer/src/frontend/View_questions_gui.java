@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class View_questions_gui {
 
   public JFrame frame;
-  public boolean student = false;
+  public boolean student;
 
   /**
    * Launch the application.
@@ -40,7 +40,7 @@ public class View_questions_gui {
    * Create the application.
    */
   public View_questions_gui() {
-    initialize();
+	initialize();
   }
 
   /**
@@ -97,9 +97,9 @@ private void listBox(String questions[]) {
     			String selected_value = (String) list.getSelectedValue();
     			String selected_qid = selected_value.substring(0, selected_value.indexOf(":"));
     			// launch View_question_details with selected_qid
-    			View_question_details app = new View_question_details(Integer.valueOf(selected_qid));
-          app.frame.setVisible(true);
-          frame.dispose();
+    			View_question_details app = new View_question_details(Integer.valueOf(selected_qid), student);
+		        app.frame.setVisible(true);
+		        frame.dispose();
           
     		}
     		
