@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.*;
 
 import application.Quizzer;
+import application.QuizzerStudent;
 import backend.DataQueryTool;
 import frontend.View_question_details;
 import java.awt.Color;
@@ -14,10 +15,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-
 public class View_questions_gui {
 
   public JFrame frame;
+  public boolean student = false;
 
   /**
    * Launch the application.
@@ -113,9 +114,15 @@ private void listBox(String questions[]) {
     final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
-    		Quizzer app = new Quizzer(true);
-            app.frame.setVisible(true);
-            frame.dispose();
+    		if (!student) {
+	    		Quizzer app = new Quizzer(true);
+	            app.frame.setVisible(true);
+	            frame.dispose();
+    		} else {
+    			QuizzerStudent app = new QuizzerStudent(true);
+	            app.frame.setVisible(true);
+	            frame.dispose();
+    		}
     	}
     });
     btnBack.setBackground(new Color(0, 0, 0));
@@ -125,4 +132,3 @@ private void listBox(String questions[]) {
        
   }
 }
-
