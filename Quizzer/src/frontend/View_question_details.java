@@ -31,18 +31,6 @@ public class View_question_details {
     public View_question_details(int q_id) {
         initialize(q_id);
     }
-    
-    public boolean mc_to_db(String title, String question, String[] answers, String answer) {
-
-        //Here is where some Database stuff will be done... IDK 
-        try {
-        backend.DataFillTool.insert(title, question, answers, answer);
-        } catch (IllegalArgumentException e){
-            JOptionPane.showMessageDialog(new JLabel(), "Unable to insert question. Please input a unique question label.", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Initialize the contents of the frame.
