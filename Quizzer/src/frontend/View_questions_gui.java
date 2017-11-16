@@ -22,6 +22,12 @@ public class View_questions_gui {
 
   public JFrame frame;
 
+  public JRadioButton[] rdbtn;
+  
+  public JLabel lblQuestion;
+  
+  public JLabel lblAnswer;
+  
   /**
    * Launch the application.
    */
@@ -61,6 +67,63 @@ public class View_questions_gui {
     frame.getContentPane().add(lblSelectTheQuestions);
     // Refresh the list
     refreshList();
+    // Create question display
+	rdbtn = new JRadioButton[6];
+    
+    rdbtn[1] = new JRadioButton("Answer 2");
+    rdbtn[1].setForeground(new Color(124, 252, 0));
+    rdbtn[1].setBackground(new Color(0, 0, 0));
+    rdbtn[1].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[1].setBounds(459, 138, 312, 23);
+    frame.getContentPane().add(rdbtn[1]);
+    
+    rdbtn[0] = new JRadioButton("Answer 1");
+    rdbtn[0].setBackground(new Color(0, 0, 0));
+    rdbtn[0].setForeground(new Color(124, 252, 0));
+    rdbtn[0].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[0].setBounds(459, 102, 312, 23);
+    frame.getContentPane().add(rdbtn[0]);
+    
+    rdbtn[2] = new JRadioButton("Answer 3");
+    rdbtn[2].setForeground(new Color(124, 252, 0));
+    rdbtn[2].setBackground(new Color(0, 0, 0));
+    rdbtn[2].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[2].setBounds(459, 170, 312, 23);
+    frame.getContentPane().add(rdbtn[2]);
+    
+    rdbtn[3] = new JRadioButton("Answer 4");
+    rdbtn[3].setForeground(new Color(124, 252, 0));
+    rdbtn[3].setBackground(new Color(0, 0, 0));
+    rdbtn[3].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[3].setBounds(459, 206, 312, 23);
+    frame.getContentPane().add(rdbtn[3]);
+    
+    rdbtn[4] = new JRadioButton("Answer 5");
+    rdbtn[4].setForeground(new Color(124, 252, 0));
+    rdbtn[4].setBackground(new Color(0, 0, 0));
+    rdbtn[4].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[4].setBounds(459, 242, 312, 23);
+    frame.getContentPane().add(rdbtn[4]);
+    
+    rdbtn[5] = new JRadioButton("Answer 6");
+    rdbtn[5].setForeground(new Color(124, 252, 0));
+    rdbtn[5].setBackground(new Color(0, 0, 0));
+    rdbtn[5].setFont(new Font("Tahoma", Font.BOLD, 11));
+    rdbtn[5].setBounds(459, 277, 312, 23);
+    frame.getContentPane().add(rdbtn[5]);
+    
+    lblQuestion = new JLabel("Question");
+    lblQuestion.setVerticalAlignment(SwingConstants.TOP);
+    lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
+    lblQuestion.setForeground(new Color(173, 255, 47));
+    lblQuestion.setBounds(459, 11, 350, 84);
+    frame.getContentPane().add(lblQuestion);
+    
+    lblAnswer = new JLabel("Answer: ");
+    lblAnswer.setForeground(new Color(124, 252, 0));
+    lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
+    lblAnswer.setBounds(459, 319, 322, 50);
+    frame.getContentPane().add(lblAnswer);
   }
   
   // Helper function to refresh the listbox with available questions.
@@ -69,14 +132,18 @@ public class View_questions_gui {
 	    List<String> all_assigned = DataQueryTool.get_assigned(1);
 	    // Append the question's text to each question in the list
 	    String[] questions = all_assigned.toArray(new String[all_assigned.size()]);
+	    // List of all q_ids
+	    List<Integer> q_ids  = new ArrayList<Integer>();
 	    for(int i = 0; i < questions.length; i++) {
+	    	q_ids.add(Integer.valueOf(questions[i]));
 	    	questions[i] += ": " + DataQueryTool.question_text_query(Integer.valueOf((questions[i])));
+	    	
 	    }
-	    listBox(questions);
+	    listBox(questions, q_ids);
   }
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
-private void listBox(String questions[]) {  
+private void listBox(String questions[], List<Integer> q_ids) {  
     final DefaultListModel listModel = new DefaultListModel();
     final JList list = new JList(listModel);
     for(int i = 0; i < questions.length; i++) {
@@ -91,6 +158,20 @@ private void listBox(String questions[]) {
     frame.getContentPane().add(scrollPane);
      
     final JButton btnNewButton = new JButton("Start assignment");
+    
+    btnNewButton.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    	  View_question_details app = new View_question_details(q_ids);
+          app.frame.setVisible(true);
+          frame.dispose();
+    	}
+    });
+    btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+    btnNewButton.setBackground(new Color(0, 0, 0));
+    btnNewButton.setForeground(new Color(124, 252, 0));
+    btnNewButton.setBounds(30, 297, 132, 23);
+    frame.getContentPane().add(btnNewButton);
+    
     list.addListSelectionListener(new ListSelectionListener() {
 		@Override
 		public void valueChanged(ListSelectionEvent arg0) {
@@ -101,68 +182,8 @@ private void listBox(String questions[]) {
     			String selected_value = (String) list.getSelectedValue();
     			String selected_qid = selected_value.substring(0, selected_value.indexOf(":"));
     			// launch View_question_details with selected_qid
-    			JRadioButton[] rdbtn = new JRadioButton[6];
+    		
     	        
-    	        rdbtn[1] = new JRadioButton("Answer 2");
-    	        rdbtn[1].setForeground(new Color(124, 252, 0));
-    	        rdbtn[1].setBackground(new Color(0, 0, 0));
-    	        rdbtn[1].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[1].setBounds(459, 138, 312, 23);
-    	        frame.getContentPane().add(rdbtn[1]);
-    	        
-    	        rdbtn[0] = new JRadioButton("Answer 1");
-    	        rdbtn[0].setBackground(new Color(0, 0, 0));
-    	        rdbtn[0].setForeground(new Color(124, 252, 0));
-    	        rdbtn[0].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[0].setBounds(459, 102, 312, 23);
-    	        frame.getContentPane().add(rdbtn[0]);
-    	        
-    	        rdbtn[2] = new JRadioButton("Answer 3");
-    	        rdbtn[2].setForeground(new Color(124, 252, 0));
-    	        rdbtn[2].setBackground(new Color(0, 0, 0));
-    	        rdbtn[2].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[2].setBounds(459, 170, 312, 23);
-    	        frame.getContentPane().add(rdbtn[2]);
-    	        
-    	        rdbtn[3] = new JRadioButton("Answer 4");
-    	        rdbtn[3].setForeground(new Color(124, 252, 0));
-    	        rdbtn[3].setBackground(new Color(0, 0, 0));
-    	        rdbtn[3].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[3].setBounds(459, 206, 312, 23);
-    	        frame.getContentPane().add(rdbtn[3]);
-    	        
-    	        rdbtn[4] = new JRadioButton("Answer 5");
-    	        rdbtn[4].setForeground(new Color(124, 252, 0));
-    	        rdbtn[4].setBackground(new Color(0, 0, 0));
-    	        rdbtn[4].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[4].setBounds(459, 242, 312, 23);
-    	        frame.getContentPane().add(rdbtn[4]);
-    	        
-    	        rdbtn[5] = new JRadioButton("Answer 6");
-    	        rdbtn[5].setForeground(new Color(124, 252, 0));
-    	        rdbtn[5].setBackground(new Color(0, 0, 0));
-    	        rdbtn[5].setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        rdbtn[5].setBounds(459, 277, 312, 23);
-    	        frame.getContentPane().add(rdbtn[5]);
-    	        
-    	        final JLabel lblQuestion = new JLabel("Question");
-    	        lblQuestion.setVerticalAlignment(SwingConstants.TOP);
-    	        lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
-    	        lblQuestion.setForeground(new Color(173, 255, 47));
-    	        lblQuestion.setBounds(459, 11, 350, 84);
-    	        frame.getContentPane().add(lblQuestion);
-    	        
-    	        final JLabel lblAnswer = new JLabel("Answer: ");
-    	        lblAnswer.setForeground(new Color(124, 252, 0));
-    	        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
-    	        lblAnswer.setBounds(459, 319, 322, 50);
-    	        frame.getContentPane().add(lblAnswer);
-    	        
-    	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-    	        btnNewButton.setBackground(new Color(0, 0, 0));
-    	        btnNewButton.setForeground(new Color(124, 252, 0));
-    	        btnNewButton.setBounds(10, 321, 78, 50);
-    	        frame.getContentPane().add(btnNewButton);
     	        
     	        int q_id = Integer.parseInt(selected_qid);
     	        String question_text = backend.DataQueryTool.question_text_query(q_id);
@@ -187,28 +208,6 @@ private void listBox(String questions[]) {
 		}
 		}
     });
-    btnNewButton.addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent e) {
-    		if (list.isSelectionEmpty()) {
-    			JOptionPane.showMessageDialog(new JLabel(), "Please select a question.", "Error", JOptionPane.INFORMATION_MESSAGE);
-    		} else {
-    			String selected_value = (String) list.getSelectedValue();
-    			String selected_qid = selected_value.substring(0, selected_value.indexOf(":"));
-    			// launch View_question_details with selected_qid
-    			View_question_details app = new View_question_details(Integer.valueOf(selected_qid));
-          app.frame.setVisible(true);
-          frame.dispose();
-          
-    		}
-    		
-    	}
-    });
-    btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-    btnNewButton.setBackground(new Color(0, 0, 0));
-    btnNewButton.setForeground(new Color(124, 252, 0));
-    btnNewButton.setBounds(30, 297, 132, 23);
-    frame.getContentPane().add(btnNewButton);
-    
     final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {

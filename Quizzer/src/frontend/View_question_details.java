@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import application.Quizzer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,26 +22,32 @@ public class View_question_details {
 
     public JFrame frame;
 
-
-
+    public final List<Integer> q_ids;
+    public int curr_question;
+    public JRadioButton[] rdbtn;
+    public JLabel lblQuestion;
+    public JLabel lblAnswer;
+    
     /**
      * Create the application.
      */
-    public View_question_details(int q_id) {
-        initialize(q_id);
+    public View_question_details(List<Integer> q_ids) {
+    	this.q_ids = q_ids;
+    	curr_question = 0;
+        initialize(q_ids);
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize(int q_id) {
+    private void initialize(List<Integer> q_ids) {
         frame = new JFrame();
         frame.getContentPane().setBackground(new Color(119, 136, 153));
-        frame.setBounds(100, 100, 510, 421);
+        frame.setBounds(219, 100, 550, 421);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        JRadioButton[] rdbtn = new JRadioButton[6];
+        rdbtn = new JRadioButton[6];
         
         rdbtn[1] = new JRadioButton("Answer 2");
         rdbtn[1].setForeground(new Color(124, 252, 0));
@@ -86,25 +91,28 @@ public class View_question_details {
         rdbtn[5].setBounds(109, 277, 312, 23);
         frame.getContentPane().add(rdbtn[5]);
         
-        final JLabel lblQuestion = new JLabel("Question");
+        lblQuestion = new JLabel("Question");
         lblQuestion.setVerticalAlignment(SwingConstants.TOP);
         lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblQuestion.setForeground(new Color(173, 255, 47));
         lblQuestion.setBounds(109, 11, 350, 84);
         frame.getContentPane().add(lblQuestion);
         
-        final JLabel lblAnswer = new JLabel("Answer: ");
+        lblAnswer = new JLabel("Answer: ");
         lblAnswer.setForeground(new Color(124, 252, 0));
         lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblAnswer.setBounds(119, 319, 322, 50);
+        lblAnswer.setBounds(109, 319, 322, 50);
         frame.getContentPane().add(lblAnswer);
         
-        final JButton btnNewButton = new JButton("Back");
+        JButton btnNewButton = new JButton("Back");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                View_questions_gui app = new View_questions_gui();
+            	int user_prompt = JOptionPane.showConfirmDialog(null, "Are you sure you wish to return to the assignment viewing menu? All progress will be lost.", "Warning", JOptionPane.YES_NO_OPTION);
+                if (user_prompt == JOptionPane.YES_OPTION) {
+            	View_questions_gui app = new View_questions_gui();
                 app.frame.setVisible(true);
                 frame.dispose();
+                }
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -112,7 +120,35 @@ public class View_question_details {
         btnNewButton.setForeground(new Color(124, 252, 0));
         btnNewButton.setBounds(10, 321, 78, 50);
         frame.getContentPane().add(btnNewButton);
+        displayQuestion();
         
+        JButton btnNext = new JButton("Next");
+        if (curr_question + 1  == q_ids.size()) {
+        	btnNext.setText("Submit");
+        }
+        btnNext.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (btnNext.getText() == "Next") {
+        		curr_question++;
+        		displayQuestion();
+        		if (curr_question + 1 == q_ids.size()) {
+        			btnNext.setText("Submit");
+        		}
+        		} else if (btnNext.getText() == "Submit") {
+        			
+        		}
+        	}
+        });
+        btnNext.setForeground(new Color(124, 252, 0));
+        btnNext.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnNext.setBackground(Color.BLACK);
+        btnNext.setBounds(435, 321, 78, 50);
+        frame.getContentPane().add(btnNext);
+        
+    }
+    
+    public void displayQuestion() {
+        int q_id = q_ids.get(curr_question);
         String question_text = backend.DataQueryTool.question_text_query(q_id);
         List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
         
@@ -131,6 +167,5 @@ public class View_question_details {
         
         lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
         lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
-        
     }
 }
