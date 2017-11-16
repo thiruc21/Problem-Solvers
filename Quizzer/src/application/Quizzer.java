@@ -20,9 +20,19 @@ import java.io.File;
 
 public class Quizzer {
 	
-	public final Color FOREGROUND = Color.GREEN;
-	public final Color BUTTON = Color.BLACK;
-	public final Color BACKGROUND = new Color(119, 136, 153);
+	public final static Color FOREGROUND = new Color(124,252,0);
+	public final static Color BUTTON = Color.BLACK;
+	public final static Color BACKGROUND = new Color(119, 136, 153);
+	
+	public final static int BTN_X = 158;
+	public final static int BTN_Y = 53;
+	
+	public static final int DETAIL_BTN_X = 312;
+	public static final int DETAIL_BTN_Y = 23;
+	
+	public final static Font QUIZZERFONT = new Font("Tahoma", Font.PLAIN, 40);
+	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
+	
 		
   private boolean setup;
   public JFrame frame;
@@ -79,7 +89,7 @@ public class Quizzer {
 		JButton btnSetup = new JButton("Setup Database");
 		btnSetup.setBackground(BUTTON);
 		btnSetup.setForeground(FOREGROUND);
-		btnSetup.setBounds(10, 130, 158, 53);
+		btnSetup.setBounds(10, 130, BTN_X, BTN_Y);
 		frame.getContentPane().add(btnSetup);
 		
 		final JButton btnCreate = new JButton("New MC Question");
@@ -94,11 +104,11 @@ public class Quizzer {
 			btnCreate.setEnabled(false);
 		btnCreate.setBackground(BUTTON);
 		btnCreate.setForeground(FOREGROUND);
-		btnCreate.setBounds(196, 130, 158, 53);
+		btnCreate.setBounds(196, 130, BTN_X, BTN_Y);
 		frame.getContentPane().add(btnCreate);
 		
 		JLabel lblQuizzer = new JLabel("Quizzer");
-		lblQuizzer.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		lblQuizzer.setFont(QUIZZERFONT);
 		lblQuizzer.setForeground(FOREGROUND);
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
@@ -147,10 +157,10 @@ public class Quizzer {
 		});
     
     if (!setup)
-			btnView.setEnabled(false);
+		btnView.setEnabled(false);
 		btnView.setBackground(BUTTON);
 		btnView.setForeground(FOREGROUND);
-		btnView.setBounds(10, 230, 158, 53);
+		btnView.setBounds(10, 230, BTN_X, BTN_Y);
 		frame.getContentPane().add(btnView);
 		
     
