@@ -2,6 +2,7 @@ package frontend;
 
 
 import javax.swing.JFrame;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -41,6 +42,7 @@ public class View_question_details {
      * Initialize the contents of the frame.
      */
     private void initialize(List<Integer> q_ids) {
+    	ButtonGroup group = new ButtonGroup();
         frame = new JFrame();
         frame.getContentPane().setBackground(new Color(119, 136, 153));
         frame.setBounds(219, 100, 550, 421);
@@ -54,6 +56,7 @@ public class View_question_details {
         rdbtn[1].setBackground(new Color(0, 0, 0));
         rdbtn[1].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[1].setBounds(109, 138, 312, 23);
+        group.add(rdbtn[1]);
         frame.getContentPane().add(rdbtn[1]);
         
         rdbtn[0] = new JRadioButton("Answer 1");
@@ -61,6 +64,7 @@ public class View_question_details {
         rdbtn[0].setForeground(new Color(124, 252, 0));
         rdbtn[0].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[0].setBounds(109, 102, 312, 23);
+        group.add(rdbtn[0]);
         frame.getContentPane().add(rdbtn[0]);
         
         rdbtn[2] = new JRadioButton("Answer 3");
@@ -68,6 +72,7 @@ public class View_question_details {
         rdbtn[2].setBackground(new Color(0, 0, 0));
         rdbtn[2].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[2].setBounds(109, 170, 312, 23);
+        group.add(rdbtn[2]);
         frame.getContentPane().add(rdbtn[2]);
         
         rdbtn[3] = new JRadioButton("Answer 4");
@@ -75,6 +80,7 @@ public class View_question_details {
         rdbtn[3].setBackground(new Color(0, 0, 0));
         rdbtn[3].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[3].setBounds(109, 206, 312, 23);
+        group.add(rdbtn[3]);
         frame.getContentPane().add(rdbtn[3]);
         
         rdbtn[4] = new JRadioButton("Answer 5");
@@ -82,6 +88,7 @@ public class View_question_details {
         rdbtn[4].setBackground(new Color(0, 0, 0));
         rdbtn[4].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[4].setBounds(109, 242, 312, 23);
+        group.add(rdbtn[4]);
         frame.getContentPane().add(rdbtn[4]);
         
         rdbtn[5] = new JRadioButton("Answer 6");
@@ -89,6 +96,7 @@ public class View_question_details {
         rdbtn[5].setBackground(new Color(0, 0, 0));
         rdbtn[5].setFont(new Font("Tahoma", Font.BOLD, 11));
         rdbtn[5].setBounds(109, 277, 312, 23);
+        group.add(rdbtn[5]);
         frame.getContentPane().add(rdbtn[5]);
         
         lblQuestion = new JLabel("Question");
