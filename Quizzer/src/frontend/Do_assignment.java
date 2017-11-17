@@ -1,6 +1,6 @@
 package frontend;
 
-
+import application.Quizzer;
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -47,7 +47,7 @@ public class Do_assignment {
     private void initialize(List<Integer> q_ids) {
     	ButtonGroup group = new ButtonGroup();
         frame = new JFrame();
-        frame.getContentPane().setBackground(new Color(119, 136, 153));
+        frame.getContentPane().setBackground(Quizzer.BACKGROUND);
         frame.setBounds(219, 100, 550, 421);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -55,63 +55,66 @@ public class Do_assignment {
         rdbtn = new JRadioButton[6];
         
         rdbtn[1] = new JRadioButton("Answer 2");
-        rdbtn[1].setForeground(new Color(124, 252, 0));
-        rdbtn[1].setBackground(new Color(0, 0, 0));
-        rdbtn[1].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[1].setBounds(109, 138, 312, 23);
+        rdbtn[1].setForeground(Quizzer.FOREGROUND);
+        rdbtn[1].setBackground(Quizzer.BUTTON);
+        rdbtn[1].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[1].setBounds(109, 138, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[1]);
         frame.getContentPane().add(rdbtn[1]);
         
         rdbtn[0] = new JRadioButton("Answer 1");
-        rdbtn[0].setBackground(new Color(0, 0, 0));
-        rdbtn[0].setForeground(new Color(124, 252, 0));
-        rdbtn[0].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[0].setBounds(109, 102, 312, 23);
+        rdbtn[0].setBackground(Quizzer.BUTTON);
+        rdbtn[0].setForeground(Quizzer.FOREGROUND);
+        rdbtn[0].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[0].setBounds(109, 102, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[0]);
         frame.getContentPane().add(rdbtn[0]);
         
         rdbtn[2] = new JRadioButton("Answer 3");
-        rdbtn[2].setForeground(new Color(124, 252, 0));
-        rdbtn[2].setBackground(new Color(0, 0, 0));
-        rdbtn[2].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[2].setBounds(109, 170, 312, 23);
+        rdbtn[2].setForeground(Quizzer.FOREGROUND);
+        rdbtn[2].setBackground(Quizzer.BUTTON);
+        rdbtn[2].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[2].setBounds(109, 170, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[2]);
         frame.getContentPane().add(rdbtn[2]);
         
         rdbtn[3] = new JRadioButton("Answer 4");
-        rdbtn[3].setForeground(new Color(124, 252, 0));
-        rdbtn[3].setBackground(new Color(0, 0, 0));
-        rdbtn[3].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[3].setBounds(109, 206, 312, 23);
+        rdbtn[3].setForeground(Quizzer.FOREGROUND);
+        rdbtn[3].setBackground(Quizzer.BUTTON);
+        rdbtn[3].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[3].setBounds(109, 206, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[3]);
         frame.getContentPane().add(rdbtn[3]);
         
         rdbtn[4] = new JRadioButton("Answer 5");
-        rdbtn[4].setForeground(new Color(124, 252, 0));
-        rdbtn[4].setBackground(new Color(0, 0, 0));
-        rdbtn[4].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[4].setBounds(109, 242, 312, 23);
+        rdbtn[4].setForeground(Quizzer.FOREGROUND);
+        rdbtn[4].setBackground(Quizzer.BUTTON);
+        rdbtn[4].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[4].setBounds(109, 242, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[4]);
         frame.getContentPane().add(rdbtn[4]);
         
         rdbtn[5] = new JRadioButton("Answer 6");
-        rdbtn[5].setForeground(new Color(124, 252, 0));
-        rdbtn[5].setBackground(new Color(0, 0, 0));
-        rdbtn[5].setFont(new Font("Tahoma", Font.BOLD, 11));
-        rdbtn[5].setBounds(109, 277, 312, 23);
+        rdbtn[5].setForeground(Quizzer.FOREGROUND);
+        rdbtn[5].setBackground(Quizzer.BUTTON);
+        rdbtn[5].setFont(Quizzer.BOLDQUIZZERFONT);
+        rdbtn[5].setBounds(109, 277, Quizzer.DETAIL_BTN_X, Quizzer.DETAIL_BTN_Y);
         group.add(rdbtn[5]);
         frame.getContentPane().add(rdbtn[5]);
         
         lblQuestion = new JLabel("Question");
         lblQuestion.setVerticalAlignment(SwingConstants.TOP);
         lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblQuestion.setForeground(new Color(173, 255, 47));
+        lblQuestion.setForeground(Quizzer.FOREGROUND);
         lblQuestion.setBounds(109, 11, 350, 84);
         frame.getContentPane().add(lblQuestion);
         
+
+       
         lblAnswer = new JLabel("Answer: ");
-        lblAnswer.setForeground(new Color(124, 252, 0));
-        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblAnswer.setForeground(Quizzer.FOREGROUND);
+
+        lblAnswer.setFont(Quizzer.BOLDQUIZZERFONT);
         lblAnswer.setBounds(109, 319, 322, 50);
         frame.getContentPane().add(lblAnswer);
         
@@ -126,9 +129,9 @@ public class Do_assignment {
                 }
             }
         });
-        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnNewButton.setBackground(new Color(0, 0, 0));
-        btnNewButton.setForeground(new Color(124, 252, 0));
+        btnNewButton.setFont(Quizzer.BOLDQUIZZERFONT);
+        btnNewButton.setBackground(Quizzer.BUTTON);
+        btnNewButton.setForeground(Quizzer.FOREGROUND);
         btnNewButton.setBounds(10, 321, 78, 50);
         frame.getContentPane().add(btnNewButton);
         displayQuestion();
@@ -154,7 +157,7 @@ public class Do_assignment {
         	}
         });
         btnNext.setForeground(new Color(124, 252, 0));
-        btnNext.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnNext.setFont(Quizzer.BOLDQUIZZERFONT);
         btnNext.setBackground(Color.BLACK);
         btnNext.setBounds(435, 321, 78, 50);
         frame.getContentPane().add(btnNext);
