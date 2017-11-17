@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 
 import application.Quizzer;
 import backend.DataQueryTool;
-import frontend.View_question_details;
+import frontend.Do_assignment;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -161,7 +161,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
     
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
-    	  View_question_details app = new View_question_details(q_ids);
+    	  Do_assignment app = new Do_assignment(q_ids);
           app.frame.setVisible(true);
           frame.dispose();
     	}

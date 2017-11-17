@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class View_question_details {
+public class Do_assignment {
 
     public JFrame frame;
 
     public final List<Integer> q_ids;
+    public final List<Integer> answers;
+    public List<Integer> user_answers;
     public int curr_question;
     public JRadioButton[] rdbtn;
     public JLabel lblQuestion;
@@ -32,8 +34,9 @@ public class View_question_details {
     /**
      * Create the application.
      */
-    public View_question_details(List<Integer> q_ids) {
+    public Do_assignment(List<Integer> q_ids) {
     	this.q_ids = q_ids;
+    	answers = new ArrayList<Integer>();
     	curr_question = 0;
         initialize(q_ids);
     }
@@ -136,9 +139,12 @@ public class View_question_details {
         }
         btnNext.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if (btnNext.getText() == "Next") {
+        		if (group.getSelection() == null) {
+        			JOptionPane.showMessageDialog(new JLabel(), "Please select an answer.", "Error", JOptionPane.INFORMATION_MESSAGE);
+        		} else if (btnNext.getText() == "Next") {
         		curr_question++;
-        		displayQuestion();
+        		group.clearSelection();
+        		displayQuestion();	
         		if (curr_question + 1 == q_ids.size()) {
         			btnNext.setText("Submit");
         		}
@@ -161,19 +167,21 @@ public class View_question_details {
         List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
         
         List<String> answer_texts = new ArrayList<String>();
-        String correct_answer_text = "";
+        //String correct_answer_text = "";
         int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
+        answers.add(correct_answer_id);
         int i = 0;
         for (Integer an_answer_id : answer_ids) {
           
           answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
-          if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
+          //if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
           rdbtn[i].setText( answer_texts.get(i) );
           ++i;
         }
         
         
         lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
-        lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
+        lblAnswer.setText("");
+        //lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
     }
 }
