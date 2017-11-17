@@ -94,7 +94,7 @@ public static List<String> get_unassigned(int ass_id) {
 	  }
 	return result;
 }
-// Return list of labels of all unassigned questions to the assignment id entered
+// Return list of IDs of all unassigned questions to the assignment id entered
 public static List<String> get_assigned(int ass_id) {
 	Connection conn;
 	PreparedStatement st;
