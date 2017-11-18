@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import application.Quizzer;
 import backend.DataQueryTool;
 import frontend.Do_assignment;
-import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -187,7 +187,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
     	        
     	        List<String> answer_texts = new ArrayList<String>();
     	        //String correct_answer_text = "";
-    	        int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
+    	        //int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
     	        int i = 0;
     	        for (Integer an_answer_id : answer_ids) {
     	          

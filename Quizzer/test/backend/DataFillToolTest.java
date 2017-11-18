@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import backend.DataSetupTool;
+import backend.DataFillTool;
+import backend.DataQueryTool;
 
-import backend.*;
 
 public class DataFillToolTest {
 
@@ -66,7 +68,8 @@ public class DataFillToolTest {
 	
 	@Test
 	public void assignTest() {
-		
+		try {
+			
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
 		String title = "Title"; 
@@ -81,45 +84,32 @@ public class DataFillToolTest {
 		
 		int assigned_qid = DataQueryTool.question_query(title);
 		
-		//System.out.println(assigned.size());
-		
-		//System.out.println(assigned.get(0));
-		
-		try {
-		
-			assertEquals("property assigned", assigned.get(0), Integer.toString(assigned_qid));
+		assertEquals("question assigned", assigned.get(0), Integer.toString(assigned_qid));
 		
 		} catch (Exception e) {
 		
-			System.out.println( e.getClass().getName() + ": " + e.getMessage() );
-			fail();
+			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
+			fail("unexpected error occurred when question assigned");
 		
 		}
 	}
 	
 	@Test
 	public void notAssignedTest() {
-		
+		try {
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
 		String title = "Title"; 
 		
 		DataFillTool.insert(title, "Question", options, "one");
+
+		List<String> assigned = DataQueryTool.get_assigned(1);		
 		
-		//String q_id = Integer.toString(DataQueryTool.question_query(title));
-		
-		List<String> assigned = DataQueryTool.get_assigned(1);
-		
-		//System.out.println(assigned.size());
-		
-		try {
-		
-			assertEquals("property (not) assigned", assigned.size(), 0);
+		assertEquals("question (not) assigned", assigned.size(), 0);
 		
 		} catch (Exception e) {
-		
-			System.out.println( e.getClass().getName() + ": " + e.getMessage() );
-			fail();
+			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
+			fail("unexpected error occurred when retrieving from empty assigned questions table");
 		
 		}
 		
@@ -127,7 +117,7 @@ public class DataFillToolTest {
 	
 	@Test
 	public void assignMultipleTest() {
-		
+		try {
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
 		String title = "Title"; 
@@ -150,15 +140,11 @@ public class DataFillToolTest {
 		
 		//System.out.println(assigned.get(0));
 		
-		try {
-		
-			assertEquals("property assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
-			assertEquals("property assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
+			assertEquals("question assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
+			assertEquals("question assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
 		
 		} catch (Exception e) {
-		
-			fail();
-		
+			fail("unexpected error occurred when assigning question to multiple assignments");
 		}
 	}
 

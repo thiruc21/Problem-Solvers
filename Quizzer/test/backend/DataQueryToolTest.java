@@ -46,7 +46,7 @@ public class DataQueryToolTest {
 		
 		//System.out.print(result);
 		
-		assertEquals("correct answer outputted", result, 2);
+		assertEquals("correct answer queried", result, 2);
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class DataQueryToolTest {
 		
 		//System.out.print(result);
 		
-		assertEquals("correct answer outputted", result, 3);
+		assertEquals("correct answer queried", result, 3);
 	}
 	
 	@Test
@@ -69,7 +69,6 @@ public class DataQueryToolTest {
 		//System.out.println(result_2);
 		
 		assertEquals("All questions start unassigned", result_1, result_2 );
-		
 	}
 	
 	@Test
@@ -167,7 +166,7 @@ public class DataQueryToolTest {
 			assertEquals("Answer 4 text properly queried",DataQueryTool.get_answer_text(result.get(3)),"four");
 			
 		} catch (Exception e) {
-			fail();
+			fail("unexpected error occurred when querying answer texts");
 		}
 	}
 	
@@ -190,17 +189,6 @@ public class DataQueryToolTest {
 		int ans_id = DataQueryTool.get_correct_answer_id(q1_id);
 		List<Integer> possible_answer_ids = DataQueryTool.get_question_answer_ids(q1_id);
 		assertTrue("The correct answer is in fact one of the answers",possible_answer_ids.contains(ans_id));
-	}
-	
-	@Test
-	public void AnsweridWhenDoesntExist() {
-		
-		int q3_id = DataQueryTool.question_query("Q3");
-		int ans_id = DataQueryTool.get_correct_answer_id(q3_id);
-		List<Integer> possible_answer_ids = DataQueryTool.get_question_answer_ids(q3_id);
-		System.out.println(possible_answer_ids);
-		System.out.println(ans_id);
-		assertTrue("When the answer doesn't exist, it isn't a possible solution but it doesn't crash",!possible_answer_ids.contains(ans_id));
 	}
 	
 }
