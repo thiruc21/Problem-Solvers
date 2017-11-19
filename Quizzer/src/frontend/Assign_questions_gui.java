@@ -13,7 +13,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Add_questions_gui {
+public class Assign_questions_gui {
 
   public JFrame frame;
   public JList<String> list;
@@ -24,7 +24,7 @@ public class Add_questions_gui {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          Add_questions_gui window = new Add_questions_gui();
+          Assign_questions_gui window = new Assign_questions_gui();
           window.frame.setVisible(true);
         } catch (Exception e) {
           e.printStackTrace();
@@ -36,7 +36,7 @@ public class Add_questions_gui {
   /**
    * Create the application.
    */
-  public Add_questions_gui() {
+  public Assign_questions_gui() {
     initialize();
   }
 

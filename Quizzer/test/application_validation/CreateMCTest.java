@@ -13,6 +13,7 @@ import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JLabelFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,7 +69,7 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 	}
 	
 	@Test
-	public void test() {
+	public void test_create() {
 		createMC.click();
 		// Open create mc
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
@@ -101,5 +102,11 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 		this.frame.dialog().textBox().enterText("Frank\n");
 		this.frame.dialog().textBox().enterText("3\n");
 		this.frame.dialog().button().click();
+	}
+	
+	@After
+	public void tearDown() {
+		this.frame = null;
+		cleanUp();
 	}
 }

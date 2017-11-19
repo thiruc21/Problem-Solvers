@@ -11,6 +11,7 @@ import org.assertj.swing.edt.GuiQuery;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,6 +55,12 @@ public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 		assgn.requireVisible().requireEnabled();
 		viewQ.requireVisible().requireEnabled();
 		this.frame.dialog().button().click();
+	}
+	
+	@After
+	public void tearDown() {
+		this.frame = null;
+		cleanUp();
 	}
 
 }

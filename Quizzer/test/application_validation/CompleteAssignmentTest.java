@@ -19,11 +19,12 @@ import org.assertj.swing.fixture.JLabelFixture;
 import org.assertj.swing.fixture.JListFixture;
 import org.assertj.swing.fixture.JRadioButtonFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import application.*;
-import frontend.Add_questions_gui;
+import frontend.Assign_questions_gui;
 import frontend.Create_mc;
 import frontend.Do_assignment;
 import frontend.View_questions_gui;
@@ -133,7 +134,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Add_questions_gui app = new Add_questions_gui();
+				Assign_questions_gui app = new Assign_questions_gui();
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 				assignList = app.list; 
@@ -212,6 +213,12 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		next.click();
 		this.next = this.frame.button(JButtonMatcher.withText("Submit")).requireVisible();
 		
+	}
+	
+	@After
+	public void tearDown() {
+		this.frame = null;
+		cleanUp();
 	}
 
 }

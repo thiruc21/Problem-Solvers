@@ -15,13 +15,13 @@ import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JLabelFixture;
 import org.assertj.swing.fixture.JListFixture;
 import org.assertj.swing.fixture.JRadioButtonFixture;
-//import org.assertj.swing.fixture.JRadioButtonFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import application.Quizzer;
-import frontend.Add_questions_gui;
+import frontend.Assign_questions_gui;
 import frontend.Create_mc;
 import frontend.View_questions_gui;;
 
@@ -120,7 +120,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Add_questions_gui app = new Add_questions_gui();
+				Assign_questions_gui app = new Assign_questions_gui();
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 				assignList = app.list; 
@@ -150,7 +150,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 	}
 	
 	@Test
-	public void test() {
+	public void test_viewAssgn() {
 		viewQ.click();
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
@@ -176,5 +176,10 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		answer.requireVisible().requireEnabled();
 		displayListItem.requireVisible().requireEnabled();
 	}
-
+	
+	@After
+	public void tearDown() {
+		this.frame = null;
+		cleanUp();
+	}
 }

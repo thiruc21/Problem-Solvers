@@ -8,7 +8,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import frontend.Add_questions_gui;
+import frontend.Assign_questions_gui;
 import frontend.Create_mc;
 import frontend.View_questions_gui;
 
@@ -116,7 +116,7 @@ public class Quizzer {
 		final JButton btnAssign = new JButton("Assign Questions");
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Add_questions_gui aq = new Add_questions_gui();
+				Assign_questions_gui aq = new Assign_questions_gui();
 				aq.frame.setVisible(true);
 				frame.dispose();
 			}

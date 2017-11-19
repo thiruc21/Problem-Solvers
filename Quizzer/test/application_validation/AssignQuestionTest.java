@@ -17,11 +17,12 @@ import org.assertj.swing.fixture.JListFixture;
 
 import org.assertj.swing.fixture.JScrollPaneFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import application.Quizzer;
-import frontend.Add_questions_gui;
+import frontend.Assign_questions_gui;
 import frontend.Create_mc;
 
 //This test will validate that userstory 2 is working
@@ -122,7 +123,7 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 		@Override
 		protected JFrame executeInEDT() throws Exception {
-			Add_questions_gui app = new Add_questions_gui();
+			Assign_questions_gui app = new Assign_questions_gui();
 			app.frame.setPreferredSize(new Dimension(604, 402));
 			app.frame.pack();
 			assignList = app.list;
@@ -146,5 +147,10 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 		questions.requireVisible().requireEnabled();
 	
 	}
-
+	
+	@After
+	public void tearDown() {
+		this.frame = null;
+		cleanUp();
+	}
 }
