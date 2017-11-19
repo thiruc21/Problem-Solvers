@@ -46,8 +46,8 @@ public class DataQueryTool {
     }
   }
   
-  // Returns the answer's id having inputted the answer's text
-  public static int answer_query(String answer_text) {
+  // Returns the answer's id having inputted the answer's text and qid
+  public static int answer_query(String answer_text, int q_id) {
 	  Connection conn;
 	  PreparedStatement st;
 	  String q;
@@ -55,8 +55,10 @@ public class DataQueryTool {
 	  int a_id = 1;
 	  try {
 	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
-	  q = "SELECT * FROM ANSWER WHERE ANSWER_TEXT = '" + answer_text + "'";
-	  st = conn.prepareStatement(q);	
+	  q = "SELECT * FROM ANSWER WHERE ANSWER_TEXT = ? AND Q_ID = ?";
+	  st = conn.prepareStatement(q);
+	  st.setString(1, answer_text);
+	  st.setInt(2, q_id);
 	  rs = st.executeQuery();
       if(rs.next()) {
         a_id = rs.getInt("A_ID");

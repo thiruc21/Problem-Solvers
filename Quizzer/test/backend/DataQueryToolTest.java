@@ -23,7 +23,7 @@ public class DataQueryToolTest {
 		String[] options1 = {"one", "two", "three", "four", "five", "six"};
 		String[] options2 = {"one1", "two2", "three3", "four4", "five5", "six6"};
 		String[] options3 = {"111", "222", "333", "444", "555", "666"};
-		
+		// label, title, answer options, correct answers text
 		DataFillTool.insert("Q1", "answer is one", options1, "one");
 		DataFillTool.insert("Q2", "answer is two", options2, "two2");
 		DataFillTool.insert("Q3", "answer is three", options3, "404"); //answer does not exist
@@ -42,7 +42,7 @@ public class DataQueryToolTest {
 	@Test
 	public void answerQueryOneTest() {
 		
-		int result = DataQueryTool.answer_query("one");
+		int result = DataQueryTool.answer_query("one", 1);
 		
 		//System.out.print(result);
 		
@@ -52,11 +52,11 @@ public class DataQueryToolTest {
 	@Test
 	public void answerQueryTwoTest() {
 		
-		int result = DataQueryTool.answer_query("two");
+		int result = DataQueryTool.answer_query("two2", 2);
 		
 		//System.out.print(result);
 		
-		assertEquals("correct answer queried", result, 3);
+		assertEquals("correct answer queried", result, 9);
 	}
 	
 	@Test

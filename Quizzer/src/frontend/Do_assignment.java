@@ -24,8 +24,9 @@ public class Do_assignment {
     public JFrame frame;
 
     public final List<Integer> q_ids;
-    public final List<Integer> answers;
-    public List<Integer> user_answers;
+    public Integer answer_id;
+    public boolean user_correct;
+    public int corrects;
     public int curr_question;
     public JRadioButton[] rdbtn;
     public JLabel lblQuestion;
@@ -36,7 +37,8 @@ public class Do_assignment {
      */
     public Do_assignment(List<Integer> q_ids) {
     	this.q_ids = q_ids;
-    	answers = new ArrayList<Integer>();
+    	answer_id = 0;
+    	corrects = 0;
     	curr_question = 0;
         initialize(q_ids);
     }
@@ -114,7 +116,7 @@ public class Do_assignment {
         lblAnswer = new JLabel("Answer: ");
         lblAnswer.setForeground(Quizzer.FOREGROUND);
 
-        lblAnswer.setFont(Quizzer.BOLDQUIZZERFONT);
+        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblAnswer.setBounds(109, 319, 322, 50);
         frame.getContentPane().add(lblAnswer);
         
@@ -145,14 +147,20 @@ public class Do_assignment {
         		if (group.getSelection() == null) {
         			JOptionPane.showMessageDialog(new JLabel(), "Please select an answer.", "Error", JOptionPane.INFORMATION_MESSAGE);
         		} else if (btnNext.getText() == "Next") {
-        		curr_question++;
-        		group.clearSelection();
-        		displayQuestion();	
-        		if (curr_question + 1 == q_ids.size()) {
-        			btnNext.setText("Submit");
-        		}
+        			// Compare answers and increment correct count
+        			compareAnswer(q_ids.get(curr_question));
+        			curr_question++;
+        			group.clearSelection();
+        			displayQuestion();	
+        			if (curr_question + 1 == q_ids.size()) {
+        				btnNext.setText("Submit");
+        			}
         		} else if (btnNext.getText() == "Submit") {
-        			
+        			// Compare answers and increment correct count
+        			compareAnswer(q_ids.get(curr_question));
+        			curr_question++;
+        			lblAnswer.setText(String.format("You scored: %d/%d  (%.2f%%)", corrects, curr_question, ((float)corrects/(float)curr_question)*100));
+        			btnNext.setEnabled(false);
         		}
         	}
         });
@@ -164,6 +172,19 @@ public class Do_assignment {
         
     }
     
+    // Compare selected answer to actual answer, increment correct count if so
+	public void compareAnswer(Integer q_id) {
+		List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
+		
+		for (int i=0; i < answer_ids.size(); i++) {
+			// If the user answer is equal to correct answer
+			// then change the user answer to that answer id
+			if ((answer_ids.get(i) == answer_id) && (rdbtn[i].isSelected())) {
+				corrects++;
+			}
+		}
+	}
+    // Display the question/answers in the radio buttons
     public void displayQuestion() {
         int q_id = q_ids.get(curr_question);
         String question_text = backend.DataQueryTool.question_text_query(q_id);
@@ -172,7 +193,7 @@ public class Do_assignment {
         List<String> answer_texts = new ArrayList<String>();
         //String correct_answer_text = "";
         int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
-        answers.add(correct_answer_id);
+        answer_id = correct_answer_id;
         int i = 0;
         for (Integer an_answer_id : answer_ids) {
           
@@ -183,7 +204,7 @@ public class Do_assignment {
         }
         
         
-        lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
+        lblQuestion.setText("<html><body style='width: 237px'>Q" + (curr_question+1) + ": " + question_text);
         lblQuestion.setName("lblQuestion");
         lblAnswer.setText("");
         lblAnswer.setName("lblAnswer");

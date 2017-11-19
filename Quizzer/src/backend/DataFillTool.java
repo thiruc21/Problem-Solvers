@@ -73,7 +73,7 @@ public class DataFillTool {
 	    	      st.execute();
 	      } 
 	      // Find the answer ID with right answer
-	      int a_id = backend.DataQueryTool.answer_query(correct);
+	      int a_id = backend.DataQueryTool.answer_query(correct, q_id);
 
 	      // Update answer ID  for the question
 	      q = "UPDATE QUESTION " + 

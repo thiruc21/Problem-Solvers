@@ -139,8 +139,7 @@ public class View_questions_gui {
 	    List<Integer> q_ids  = new ArrayList<Integer>();
 	    for(int i = 0; i < questions.length; i++) {
 	    	q_ids.add(Integer.valueOf(questions[i]));
-	    	questions[i] += ": " + DataQueryTool.question_text_query(Integer.valueOf((questions[i])));
-	    	
+	    	questions[i] += ": " + DataQueryTool.question_text_query(Integer.valueOf((questions[i])));	
 	    }
 	    listBox(questions, q_ids);
   }
