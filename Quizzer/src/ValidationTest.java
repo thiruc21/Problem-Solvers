@@ -1,6 +1,5 @@
 import java.awt.Component;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -11,7 +10,6 @@ import application.*;
 import frontend.*;
 
 public class ValidationTest {
-	@SuppressWarnings("rawtypes")
 	public static void main(String args[]) {
 		
 		Quizzer q = new Quizzer();
@@ -59,12 +57,12 @@ public class ValidationTest {
 					text = ((JLabel) comp).getText();	
 					component = "JLabel";
 				} else if (comp instanceof JList) {
-
+					//Test JList
 				} else if (comp instanceof JRadioButton) {
 					text = ((JRadioButton) comp).getText();	
 					component = "JRadioButton";
 				} else if (comp instanceof JScrollPane) {
-
+					//Test JScrollPane
 				}
 				
 				if (comp.isShowing()) {
