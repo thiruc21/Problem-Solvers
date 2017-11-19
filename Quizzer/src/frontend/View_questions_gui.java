@@ -28,6 +28,7 @@ public class View_questions_gui {
   
   public JLabel lblAnswer;
   
+  public JList<String> list;
   /**
    * Launch the application.
    */
@@ -117,12 +118,14 @@ public class View_questions_gui {
     lblQuestion.setFont(Quizzer.BOLDQUIZZERFONT);
     lblQuestion.setForeground(Quizzer.FOREGROUND);
     lblQuestion.setBounds(459, 11, 350, 84);
+    lblQuestion.setName("lblQuestion");
     frame.getContentPane().add(lblQuestion);
     
     lblAnswer = new JLabel("");
     lblAnswer.setForeground(Quizzer.FOREGROUND);
     lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 14));
     lblAnswer.setBounds(459, 319, 322, 50);
+    lblAnswer.setName("lblAnswer");
     frame.getContentPane().add(lblAnswer);
   }
   
@@ -145,8 +148,11 @@ public class View_questions_gui {
   @SuppressWarnings({ "unchecked", "rawtypes" })
 private void listBox(String questions[], List<Integer> q_ids) {  
     final DefaultListModel listModel = new DefaultListModel();
-    final JList list = new JList(listModel);
+    list = new JList(listModel);
+    final JButton btnNewButton = new JButton("Start assignment");
+    btnNewButton.setEnabled(false);
     for(int i = 0; i < questions.length; i++) {
+    	btnNewButton.setEnabled(true);
     	listModel.addElement(questions[i]);
     }
     list.setForeground(Quizzer.FOREGROUND);
@@ -157,8 +163,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
     scrollPane.setBounds(30, 50, 400, 200);
     frame.getContentPane().add(scrollPane);
      
-    final JButton btnNewButton = new JButton("Start assignment");
-    
+   
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     	  Do_assignment app = new Do_assignment(q_ids);

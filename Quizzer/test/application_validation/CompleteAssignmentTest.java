@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JRadioButton;
 
 import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.core.matcher.JLabelMatcher;
+
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.edt.GuiQuery;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JLabelFixture;
+import org.assertj.swing.fixture.JListFixture;
+import org.assertj.swing.fixture.JRadioButtonFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +26,7 @@ import application.*;
 import frontend.Add_questions_gui;
 import frontend.Create_mc;
 import frontend.Do_assignment;
+import frontend.View_questions_gui;
 
 // This test will verify that userstory 4 is working
 public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
@@ -29,7 +35,6 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 	
     private JButtonFixture setupDb;
     private JButtonFixture createMC;
-    @SuppressWarnings("unused")
 	private JButtonFixture viewQ;
     private JButtonFixture assgn;
     private JButtonFixture createNew;
@@ -37,11 +42,21 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
     private JButtonFixture next;
     private JLabelFixture question;
     private JLabelFixture answer;
-    private JButtonFixture assignQuestions;
-		
+    private JList<?> assignList;
+    private JListFixture assignListItem;
+    private JButtonFixture assignButton;
+    private JList<String> viewList;
+    @SuppressWarnings("unused")
+	private JListFixture viewListItem;
+    private JRadioButton rdb;
+	@SuppressWarnings("unused")
+	private JRadioButtonFixture displayListItem;
+    private JButtonFixture startAssgn;
+
 	@Before
 	public final void setup() {
 		this.setUpRobot();
+		// Open quizzer
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
@@ -62,8 +77,8 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		setupDb.click();
 		this.frame.dialog().button().click();
 		createMC.click();
-		
-		JFrame gui1 = GuiActionRunner.execute(new GuiQuery<JFrame>() {
+		// Open create mc
+		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
 				Create_mc app = new Create_mc();
@@ -72,7 +87,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		        app.frame.setVisible(true);
 				return app.frame;
 			}});
-		this.frame = new FrameFixture(this.robot(), gui1);
+		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
 		this.createNew = this.frame.button(JButtonMatcher.withText("Create New"));
 		createNew.click();
@@ -102,50 +117,101 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.back = this.frame.button(JButtonMatcher.withText("Back"));
 		back.click();
 		
-		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
-		assgn.click();
-
-		JFrame gui2 = GuiActionRunner.execute(new GuiQuery<JFrame>() {
+		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Add_questions_gui app = new Add_questions_gui();
+				Quizzer app = new Quizzer();
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
 				return app.frame;
 			}});
-		this.frame = new FrameFixture(this.robot(), gui2);
-		new FrameFixture(this.robot(), gui2).show();
+		this.frame = new FrameFixture(this.robot(), gui);
+		this.frame.show();
+		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
+		assgn.click();
+		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
+			@Override
+			protected JFrame executeInEDT() throws Exception {
+				Add_questions_gui app = new Add_questions_gui();
+				app.frame.setPreferredSize(new Dimension(604, 402));
+				app.frame.pack();
+				assignList = app.list; 
+		        app.frame.setVisible(true);
+				return app.frame;
+			}});
+		this.frame = new FrameFixture(this.robot(), gui);
+		// Assigning what is your name? question
+		this.assignListItem = new JListFixture(this.robot(), assignList).clickItem(0);
+		this.assignButton = this.frame.button(JButtonMatcher.withText("Assign questions"));
+		assignButton.click();
+		// Assign other question, what is your age?
+		assignListItem.clickItem(0);
+		assignButton.click();
+		this.back = this.frame.button(JButtonMatcher.withText("Back"));
+		back.click();
 		
-		this.frame.radioButton().click();
-		this.assignQuestions = this.frame.button(JButtonMatcher.withText("Assign questions"));
-		assignQuestions.click();
-		
-		List<Integer> q_ids = new ArrayList<Integer>();
-		q_ids.add(0);
-		
-//		JFrame gui3 = GuiActionRunner.execute(new GuiQuery<JFrame>() {			
-//			@Override
-//			protected JFrame executeInEDT() throws Exception {
-//				Do_assignment app = new Do_assignment(q_ids);
-//				app.frame.setPreferredSize(new Dimension(550, 421));
-//				app.frame.pack();
-//		        app.frame.setVisible(true);
-//				return app.frame;
-//			}});
-//		this.frame = new FrameFixture(this.robot(), gui3);
-//		this.frame.show();
-//		this.back = this.frame.button(JButtonMatcher.withText("Back"));
-//		this.next = this.frame.button(JButtonMatcher.withText("Next"));
-//		this.question = this.frame.label(JLabelMatcher.withText("Question"));
-//		this.answer = this.frame.label(JLabelMatcher.withText("Answer: "));
+		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
+			@Override
+			protected JFrame executeInEDT() throws Exception {
+				Quizzer app = new Quizzer();
+				app.frame.setPreferredSize(new Dimension(604, 402));
+				app.frame.pack();
+		        app.frame.setVisible(true);
+				return app.frame;
+			}});
+		this.frame = new FrameFixture(this.robot(), gui);
+		this.frame.show();
+		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
+		viewQ.click();
+		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
+			@Override
+			protected JFrame executeInEDT() throws Exception {
+				View_questions_gui app = new View_questions_gui();
+				app.frame.setPreferredSize(new Dimension(604, 402));
+				app.frame.pack(); 
+				viewList = app.list;
+				rdb = app.rdbtn[0];
+		        app.frame.setVisible(true);
+				return app.frame;
+			}});
+		this.frame = new FrameFixture(this.robot(), gui);
+		this.frame.show();
+		this.viewListItem = new JListFixture(this.robot(), viewList).clickItem(0);
+		this.displayListItem = new JRadioButtonFixture(this.robot(), rdb);
+		this.startAssgn = this.frame.button(JButtonMatcher.withText("Start assignment"));
 	}
 	
 	@Test
-	public void test() {
+	public void test_answering() {
+		startAssgn.requireVisible().requireEnabled().click();
+		List<Integer> q_ids = new ArrayList<Integer>();
+		q_ids.add(1);
+		q_ids.add(2);
+		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {			
+			@Override
+			protected JFrame executeInEDT() throws Exception {
+				Do_assignment app = new Do_assignment(q_ids);
+				app.frame.setPreferredSize(new Dimension(550, 421));
+				app.frame.pack();
+				rdb = app.rdbtn[0];
+		        app.frame.setVisible(true);
+				return app.frame;
+			}});
+		this.frame = new FrameFixture(this.robot(), gui);
+		this.frame.show();
+		this.back = this.frame.button(JButtonMatcher.withText("Back"));
+		this.next = this.frame.button(JButtonMatcher.withText("Next"));
+		this.question = this.frame.label(JLabelMatcher.withName("lblQuestion"));
+		this.answer = this.frame.label(JLabelMatcher.withName("lblAnswer"));
 		back.requireVisible().requireEnabled();
 		next.requireVisible().requireEnabled();
 		question.requireVisible().requireEnabled();
 		answer.requireVisible().requireEnabled();
+		rdb.doClick();
+		next.click();
+		this.next = this.frame.button(JButtonMatcher.withText("Submit")).requireVisible();
+		
 	}
+
 }

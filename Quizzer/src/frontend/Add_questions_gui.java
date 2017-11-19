@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class Add_questions_gui {
 
   public JFrame frame;
-
+  public JList<String> list;
   /**
    * Launch the application.
    */
@@ -73,13 +73,14 @@ public class Add_questions_gui {
   @SuppressWarnings({ "unchecked", "rawtypes" })
 private void listBox(String questions[]) {  
     final DefaultListModel listModel = new DefaultListModel();
-    final JList list = new JList(listModel);
+    list = new JList(listModel);
     for(int i = 0; i < questions.length; i++) {
     	listModel.addElement(questions[i]);
     }
     list.setForeground(Quizzer.FOREGROUND);
     list.setBackground(Quizzer.BUTTON);
     list.setVisibleRowCount(5);
+    list.setName("masterList");
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     final JScrollPane scrollPane = new JScrollPane(list);
     scrollPane.setBounds(30, 50, 400, 200);

@@ -184,7 +184,9 @@ public class Do_assignment {
         
         
         lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
+        lblQuestion.setName("lblQuestion");
         lblAnswer.setText("");
+        lblAnswer.setName("lblAnswer");
         //lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
     }
 }

@@ -161,10 +161,6 @@ public class Quizzer {
 		btnView.setBackground(BUTTON);
 		btnView.setForeground(FOREGROUND);
 		btnView.setBounds(10, 230, BTN_X, BTN_Y);
-		frame.getContentPane().add(btnView);
-		
-    
-    
-    
+		frame.getContentPane().add(btnView);    
 	}
 }

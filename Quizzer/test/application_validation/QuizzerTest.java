@@ -53,6 +53,7 @@ public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 		createMC.requireVisible().requireEnabled();
 		assgn.requireVisible().requireEnabled();
 		viewQ.requireVisible().requireEnabled();
+		this.frame.dialog().button().click();
 	}
 
 }
