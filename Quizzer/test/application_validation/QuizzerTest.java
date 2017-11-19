@@ -17,7 +17,7 @@ import org.junit.Test;
 import application.Quizzer;
 
 // // This test will validate that userstory 6 is working
-public class QuizzerTest extends AssertJSwingTestCaseTemplate{
+public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 
 	protected FrameFixture frame;
 
