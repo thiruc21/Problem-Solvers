@@ -128,7 +128,14 @@ public class Quizzer {
 		btnAssign.setForeground(FOREGROUND);
 		btnAssign.setBounds(391, 130, 166, 53);
 		frame.getContentPane().add(btnAssign);
-		
+		final JButton btnView = new JButton("View Assignment");
+		btnView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				View_questions_gui aq = new View_questions_gui();
+				aq.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -136,6 +143,7 @@ public class Quizzer {
 					JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
 					btnCreate.setEnabled(true);
 					btnAssign.setEnabled(true);
+					btnView.setEnabled(true);
 					} else {
 						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -147,14 +155,7 @@ public class Quizzer {
 		});
     
     
-    final JButton btnView = new JButton("View Assignment");
-		btnView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				View_questions_gui aq = new View_questions_gui();
-				aq.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
+    
     
     if (!setup)
 		btnView.setEnabled(false);

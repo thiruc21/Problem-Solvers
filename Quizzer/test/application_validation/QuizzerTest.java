@@ -51,10 +51,11 @@ public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 	public void testMainMenu() {
 		setupDb.requireVisible().requireEnabled().click();
 		frame.dialog(DialogMatcher.withTitle("Success"));
+		this.frame.dialog().button().click();
 		createMC.requireVisible().requireEnabled();
 		assgn.requireVisible().requireEnabled();
 		viewQ.requireVisible().requireEnabled();
-		this.frame.dialog().button().click();
+		
 	}
 	
 	@After
