@@ -54,7 +54,7 @@ public class DataSetupTool {
       conn.close();
           
       
-      System.out.println("Success!");
+      //System.out.println("Success!");
     } catch (Exception e) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
     }
@@ -109,7 +109,7 @@ public class DataSetupTool {
 		  
 	      st.close();
 	      conn.close();
-	      System.out.println("Success!");
+	      //System.out.println("Success!");
 	      return true;
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
