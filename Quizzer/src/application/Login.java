@@ -19,7 +19,7 @@ import java.awt.Color;
 
 public class Login {
 
-	JFrame frame;
+	public JFrame frame;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private boolean setup;
