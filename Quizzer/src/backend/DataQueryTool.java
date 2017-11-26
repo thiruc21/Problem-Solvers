@@ -269,4 +269,27 @@ public static int get_correct_answer_id(int q_id) {
 	  }
 	return role;
   }
+  
+  // Check if user exists.
+  public static boolean user_exists(String user) {
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  boolean exists = false;
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM LOGIN_CREDENTIALS WHERE USERNAME = ?";
+	  st = conn.prepareStatement(q);	
+	  st.setString(1, user);
+     rs = st.executeQuery();
+     exists = rs.next(); 
+     st.close();
+     conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return exists;
+  }
 }

@@ -13,6 +13,7 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import backend.DataFillTool;
 import backend.DataQueryTool;
 
 import java.awt.Color;
@@ -103,7 +104,7 @@ public class Login {
 				}
 			}
 		});
-		btnLogin.setBounds(338, 276, 158, 53);
+		btnLogin.setBounds(420, 276, 158, 53);
 		btnLogin.setBackground(Quizzer.BUTTON);
 		btnLogin.setForeground(Quizzer.FOREGROUND);
 		btnLogin.setFont(Quizzer.BOLDQUIZZERFONT);
@@ -120,6 +121,29 @@ public class Login {
 		frame.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
 		
+
+		// Student user signup
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!validInputs()) {
+					JOptionPane.showMessageDialog(new JLabel(), "Invalid inputs. Verify that username and password are 4-12 characters long.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				// modify to only search under user combination
+				} else if (DataQueryTool.user_exists(txtUsername.getText().trim().toUpperCase())) {
+					JOptionPane.showMessageDialog(new JLabel(), "Invalid inputs. User already exists!", "Error", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					DataFillTool.addStudentUser(txtUsername.getText().trim().toUpperCase(), txtPassword.getText().trim());
+					JOptionPane.showMessageDialog(new JLabel(), "User successfully created!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		btnSignUp.setForeground(new Color(124, 252, 0));
+		btnSignUp.setBackground(Color.BLACK);
+		btnSignUp.setFont(Quizzer.BOLDQUIZZERFONT);
+		btnSignUp.setBounds(235, 276, 158, 53);
+		btnSignUp.setEnabled(setup);
+		frame.getContentPane().add(btnSignUp);
+		
 		JButton btnSetup = new JButton("Setup Database");
 		btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,6 +152,7 @@ public class Login {
 					if (backend.DataSetupTool.initialize()) {
 						JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
 						btnLogin.setEnabled(true);
+						btnSignUp.setEnabled(true);
 					} else {
 						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -139,8 +164,10 @@ public class Login {
 		});
 		btnSetup.setForeground(new Color(124, 252, 0));
 		btnSetup.setBackground(Color.BLACK);
+		btnSetup.setFont(Quizzer.BOLDQUIZZERFONT);
 		btnSetup.setBounds(47, 276, 158, 53);
 		frame.getContentPane().add(btnSetup);
+		
 	}
 	
 	// Checks if username and password textfield are valid inputs

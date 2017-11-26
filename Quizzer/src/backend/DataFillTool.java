@@ -102,17 +102,35 @@ public static void addAssignedQuestion(int ass_id, String q_id) {
 	  String q;
 	  try {
 	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
-	      st = conn.createStatement();
 
 	      q = "INSERT INTO ASSIGNED_QUESTIONS " +
 	          "VALUES(" + Integer.toString(ass_id) + ", " + q_id + ");";
+	      st = conn.createStatement();
 	      st.executeUpdate(q);
 	      st.close();
 		  conn.close();
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
-	 
   }
+// Add user to database.
+public static void addStudentUser(String user, String pass) {
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  try {
+	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	      q = "INSERT INTO LOGIN_CREDENTIALS (USERNAME, PASSWORD, ROLE)" +
+			      "VALUES(?, ?, 'u')";
+	      st = conn.prepareStatement(q);
+	      st.setString(1, user);
+	      st.setString(2, pass);
+	      st.execute();
+	      st.close();
+		  conn.close();
+	    } catch (Exception e) {
+	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	    }
+}
   
 }
