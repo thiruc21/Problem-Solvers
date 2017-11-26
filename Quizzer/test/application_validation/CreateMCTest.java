@@ -23,6 +23,7 @@ import frontend.Create_mc;
 // This test will demonstrate that user story 1 is completed
 /** 1. Initialize database
  *  2. Create a multiple choice question
+ *  3. Verify that the question was successfully inserted message appears.
  */
 public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 	

@@ -26,6 +26,10 @@ import frontend.Create_mc;
 import frontend.View_questions_gui;;
 
 //This test will validate that userstory 3 is working
+/** 1. Initialize database and create questions
+ *  2. View questions, and assign one.
+ * 	3. View the assignment, verify the question appears in the list. 
+ */
 public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 
 	protected FrameFixture frame;

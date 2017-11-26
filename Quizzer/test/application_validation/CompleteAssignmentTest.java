@@ -30,6 +30,11 @@ import frontend.Do_assignment;
 import frontend.View_questions_gui;
 
 // This test will verify that userstory 4 is working
+/** 1. Initialize database and create questions
+ *  2. View questions, and assign one.
+ * 	3. View the assignment.
+ *  4. Start assignment and answer questions, verify submit button is visible. 
+ */
 public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 
 	protected FrameFixture frame;

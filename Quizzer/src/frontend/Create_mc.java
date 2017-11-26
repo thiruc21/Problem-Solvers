@@ -7,6 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
@@ -47,7 +48,7 @@ public class Create_mc {
     
     public boolean mc_to_db(String title, String question, String[] answers, String answer) {
 
-        //Here is where some Database stuff will be done... IDK 
+        // Insert question into database if the question's label is unique.
         try {
         backend.DataFillTool.insert(title, question, answers, answer);
         } catch (IllegalArgumentException e){
@@ -156,6 +157,7 @@ public class Create_mc {
                 String[] options = new String[6];
                 boolean validAnswer = false;
                 String label = "";
+                // Prompt for question label, this is the title of the question as stored in the database. Must be unique.
                 while (!validAnswer) {
                     label = JOptionPane.showInputDialog(null, "What would you like to use as the question's label?", "Tag used to refer to this specific question", JOptionPane.INFORMATION_MESSAGE);
                     if (label == null) {
@@ -171,6 +173,7 @@ public class Create_mc {
                 }
                 validAnswer = false;
                 String question = "";
+                // Prompt for question text, this is the question text shown to all users
                 while (!validAnswer) {
                     question = JOptionPane.showInputDialog(null, "What is the question?", "Multiple Choice Question Creation (2-6 options)", JOptionPane.INFORMATION_MESSAGE);
                     if (question == null) {
@@ -184,81 +187,58 @@ public class Create_mc {
                         validAnswer = true;
                     }
                 }
-                validAnswer = false;
-                while (!validAnswer) {
-                    options[0] = JOptionPane.showInputDialog(null, "What is the first option?", "Option 1", JOptionPane.INFORMATION_MESSAGE);
-                    if (options[0] == null) {
+                // Prompt 2-6 option inputs, first two are mandatory. Optional is indicated by empty string.
+                for (int i = 0; i < 6; i++) {
+                	validAnswer = false;
+                	while (!validAnswer) {
+                    options[i] = JOptionPane.showInputDialog(null, "What is option " + (i+1) + "? (optional)", "Option " + (i+1), JOptionPane.INFORMATION_MESSAGE);
+                    if (options[i] == null) {
                         return;
-                    }
-                    if (options[0].isEmpty()) {
-                        JOptionPane.showMessageDialog(new JLabel(), "First option is mandatory.", "First option needed", JOptionPane.INFORMATION_MESSAGE);
-                        validAnswer = false;
-                        
+                    } else if ((i < 2) && (options[i].isEmpty())){
+                        JOptionPane.showMessageDialog(new JLabel(), "Option " + (i+1) + " is mandatory.", "Option " + (i+1) + " needed", JOptionPane.INFORMATION_MESSAGE);
+                    } else if ((Arrays.asList(Arrays.copyOfRange(options, 0, i)).contains(options[i])&& (!options[i].isEmpty()))){
+                    	JOptionPane.showMessageDialog(new JLabel(), "Option " + (i+1) + " must be different from other answers.", "Option "+ (i+1) + " not unique", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        validAnswer = true;
+                    	validAnswer = true;
                     }
+                	}
                 }
+                // Store correct answer
                 validAnswer = false;
-                while (!validAnswer) {
-                options[1] = JOptionPane.showInputDialog(null, "What is the second option?", "Option 2", JOptionPane.INFORMATION_MESSAGE);
-                if (options[1] == null) {
-                    return;
-                }
-                if (options[1].isEmpty()) {
-                    JOptionPane.showMessageDialog(new JLabel(), "Second option is mandatory.", "Second option needed", JOptionPane.INFORMATION_MESSAGE);
-                    validAnswer = false;
-                    
-                } else {
-                    validAnswer = true;
-                }   
-                }
-                validAnswer = false;
-                options[2] = JOptionPane.showInputDialog(null, "What is the third option? (optional)", "Option 3", JOptionPane.INFORMATION_MESSAGE);
-                if (options[2] == null) {
-                    return;
-                }
-                options[3] = JOptionPane.showInputDialog(null, "What is the fourth option? (optional)", "Option 4", JOptionPane.INFORMATION_MESSAGE);
-                if (options[3] == null) {
-                    return;
-                }
-                options[4] = JOptionPane.showInputDialog(null, "What is the fifth option? (optional)", "Option 5", JOptionPane.INFORMATION_MESSAGE);
-                if (options[4] == null) {
-                    return;
-                }
-                options[5] = JOptionPane.showInputDialog(null, "What is the sixth option? (optional)", "Option 6", JOptionPane.INFORMATION_MESSAGE);
-                if (options[5] == null) {
-                    return;
-                }
+                int answer_index = 0;
+                
                 while (!validAnswer) {
                     String answer = JOptionPane.showInputDialog(null, "What is the answer? Pick a number 1-6 as below.\n 1:" + options[0] + "\n 2:" + options[1] + "\n 3:" + options[2] + "\n 4:" + options[3] + "\n 5:" + options[4] + "\n 6:" + options[5], "Pick an answer", JOptionPane.INFORMATION_MESSAGE);
                     if (answer == null) {
                         return;
                     }
                     try {
-                    int answer_index = Integer.parseInt(answer);
+                    answer_index = Integer.parseInt(answer);
                     if ((answer_index < 1) || (answer_index > 6)) {
                         throw new NumberFormatException();
                     }
+                    // Cannot pick an empty answer, those are optional options.
+                    if (options[answer_index-1].isEmpty()) {
+                        JOptionPane.showMessageDialog(new JLabel(), "Please choose a non-empty answer", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                    // Answer is valid
                     validAnswer = true;
-                    
-                    // Call function to insert into database using back-end here 
+                    // Call function to insert question into database
                     if (mc_to_db(label, question, options, options[answer_index-1])) {
                         lblQuestion.setText("<html><body style='width: 133px'>"+question);
                         lblAnswer.setText("<html><body style='width: 237px'>Answer: "+options[answer_index-1]);
-                        rdbtn[0].setText(options[0]);
-                        rdbtn[1].setText(options[1]);
-                        rdbtn[2].setText(options[2]);
-                        rdbtn[3].setText(options[3]);
-                        rdbtn[4].setText(options[4]);
-                        rdbtn[5].setText(options[5]);
-                        JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        for (int i = 0; i < 6; i++) {
+                        	rdbtn[i].setText(options[i]);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(new JLabel(), "Question was successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
                     }
                     } catch(NumberFormatException e) {
-                        JOptionPane.showMessageDialog(new JLabel(), "Please input a number between 1-6", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
-                        
+                        JOptionPane.showMessageDialog(new JLabel(), "Please input a number between 1-6", "Invalid input", JOptionPane.INFORMATION_MESSAGE);   
                     }
-                    
                 }
+                    
+                
             
                 
             }
