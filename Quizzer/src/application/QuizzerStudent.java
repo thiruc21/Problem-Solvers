@@ -2,7 +2,6 @@ package application;
 
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -68,10 +67,10 @@ public class QuizzerStudent {
 		// Helper function that creates KeyEvent listener to return to login if shift+Q is pressed.
 		Quizzer.LoginListener(frame, setup);
 		
-		JLabel lblQuizzer = new JLabel("Quizzer");
-		lblQuizzer.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		JLabel lblQuizzer = new JLabel("Quizzer (Student)");
+		lblQuizzer.setFont(Quizzer.QUIZZERFONT);
 		lblQuizzer.setForeground(Quizzer.FOREGROUND);
-		lblQuizzer.setBounds(222, 11, 212, 65);
+		lblQuizzer.setBounds(165, 11, 356, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
 	    final JButton btnView = new JButton("View Assignment");
