@@ -86,9 +86,10 @@ private void listBox(String questions[]) {
     scrollPane.setBounds(30, 50, 400, 200);
     frame.getContentPane().add(scrollPane);
      
-    final JButton btnNewButton = new JButton("Assign questions");
-    btnNewButton.addActionListener(new ActionListener() {
+    final JButton btnAssign = new JButton("Assign questions");
+    btnAssign.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
+    		btnAssign.setFocusPainted(false);
     		if (list.isSelectionEmpty()) {
     			JOptionPane.showMessageDialog(new JLabel(), "Please select a question.", "Error", JOptionPane.INFORMATION_MESSAGE);
     		} else {
@@ -103,18 +104,16 @@ private void listBox(String questions[]) {
     		
     	}
     });
-    btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-    btnNewButton.setBackground(Quizzer.BUTTON);
-    btnNewButton.setForeground(Quizzer.FOREGROUND);
-    btnNewButton.setBounds(30, 297, 132, 23);
-    frame.getContentPane().add(btnNewButton);
+    btnAssign.setFont(new Font("Tahoma", Font.BOLD, 11));
+    btnAssign.setBackground(Quizzer.BUTTON);
+    btnAssign.setForeground(Quizzer.FOREGROUND);
+    btnAssign.setBounds(30, 297, 132, 23);
+    frame.getContentPane().add(btnAssign);
     
     final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
-    		Quizzer app = new Quizzer(true);
-            app.frame.setVisible(true);
-            frame.dispose();
+    		Quizzer.Start(frame, true);
     	}
     });
     btnBack.setBackground(Quizzer.BUTTON);

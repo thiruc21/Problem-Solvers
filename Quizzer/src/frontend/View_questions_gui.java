@@ -158,10 +158,10 @@ public class View_questions_gui {
 private void listBox(String questions[], List<Integer> q_ids) {  
     final DefaultListModel listModel = new DefaultListModel();
     list = new JList(listModel);
-    final JButton btnNewButton = new JButton("Start assignment");
-    btnNewButton.setEnabled(false);
+    final JButton btnStart = new JButton("Start assignment");
+    btnStart.setEnabled(false);
     for(int i = 0; i < questions.length; i++) {
-    	btnNewButton.setEnabled(true);
+    	btnStart.setEnabled(true);
     	listModel.addElement(questions[i]);
     }
     list.setForeground(Quizzer.FOREGROUND);
@@ -173,7 +173,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
     frame.getContentPane().add(scrollPane);
      
    
-    btnNewButton.addActionListener(new ActionListener() {
+    btnStart.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     	  Do_assignment app = new Do_assignment(q_ids);
           app.frame.setVisible(true);
@@ -181,11 +181,11 @@ private void listBox(String questions[], List<Integer> q_ids) {
           frame.dispose();
     	}
     });
-    btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-    btnNewButton.setBackground(Quizzer.BUTTON);
-    btnNewButton.setForeground(Quizzer.FOREGROUND);
-    btnNewButton.setBounds(30, 297, 132, 23);
-    frame.getContentPane().add(btnNewButton);
+    btnStart.setFont(new Font("Tahoma", Font.BOLD, 11));
+    btnStart.setBackground(Quizzer.BUTTON);
+    btnStart.setForeground(Quizzer.FOREGROUND);
+    btnStart.setBounds(30, 297, 132, 23);
+    frame.getContentPane().add(btnStart);
     
     list.addListSelectionListener(new ListSelectionListener() {
 		@Override
@@ -201,22 +201,25 @@ private void listBox(String questions[], List<Integer> q_ids) {
     	        List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
     	        
     	        List<String> answer_texts = new ArrayList<String>();
-    	        //String correct_answer_text = "";
-    	        //int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
+    	        String correct_answer_text = "";
+    	        int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
     	        int i = 0;
     	        for (Integer an_answer_id : answer_ids) {
     	          
     	          answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
-    	          //if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
+    	          if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
     	          rdbtn[i].setText( answer_texts.get(i) );
     	          ++i;
     	        }
     	        
     	        
     	        lblQuestion.setText("<html><body style='width: 237px'>" + question_text);
-    	        lblAnswer.setText("");
-    	        // Only profs see below.
-    	        //lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
+    	        // Only admins see the answer.
+    	        if (student) 
+    	        	lblAnswer.setText("");
+    	        else
+    	        	lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
+    	        
     	        
 		}
 		}
@@ -224,14 +227,11 @@ private void listBox(String questions[], List<Integer> q_ids) {
     final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
+    		// Go to admin or student quizzer depending on role of user
     		if (!student) {
-	    		Quizzer app = new Quizzer(true);
-	            app.frame.setVisible(true);
-	            frame.dispose();
+	    		Quizzer.Start(frame, true);
     		} else {
-    			QuizzerStudent app = new QuizzerStudent(true);
-	            app.frame.setVisible(true);
-	            frame.dispose();
+    			QuizzerStudent.Start(frame, true);
     		}
     	}
     });

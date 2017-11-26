@@ -21,6 +21,9 @@ import application.Quizzer;
 import frontend.Create_mc;
 
 // This test will demonstrate that user story 1 is completed
+/** 1. Initialize database
+ *  2. Create a multiple choice question
+ */
 public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 	
 	protected FrameFixture frame;
@@ -101,6 +104,7 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 		this.frame.dialog().textBox().enterText("Emily\n");
 		this.frame.dialog().textBox().enterText("Frank\n");
 		this.frame.dialog().textBox().enterText("3\n");
+		this.frame.dialog().label(JLabelMatcher.withText("Question was successfully created")).requireVisible();
 		this.frame.dialog().button().click();
 	}
 	

@@ -107,6 +107,25 @@ public class DataSetupTool {
 		          " Q_ID REFERENCES QUESTION(Q_ID))";
 		  st.executeUpdate(q);
 		  
+		  // Create login_credentials table
+		  q = "DROP TABLE IF EXISTS LOGIN_CREDENTIALS";
+	      st.executeUpdate(q);
+	      
+	      // Username. password, and role(admin(a) or student user(u))
+	      q = "CREATE TABLE LOGIN_CREDENTIALS" +
+	          "(USERNAME CHAR(50) PRIMARY KEY, " +
+	          " PASSWORD CHAR(50) NOT NULL, " + 
+	          " ROLE CHAR(1) NOT NULL)";
+	      st.executeUpdate(q);
+	      
+	      q = "INSERT INTO LOGIN_CREDENTIALS " +
+			      "VALUES('STUDENT', 'student', 'u')";
+		  st.executeUpdate(q);
+		  
+		  q = "INSERT INTO LOGIN_CREDENTIALS " +
+			      "VALUES('ADMIN', 'admin', 'a')";
+		  st.executeUpdate(q);
+	      
 	      st.close();
 	      conn.close();
 	      //System.out.println("Success!");

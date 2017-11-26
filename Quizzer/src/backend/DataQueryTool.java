@@ -243,5 +243,30 @@ public static int get_correct_answer_id(int q_id) {
 	  }
 	return q_id;
  }
-  
+ 
+ // Returns the role (admin as 'a' or student user as 'u') of the user given username and password. 'f' if user doesn't exist.
+  public static String user_query(String user, String pass) {
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  String role = "f";
+	  try {
+	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+	  q = "SELECT * FROM LOGIN_CREDENTIALS WHERE USERNAME = ? AND PASSWORD = ?";
+	  st = conn.prepareStatement(q);	
+	  st.setString(1, user);
+	  st.setString(2, pass);
+     rs = st.executeQuery();
+     if(rs.next()) {
+       role = rs.getString("ROLE");
+     }
+     st.close();
+     conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	return role;
+  }
 }

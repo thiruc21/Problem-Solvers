@@ -138,22 +138,21 @@ public class Create_mc {
         lblAnswer.setBounds(252, 321, 237, 50);
         frame.getContentPane().add(lblAnswer);
         
-        final JButton btnNewButton = new JButton("Back");
-        btnNewButton.addActionListener(new ActionListener() {
+        final JButton btnBack = new JButton("Back");
+        btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Quizzer app = new Quizzer(true);
-                app.frame.setVisible(true);
-                frame.dispose();
+                Quizzer.Start(frame, true);
             }
         });
-        btnNewButton.setFont(Quizzer.BOLDQUIZZERFONT);
-        btnNewButton.setBackground(Quizzer.BUTTON);
-        btnNewButton.setForeground(Quizzer.FOREGROUND);
-        btnNewButton.setBounds(10, 321, 78, 50);
-        frame.getContentPane().add(btnNewButton);
+        btnBack.setFont(Quizzer.BOLDQUIZZERFONT);
+        btnBack.setBackground(Quizzer.BUTTON);
+        btnBack.setForeground(Quizzer.FOREGROUND);
+        btnBack.setBounds(10, 321, 78, 50);
+        frame.getContentPane().add(btnBack);
         
         btnCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	btnCreate.setFocusPainted(false);
                 String[] options = new String[6];
                 boolean validAnswer = false;
                 String label = "";

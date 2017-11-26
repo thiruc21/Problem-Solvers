@@ -12,7 +12,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Font;
 import javax.swing.SwingConstants;
 
 
@@ -108,7 +107,7 @@ public class Do_assignment {
         
         lblQuestion = new JLabel("Question");
         lblQuestion.setVerticalAlignment(SwingConstants.TOP);
-        lblQuestion.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblQuestion.setFont(Quizzer.BOLDQUIZZERFONT);
         lblQuestion.setForeground(Quizzer.FOREGROUND);
         lblQuestion.setBounds(109, 11, 350, 84);
         frame.getContentPane().add(lblQuestion);
@@ -118,32 +117,28 @@ public class Do_assignment {
         lblAnswer = new JLabel("Answer: ");
         lblAnswer.setForeground(Quizzer.FOREGROUND);
 
-        lblAnswer.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblAnswer.setFont(Quizzer.BOLDQUIZZERFONT);
         lblAnswer.setBounds(109, 319, 322, 50);
         frame.getContentPane().add(lblAnswer);
         
-        JButton btnNewButton = new JButton("Back");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnBack = new JButton("Back");
+        btnBack.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
+        		btnBack.setFocusPainted(false);
         		int user_prompt = JOptionPane.showConfirmDialog(null, "Are you sure you wish to return to the assignment viewing menu? All progress will be lost.", "Warning", JOptionPane.YES_NO_OPTION);
                 if (user_prompt == JOptionPane.YES_OPTION) {
-                	
                 	View_questions_gui app = new View_questions_gui();
                     app.frame.setVisible(true);
                     frame.dispose();
-                	if (!student) {
-    	    		app.student = false;
-                	} else {
-        			app.student = true;
-                	}
+    	    		app.student = student;
                 }
         	}
         });
-        btnNewButton.setFont(Quizzer.BOLDQUIZZERFONT);
-        btnNewButton.setBackground(Quizzer.BUTTON);
-        btnNewButton.setForeground(Quizzer.FOREGROUND);
-        btnNewButton.setBounds(10, 321, 78, 50);
-        frame.getContentPane().add(btnNewButton);
+        btnBack.setFont(Quizzer.BOLDQUIZZERFONT);
+        btnBack.setBackground(Quizzer.BUTTON);
+        btnBack.setForeground(Quizzer.FOREGROUND);
+        btnBack.setBounds(10, 321, 78, 50);
+        frame.getContentPane().add(btnBack);
         displayQuestion();
         
         JButton btnNext = new JButton("Next");
@@ -152,6 +147,7 @@ public class Do_assignment {
         }
         btnNext.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		btnNext.setFocusPainted(false);
         		if (group.getSelection() == null) {
         			JOptionPane.showMessageDialog(new JLabel(), "Please select an answer.", "Error", JOptionPane.INFORMATION_MESSAGE);
         		} else if (btnNext.getText() == "Next") {

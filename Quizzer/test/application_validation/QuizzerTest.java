@@ -17,7 +17,10 @@ import org.junit.Test;
 
 import application.Quizzer;
 
-// // This test will validate that userstory 6 is working
+// This test will validate that userstory 6 is working
+/** 1. Initialize database
+ *  2. Verify that all features' buttons appear enabled on the main menu
+ */
 public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 
 	protected FrameFixture frame;

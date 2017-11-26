@@ -26,6 +26,9 @@ import frontend.Assign_questions_gui;
 import frontend.Create_mc;
 
 //This test will validate that userstory 2 is working
+/** 1. Initialize database and create questions
+ *  2. View questions, and assign one.
+ */
 public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 
 		protected FrameFixture frame;
