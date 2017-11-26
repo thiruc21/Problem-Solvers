@@ -112,11 +112,13 @@ public class Login {
 		frame.getContentPane().add(btnLogin);
 		
 		txtUsername = new JTextField();
+		txtUsername.setName("user");
 		txtUsername.setBounds(204, 111, 213, 43);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		txtPassword = new JTextField();
+		txtPassword.setName("pass");
 		txtPassword.setBounds(204, 202, 213, 43);
 		frame.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
