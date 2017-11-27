@@ -129,7 +129,12 @@ public class Quizzer {
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
 
-		final JButton btnView = makeButton(frame, "View Assignment", COLUMN_X[2], ROW_Y[1], BTN_X, BTN_Y, setup);
+		final JButton btnView;
+		if (admin) {
+			btnView = makeButton(frame, "View Assignment", COLUMN_X[2], ROW_Y[1], BTN_X, BTN_Y, setup);
+		} else {
+			btnView = makeButton(frame, "View Assignment", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
+		}
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int assignment_id = getAssignmentIdFromUser("Which assignment to view?\n");
