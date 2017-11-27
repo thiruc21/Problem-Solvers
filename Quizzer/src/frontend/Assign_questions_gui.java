@@ -118,7 +118,7 @@ private void listBox(String questions[]) {
     final JButton btnBack = new JButton("Back");
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
-    		Quizzer.Start(frame, true);
+    		Quizzer.Start(frame, true, true);
     	}
     });
     btnBack.setBackground(Quizzer.BUTTON);

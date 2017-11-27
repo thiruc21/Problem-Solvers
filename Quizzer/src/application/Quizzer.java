@@ -48,6 +48,7 @@ public class Quizzer {
 		
 	private boolean setup;
 	public JFrame frame;
+	private boolean admin;
 
 	/**
 	 * Launch the application.
@@ -57,7 +58,7 @@ public class Quizzer {
 	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Quizzer window = new Quizzer();
+					Quizzer window = new Quizzer(true);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,20 +70,22 @@ public class Quizzer {
 	/**
 	 * Create the application.
 	 */
-	public Quizzer() {
-	File chk_exist = new File("quizzer.db");
-	if (chk_exist.exists() && !chk_exist.isDirectory()) {
-		setup = true;
-	} else {
-		setup = false;
-	}
+	public Quizzer(boolean admin) {
+		this.admin = admin;
+		File chk_exist = new File("quizzer.db");
+		if (chk_exist.exists() && !chk_exist.isDirectory()) {
+			setup = true;
+		} else {
+			setup = false;
+		}
 		initialize();
 	}
 	
 	/**
 	 * Create the application given that the database already exists.
 	 */
-	public Quizzer(boolean set) {
+	public Quizzer(boolean admin, boolean set) {
+		this.admin = admin;
 		setup = set;
 		initialize();
 	}
@@ -103,6 +106,7 @@ public class Quizzer {
 		Object[] choices = backend.DataQueryTool.get_assignment_names().toArray();
 				
 		String assignmentName = (String)JOptionPane.showInputDialog(frame, question, "Choose assignment", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (null == assignmentName) return -1;
         return backend.DataQueryTool.get_assignment_id(assignmentName);
 		
 	}
@@ -122,30 +126,11 @@ public class Quizzer {
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
 
-		JButton btnSetup = makeButton(frame, "Setup Database", COLUMN_X[0], ROW_Y[0], BTN_X, BTN_Y, true);
-		frame.getContentPane().add(btnSetup);
-		
-		final JButton btnCreate = makeButton(frame, "New MC Question", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
-		btnCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			Create_mc mc = new Create_mc();
-			mc.frame.setVisible(true);
-			frame.dispose();
-			}
-		});
-		
-		JLabel lblQuizzer = new JLabel("Quizzer");
-		lblQuizzer.setFont(QUIZZERFONT);
-		lblQuizzer.setForeground(FOREGROUND);
-		lblQuizzer.setBounds(222, 11, 212, 65);
-		frame.getContentPane().add(lblQuizzer);
-
-
-		
 		final JButton btnView = makeButton(frame, "View Assignment", COLUMN_X[2], ROW_Y[1], BTN_X, BTN_Y, setup);
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int assignment_id = getAssignmentIdFromUser("Which assignment to view?\n");
+				if (-1 == assignment_id) return;
 				View_questions_gui aq = new View_questions_gui(assignment_id);
 				aq.student = false;
 				aq.frame.setVisible(true);
@@ -153,67 +138,100 @@ public class Quizzer {
 			}
 		});
 		
-		final JButton btnCreateA = makeButton(frame, "Create Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
-		btnCreateA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String assignmentName = JOptionPane.showInputDialog(null, "What would you like to name the assignment??", "New assignment", JOptionPane.INFORMATION_MESSAGE);
-				if (null == assignmentName) {
-					JOptionPane.showMessageDialog(new JLabel(), "Please enter a name", "Name needed", JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					try {
-						int new_ass_id = backend.DataFillTool.createAssignment(assignmentName);
-						
-						View_questions_gui aq = new View_questions_gui(new_ass_id);
-						aq.student = false;
-						aq.frame.setVisible(true);
-						frame.dispose();
-					} catch (IllegalArgumentException e){
-						JOptionPane.showMessageDialog(new JLabel(), "Unable to create assignment.", "Error", JOptionPane.INFORMATION_MESSAGE);
+		if (admin) {
+			JButton btnSetup = makeButton(frame, "Setup Database", COLUMN_X[0], ROW_Y[0], BTN_X, BTN_Y, true);
+			frame.getContentPane().add(btnSetup);
+			
+			final JButton btnCreate = makeButton(frame, "New MC Question", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
+			btnCreate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				Create_mc mc = new Create_mc();
+				mc.frame.setVisible(true);
+				frame.dispose();
+				}
+			});
+			
+			
+			
+			final JButton btnCreateA = makeButton(frame, "Create Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
+			btnCreateA.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					String assignmentName = JOptionPane.showInputDialog(null, "What would you like to name the assignment??", "New assignment", JOptionPane.INFORMATION_MESSAGE);
+					if (null == assignmentName) {
+						JOptionPane.showMessageDialog(new JLabel(), "Please enter a name", "Name needed", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						try {
+							int new_ass_id = backend.DataFillTool.createAssignment(assignmentName);
+							
+							Assign_questions_gui aq = new Assign_questions_gui(new_ass_id);
+							aq.frame.setVisible(true);
+							frame.dispose();
+						} catch (IllegalArgumentException e){
+							JOptionPane.showMessageDialog(new JLabel(), "Unable to create assignment.", "Error", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				}
-			}
-		});
-    
-		final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[1], ROW_Y[1], BTN_X, BTN_Y, setup);
-		btnAssign.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int assignment_id = getAssignmentIdFromUser("Which assignment to modify?\n");
-				Assign_questions_gui aq = new Assign_questions_gui(assignment_id);
-				aq.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
+			});
+		
+			final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[1], ROW_Y[1], BTN_X, BTN_Y, setup);
+			btnAssign.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int assignment_id = getAssignmentIdFromUser("Which assignment to modify?\n");
+					if (-1 == assignment_id) return;
+					Assign_questions_gui aq = new Assign_questions_gui(assignment_id);
+					aq.frame.setVisible(true);
+					frame.dispose();
+				}
+			});
+			
+			btnSetup.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						btnSetup.setFocusPainted(false);
+						if (backend.DataSetupTool.initialize()) {
+						JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
+						btnCreate.setEnabled(true);
+						btnAssign.setEnabled(true);
+						btnView.setEnabled(true);
+						} else {
+							JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					}
+				}
+			});
+			
+		}
     
 		JLabel lblReturn = new JLabel("Press Shift+Q to return to the Login screen.");
 		lblReturn.setBounds(10, 306, 454, 46);
 		lblReturn.setForeground(FOREGROUND);
 		lblReturn.setFont(BOLDQUIZZERFONT);
 		frame.getContentPane().add(lblReturn);
+		
+		JLabel lblQuizzer;
+		if (admin) {
+			lblQuizzer = new JLabel("Quizzer (Admin)");
+			lblQuizzer.setBounds(165, 11, 356, 65);
+		} else {
+			lblQuizzer = new JLabel("Quizzer");
+			lblQuizzer.setBounds(222, 11, 212, 65);
+		}
+		lblQuizzer.setFont(QUIZZERFONT);
+		lblQuizzer.setForeground(FOREGROUND);
+		
+		frame.getContentPane().add(lblQuizzer);
+
     
-		btnSetup.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					btnSetup.setFocusPainted(false);
-					if (backend.DataSetupTool.initialize()) {
-					JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
-					btnCreate.setEnabled(true);
-					btnAssign.setEnabled(true);
-					btnView.setEnabled(true);
-					} else {
-						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
-					}
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
-					System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-				}
-			}
-		});
+		
 		
 	}
 	// Switch to a Quizzer frame.
-	public static void Start(JFrame old_frame, boolean setup) {
-		Quizzer app = new Quizzer(setup);
-		app.frame.setVisible(setup);
+	public static void Start(JFrame old_frame, boolean admin, boolean setup) {
+		Quizzer app = new Quizzer(admin, setup);
+		app.frame.setVisible(true);
 		old_frame.dispose();
 	}
 	

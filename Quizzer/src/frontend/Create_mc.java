@@ -142,7 +142,7 @@ public class Create_mc {
         final JButton btnBack = new JButton("Back");
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Quizzer.Start(frame, true);
+                Quizzer.Start(frame, true, true);
             }
         });
         btnBack.setFont(Quizzer.BOLDQUIZZERFONT);

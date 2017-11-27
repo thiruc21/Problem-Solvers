@@ -232,11 +232,8 @@ private void listBox(String questions[], List<Integer> q_ids) {
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		// Go to admin or student quizzer depending on role of user
-    		if (!student) {
-	    		Quizzer.Start(frame, true);
-    		} else {
-    			QuizzerStudent.Start(frame, true);
-    		}
+    		Quizzer.Start(frame, !student, true);
+    		
     	}
     });
     btnBack.setBackground(Quizzer.BUTTON);

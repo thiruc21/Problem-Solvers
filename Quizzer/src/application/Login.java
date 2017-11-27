@@ -93,9 +93,9 @@ public class Login {
 				if (validInputs()) {
 					String role = DataQueryTool.user_query(txtUsername.getText().trim().toUpperCase(), txtPassword.getText().trim());
 					if (role.equals("a")) {
-						Quizzer.Start(frame, setup);
+						Quizzer.Start(frame, true, setup);
 					} else if (role.equals("u")) {
-						QuizzerStudent.Start(frame, setup);	
+						Quizzer.Start(frame, false, setup);	
 					} else if (role.equals("f")) {
 						JOptionPane.showMessageDialog(new JLabel(), "Incorrect username or password", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
