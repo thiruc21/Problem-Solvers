@@ -155,6 +155,7 @@ public class Login {
 						JOptionPane.showMessageDialog(new JLabel(), "Database successfully setup", "Success", JOptionPane.INFORMATION_MESSAGE);
 						btnLogin.setEnabled(true);
 						btnSignUp.setEnabled(true);
+						setup = true;
 					} else {
 						JOptionPane.showMessageDialog(new JLabel(), "Database setup was not successful", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
