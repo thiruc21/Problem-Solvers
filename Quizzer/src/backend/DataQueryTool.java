@@ -184,6 +184,8 @@ public static List<Integer> get_question_answer_ids(int q_id) {
 	  }
 	return result;
 }
+
+//given an answer id, return the answer text
 public static String get_answer_text(int a_id) {
   Connection conn;
 	  PreparedStatement st;
@@ -208,6 +210,8 @@ public static String get_answer_text(int a_id) {
 	  }
 	return result;
 }
+
+//given a question, return the id of the correct answer
 public static int get_correct_answer_id(int q_id) {
   Connection conn;
 	  PreparedStatement st;

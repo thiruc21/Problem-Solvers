@@ -144,12 +144,14 @@ public class Do_assignment {
         displayQuestion();
         
         JButton btnNext = new JButton("Next");
+        // If last question, change the next buttons text to 'Submit'
         if (curr_question + 1  == q_ids.size()) {
         	btnNext.setText("Submit");
         }
         btnNext.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnNext.setFocusPainted(false);
+        		// No answer selected
         		if (group.getSelection() == null) {
         			JOptionPane.showMessageDialog(new JLabel(), "Please select an answer.", "Error", JOptionPane.INFORMATION_MESSAGE);
         		} else if (btnNext.getText() == "Next") {
@@ -184,7 +186,7 @@ public class Do_assignment {
 		
 		for (int i=0; i < answer_ids.size(); i++) {
 			// If the user answer is equal to correct answer
-			// then change the user answer to that answer id
+			// then increment the number of corrects
 			if ((answer_ids.get(i) == answer_id) && (rdbtn[i].isSelected())) {
 				corrects++;
 			}
@@ -197,14 +199,12 @@ public class Do_assignment {
         List<Integer> answer_ids = backend.DataQueryTool.get_question_answer_ids(q_id);
         
         List<String> answer_texts = new ArrayList<String>();
-        //String correct_answer_text = "";
         int correct_answer_id = backend.DataQueryTool.get_correct_answer_id(q_id);
         answer_id = correct_answer_id;
         int i = 0;
         for (Integer an_answer_id : answer_ids) {
           
           answer_texts.add(backend.DataQueryTool.get_answer_text(an_answer_id));
-          //if (an_answer_id == correct_answer_id) { correct_answer_text = backend.DataQueryTool.get_answer_text(an_answer_id);}
           rdbtn[i].setText( answer_texts.get(i) );
           ++i;
         }
@@ -213,7 +213,7 @@ public class Do_assignment {
         lblQuestion.setText("<html><body style='width: 237px'>Q" + (curr_question+1) + ": " + question_text);
         lblQuestion.setName("lblQuestion");
         lblAnswer.setText("");
+        // Used for buttonmatcher in testing
         lblAnswer.setName("lblAnswer");
-        //lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
     }
 }

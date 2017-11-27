@@ -24,7 +24,6 @@ import java.awt.event.ActionEvent;
 
 import java.io.File;
 
-
 public class Quizzer {
 	
 	public final static Color FOREGROUND = new Color(124,252,0);
@@ -46,6 +45,7 @@ public class Quizzer {
 	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
 	public final static Font BIGBOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 18);
 		
+
 	private boolean setup;
 	public JFrame frame;
 	private boolean admin;
@@ -70,6 +70,7 @@ public class Quizzer {
 	/**
 	 * Create the application.
 	 */
+
 	public Quizzer(boolean admin) {
 		this.admin = admin;
 		File chk_exist = new File("quizzer.db");
@@ -79,8 +80,9 @@ public class Quizzer {
 			setup = false;
 		}
 		initialize();
+
 	}
-	
+    
 	/**
 	 * Create the application given that the database already exists.
 	 */
@@ -118,7 +120,7 @@ public class Quizzer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	protected void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(BACKGROUND);
 		frame.setBounds(100, 100, 604, 402);
@@ -128,6 +130,10 @@ public class Quizzer {
 		// Helper function that creates KeyEvent listener to return to login if shift+Q is pressed.
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
+
+		
+
+		//btnView creates a button that opens a new window to view assignment
 
 		final JButton btnView;
 		if (admin) {
@@ -146,10 +152,13 @@ public class Quizzer {
 			}
 		});
 		
+
 		if (admin) {
+			//btnSetup is a button that allows you to setup or clear the database
 			JButton btnSetup = makeButton(frame, "Setup Database", COLUMN_X[0], ROW_Y[0], BTN_X, BTN_Y, true);
 			frame.getContentPane().add(btnSetup);
 			
+			//btnCreate creates a button to let you create a new multiple choice question
 			final JButton btnCreate = makeButton(frame, "New MC Question", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
 			btnCreate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -160,7 +169,7 @@ public class Quizzer {
 			});
 			
 			
-			
+			//btnCreateA, button for creating assignments
 			final JButton btnCreateA = makeButton(frame, "Create Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
 			btnCreateA.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -183,7 +192,8 @@ public class Quizzer {
 					}
 				}
 			});
-		
+			
+			//btnAssign creates a button that lets you assign questions to students
 			final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[1], ROW_Y[1], BTN_X, BTN_Y, setup);
 			btnAssign.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -216,12 +226,16 @@ public class Quizzer {
 			
 		}
     
+
+		//A label to tell the user how to return to login screen
+
 		JLabel lblReturn = new JLabel("Press Shift+Q to return to the Login screen.");
 		lblReturn.setBounds(10, 306, 454, 46);
 		lblReturn.setForeground(FOREGROUND);
 		lblReturn.setFont(BOLDQUIZZERFONT);
 		frame.getContentPane().add(lblReturn);
 		
+		//Title Label at top
 		JLabel lblQuizzer;
 		if (admin) {
 			lblQuizzer = new JLabel("Quizzer (Admin)");
@@ -235,9 +249,6 @@ public class Quizzer {
 		
 		frame.getContentPane().add(lblQuizzer);
 
-    
-		
-		
 	}
 	// Switch to a Quizzer frame.
 	public static void Start(JFrame old_frame, boolean admin, boolean setup) {

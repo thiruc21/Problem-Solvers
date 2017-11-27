@@ -61,7 +61,7 @@ public class DataFillTool {
 	      st.setString(1, title);
 	      st.setString(2, question);
 	      st.execute();
-	   // Find the latest inserted question 
+	      // Find the latest inserted question 
 	      int q_id = backend.DataQueryTool.question_query(title);
 	      // Insert the answer, an answer ID will be generated
 	      for(int i = 0; i < options.length; i++) {
@@ -95,8 +95,11 @@ public class DataFillTool {
 	  
 	  return true;
   }
-  
-public static void addAssignedQuestion(int ass_id, int q_id) {
+  /*addAssignedQuestion
+   * int ass_id: the ID of the assignment to assign the question to
+   * int q_id: the ID of the question to assign
+   */  
+	public static void addAssignedQuestion(int ass_id, int q_id) {
 	  Connection conn;
 	  PreparedStatement st;
 	  String q;
@@ -117,7 +120,12 @@ public static void addAssignedQuestion(int ass_id, int q_id) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
   }
-// Add user to database.
+
+/* addStudentUser
+ *  Add user to database.
+ *  String user: username of user to add as student
+ *  String pass: password of user to add as student
+ */
 public static void addStudentUser(String user, String pass) {
 	  Connection conn;
 	  PreparedStatement st;
@@ -136,6 +144,13 @@ public static void addStudentUser(String user, String pass) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
 }
+/* createAssignment
+ *  Adds assignment to database.
+ *  String assignmentName: name of the new assignment
+ *  Returns ID of assignment created
+ */
+
+
 	public static int createAssignment(String assignmentName) {
 		int ass_id = -1;
 		Connection conn;
@@ -145,8 +160,7 @@ public static void addStudentUser(String user, String pass) {
 	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 
 	      q = "INSERT INTO ASSIGNMENTS VALUES(NULL, ?)";
-		  //q = "INSERT INTO ASSIGNMENTS VALUES(0, 'abc')";
-	      st = conn.prepareStatement(q);
+		  st = conn.prepareStatement(q);
 		  st.setString(1, assignmentName);
 		  st.execute();
 		  

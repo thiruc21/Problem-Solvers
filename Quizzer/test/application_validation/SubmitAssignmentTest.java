@@ -98,8 +98,8 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
 		this.createNew = this.frame.button(JButtonMatcher.withText("Create New"));
+		// Create two questions
 		createNew.click();
-		
 		this.frame.dialog().textBox().enterText("0\n");
 		this.frame.dialog().textBox().enterText("What's your name?\n");
 		this.frame.dialog().textBox().enterText("Abe\n");
@@ -136,9 +136,11 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+
 		// Create assignment
 		this.frame.button(JButtonMatcher.withText("Create Assignment")).click();
 		this.frame.dialog().textBox().enterText("TestAssignment\n");
+
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
@@ -159,7 +161,7 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
 		assignButton.click();
 		this.back = this.frame.button(JButtonMatcher.withText("Back"));
 		back.click();
-		
+		// View assignment
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
@@ -191,7 +193,7 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.viewListItem = new JListFixture(this.robot(), viewList).clickItem(0);
 		this.displayListItem = new JRadioButtonFixture(this.robot(), rdb);
 		this.startAssgn = this.frame.button(JButtonMatcher.withText("Start assignment"));
-		//z
+		// Start assignment and proceed until last question
 		startAssgn.click();
 		List<Integer> q_ids = new ArrayList<Integer>();
 		q_ids.add(1);
@@ -216,10 +218,12 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
 	
 	@Test
 	public void test_answering() {
+		// All buttons including submit button should be visible
 		this.next = this.frame.button(JButtonMatcher.withText("Submit")).requireVisible();
 		this.next.click();
 		this.back = this.frame.button(JButtonMatcher.withText("Back"));
 		this.question = this.frame.label(JLabelMatcher.withName("lblQuestion"));
+		// Score on assignment should be displayed
 		this.answer = this.frame.label(JLabelMatcher.withText("You scored: 1/2  (50.00%)"));
 		back.requireVisible().requireEnabled();
 		next.requireVisible().requireDisabled();

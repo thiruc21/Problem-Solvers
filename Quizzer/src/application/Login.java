@@ -6,10 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -18,12 +16,10 @@ import backend.DataQueryTool;
 
 import java.awt.Color;
 
-public class Login {
+public class Login extends Window{
 
-	public JFrame frame;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
-	private boolean setup;
 	/**
 	 * Launch the application.
 	 */
@@ -44,27 +40,20 @@ public class Login {
 	 * Create the application.
 	 */
 	public Login() {
-		File chk_exist = new File("quizzer.db");
-	    if (chk_exist.exists() && !chk_exist.isDirectory()) {
-	      setup = true;
-	    } else {
-	      setup = false;
-	    }
-		initialize();
+		super();
 	}
 	
 	/**
 	 * Create the application given that the database already exists.
 	 */
 	public Login(boolean set) {
-		setup = set;
-		initialize();
+		super(set);
 	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	protected void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Quizzer.BACKGROUND);
 		frame.setBounds(100, 100, 604, 402);
@@ -78,25 +67,27 @@ public class Login {
 		frame.getContentPane().add(lblLogin);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblUsername.setFont(Quizzer.BIGBOLDQUIZZERFONT);
 		lblUsername.setBounds(47, 111, 212, 43);
 		frame.getContentPane().add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblPassword.setFont(Quizzer.BIGBOLDQUIZZERFONT);
 		lblPassword.setBounds(47, 199, 212, 43);
 		frame.getContentPane().add(lblPassword);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//inputs are valid if user and password are greater than 4 and smaller than 12
 				if (validInputs()) {
 					String role = DataQueryTool.user_query(txtUsername.getText().trim().toUpperCase(), txtPassword.getText().trim());
-					if (role.equals("a")) {
+
+					if (role.equals("a")) { //User is an Administrator
 						Quizzer.Start(frame, true, setup);
-					} else if (role.equals("u")) {
+					} else if (role.equals("u")) { //user is a Student
 						Quizzer.Start(frame, false, setup);	
-					} else if (role.equals("f")) {
+					} else if (role.equals("f")) { //failed role
 						JOptionPane.showMessageDialog(new JLabel(), "Incorrect username or password", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else {
@@ -175,9 +166,11 @@ public class Login {
 	
 	// Checks if username and password textfield are valid inputs
 	public boolean validInputs() {
+		//trim strings to remove any accidental white space
 		String user = txtUsername.getText().trim();
 		String pass = txtPassword.getText().trim();
 		if (!(user.isEmpty()) && (!pass.isEmpty())) {
+				//users + text should be between 4 and 12 characters long
 				return((user.length() >= 4 && user.length() <= 12) && (pass.length() >= 4 && pass.length() <= 12));
 		}
 		return false;

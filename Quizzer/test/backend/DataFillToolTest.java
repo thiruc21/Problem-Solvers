@@ -50,7 +50,7 @@ public class DataFillToolTest {
 		boolean thrown = false;
 		
 		try {
-			
+			//Try inserting two questions with the same Label, throws exception
 			String[] options = {"one", "two", "three", "four", "five", "six"};
 			
 			DataFillTool.insert("Title", "Question1", options, "one");
@@ -68,6 +68,7 @@ public class DataFillToolTest {
 	
 	@Test
 	public void assignTest() {
+		//Make sure that when we use addAssignedQuestion, it becomes an assigned question
 		try {
 			
 		String[] options = {"one", "two", "three", "four", "five", "six"};
@@ -86,9 +87,7 @@ public class DataFillToolTest {
 		
 		assertEquals("question assigned", assigned.get(0), Integer.toString(assigned_qid));
 		
-		} catch (Exception e) {
-		
-			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
+		} catch (Exception e) {		
 			fail("unexpected error occurred when question assigned");
 		
 		}
@@ -96,6 +95,7 @@ public class DataFillToolTest {
 	
 	@Test
 	public void notAssignedTest() {
+		//When no questions are assigned, then get_assigned questions is empty
 		try {
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
@@ -105,10 +105,9 @@ public class DataFillToolTest {
 
 		List<String> assigned = DataQueryTool.get_assigned(1);		
 		
-		assertEquals("question (not) assigned", assigned.size(), 0);
+		assertTrue("question (not) assigned", assigned.isEmpty());
 		
 		} catch (Exception e) {
-			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
 			fail("unexpected error occurred when retrieving from empty assigned questions table");
 		
 		}
@@ -118,6 +117,7 @@ public class DataFillToolTest {
 	@Test
 	public void assignMultipleTest() {
 		try {
+		//When one question is assigned to two assignments, it is assigned to both
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
 		String title = "Title"; 
@@ -136,12 +136,8 @@ public class DataFillToolTest {
 		
 		int assigned_qid = DataQueryTool.question_query(title);
 		
-		//System.out.println(assigned.size());
-		
-		//System.out.println(assigned.get(0));
-		
-			assertEquals("question assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
-			assertEquals("question assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
+		assertEquals("question assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
+		assertEquals("question assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
 		
 		} catch (Exception e) {
 			fail("unexpected error occurred when assigning question to multiple assignments");

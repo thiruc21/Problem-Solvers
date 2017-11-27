@@ -22,8 +22,8 @@ This is the repository for Problem Solvers. We have each introduced ourselves an
 Using Windows with JDK 1.7 or later installed with the environment path to the JDK already set.
 
 1. Navigate to L02_05/Quizzer/src via a windows command-line interface.
-2. Type "javac application/Quizzer.java". If you receive " javac: command not found", your environment path to the JDK is probably not set correctly.
-3. Type "java -classpath ".;../lib/sqlite-jdbc-3.20.0.jar" application/Quizzer".
+2. Type "javac application/Login.java". If you receive " javac: command not found", your environment path to the JDK is probably not set correctly.
+3. Type "java -classpath ".;../lib/sqlite-jdbc-3.20.0.jar" application/Login".
 4. You will be shown the main menu but cannot use any of the tools until you click "Setup" to initialize your database.
 
 **Linux**

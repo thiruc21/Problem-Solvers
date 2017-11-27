@@ -94,6 +94,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
 		this.createNew = this.frame.button(JButtonMatcher.withText("Create New"));
+		// Create question
 		createNew.click();
 		
 		this.frame.dialog().textBox().enterText("0\n");
@@ -157,6 +158,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 	
 	@Test
 	public void test_viewAssgn() {
+		// Open view assignment UI
 		viewQ.click();
 		// Click ok on the selected assignment
 		this.frame.dialog().button(JButtonMatcher.withText("OK")).click();
@@ -173,6 +175,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+		// Verify all components are visible
 		this.viewListItem = new JListFixture(this.robot(), viewList).clickItem(0);
 		this.displayListItem = new JRadioButtonFixture(this.robot(), rdb);
 		this.startAssignment = this.frame.button(JButtonMatcher.withText("Start assignment"));

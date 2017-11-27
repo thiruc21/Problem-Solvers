@@ -116,6 +116,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 		JButtonFixture viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		quizzer.requireVisible();
 		viewQ.requireVisible().requireEnabled().click();
+
 		// Verify that assignment cannot be started until assignment is created.
 		this.frame.dialog().label(JLabelMatcher.withText("Please create an assignment first.")).requireVisible();
 
