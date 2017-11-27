@@ -125,8 +125,9 @@ public class DataFillTool {
  *  Add user to database.
  *  String user: username of user to add as student
  *  String pass: password of user to add as student
+ *  Return True if the addition was successful.
  */
-public static void addStudentUser(String user, String pass) {
+public static boolean addStudentUser(String user, String pass) {
 	  Connection conn;
 	  PreparedStatement st;
 	  String q;
@@ -140,8 +141,10 @@ public static void addStudentUser(String user, String pass) {
 	      st.execute();
 	      st.close();
 		  conn.close();
+		  return true;
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	      return false;
 	    }
 }
 /* createAssignment
@@ -170,8 +173,6 @@ public static void addStudentUser(String user, String pass) {
 		  ass_id = DataQueryTool.get_assignment_id(assignmentName);
 		  return ass_id;
 	    } catch (Exception e) {
-	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-		  
 		  return ass_id;
 	    }
 	}

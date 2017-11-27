@@ -95,6 +95,7 @@ public class DataFillToolTest {
 	
 	@Test
 	public void notAssignedTest() {
+		boolean thrown = true;
 		//When no questions are assigned, then get_assigned questions is empty
 		try {
 		String[] options = {"one", "two", "three", "four", "five", "six"};
@@ -111,7 +112,7 @@ public class DataFillToolTest {
 			fail("unexpected error occurred when retrieving from empty assigned questions table");
 		
 		}
-		
+		assertEquals("Exception correctly thrown when same label used twice", thrown, true);
 	}
 	
 	@Test
@@ -142,6 +143,61 @@ public class DataFillToolTest {
 		} catch (Exception e) {
 			fail("unexpected error occurred when assigning question to multiple assignments");
 		}
+	}
+	
+	@Test
+	public void createStudentTest() {
+		//Verify that students can be created
+		try {
+			
+		String username = "studentnum1";
+		String password = "studentpass1";
+		
+		boolean success = DataFillTool.addStudentUser(username, password);
+		assertEquals("question assigned", true, success);
+		
+		} catch (Exception e) {		
+			fail("unexpected error occurred when adding student then querying for it");
+		
+		}
+	}
+	
+	@Test
+	public void createAssignmentTest() {
+		//Verify that multiple assignments can be created
+		try {
+			
+		String assignment = "Tester";
+		
+		DataFillTool.createAssignment(assignment);
+		int a_id2 = DataFillTool.createAssignment("Filler");
+		int expected = 2;
+		
+		assertEquals("question assigned", expected, a_id2);
+		
+		} catch (Exception e) {		
+			fail("unexpected error occurred when creating assignment");
+		
+		}
+	}
+	
+	@Test
+	public void createDupeAssignmentTest() {
+		//Verify that multiple duplicate assignment names cannot created
+		try {
+			
+		String assignment = "Tester";
+		
+		DataFillTool.createAssignment(assignment);
+		int a_id2 = DataFillTool.createAssignment(assignment);
+		int expected = -1;
+		// Exception is not thrown but add was not successful
+		// correct behaviour as intended
+		assertEquals("question assigned", expected, a_id2);
+		} catch (Exception e) {		
+			fail("unexpected error occurred when creating duplicate assignment");
+		}
+		
 	}
 
 }

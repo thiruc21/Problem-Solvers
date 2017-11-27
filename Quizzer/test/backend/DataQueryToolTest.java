@@ -169,6 +169,34 @@ public class DataQueryToolTest {
 	}
 	
 	@Test
+	public void assignTest() {
+		//Make sure that when we use addAssignedQuestion, it becomes an assigned question
+		try {
+			
+		String[] options = {"one", "two", "three", "four", "five", "six"};
+
+		String title = "Title"; 
+		
+		DataFillTool.insert(title, "Question", options, "one");
+		
+		String q_id = Integer.toString(DataQueryTool.question_query(title));
+		
+		DataFillTool.addAssignedQuestion(1, Integer.valueOf(q_id));
+		
+		List<String> assigned = DataQueryTool.get_assigned(1);
+		
+		int assigned_qid = DataQueryTool.question_query(title);
+		
+		assertEquals("question assigned", assigned.get(0), Integer.toString(assigned_qid));
+		
+		} catch (Exception e) {		
+			fail("unexpected error occurred when question assigned");
+		
+		}
+	}
+	
+	
+	@Test
 	public void AnsweridExists() {
 		
 		int q1_id = DataQueryTool.question_query("Q1");
@@ -177,5 +205,60 @@ public class DataQueryToolTest {
 		//the correct answer's id is in fact one of the possible answers
 		assertTrue("The correct answer is in fact one of the answers",possible_answer_ids.contains(ans_id));
 	}
+	
+	@Test
+	public void userQuery() {
+		// Verify that the user query based on credentials works
+		String role = DataQueryTool.user_query("ADMIN", "admin");
+		String expected = "a";
+		assertEquals("Try user query based on credenials", role, expected);
+	}
+	
+	@Test
+	public void userExists() {
+		// Verify that the user exists function based on username
+		boolean exists = DataQueryTool.user_exists("ADMIN");
+		assertTrue("Try user query based on credenials", exists);
+	}
+	
+	@Test
+	public void assignmentNames() {
+		//Verify that multiple assignments can be created and then names can be retrieved
+				try {
+				// Create two assignments
+				String assignment1 = "Tester";
+				String assignment2 = "Filler";
+				DataFillTool.createAssignment(assignment1);
+			    DataFillTool.createAssignment(assignment2);
+			    // Get all assignment names then generate expected list of names
+				List<String> names = DataQueryTool.get_assignment_names();
+				List<String> expected = new ArrayList<String>();
+				expected.add(assignment1);
+				expected.add(assignment2);
+				assertEquals("question assigned", expected, names);
+				
+				} catch (Exception e) {		
+					fail("unexpected error occurred when creating assignment then retrieving names");
+				}
+	}
+	
+	@Test
+	public void getAssignmentID() {
+				//Verify that multiple assignments can be created and ID can be retrieved
+				try {
+				// Create two assignments
+				String assignment1 = "Tester";
+				String assignment2 = "Filler";
+				DataFillTool.createAssignment(assignment1);
+			    DataFillTool.createAssignment(assignment2);
+			    // Get assignment ID of 'Filler'
+				int a_id = DataQueryTool.get_assignment_id(assignment2);
+				assertEquals("question assigned", 2, a_id);
+				
+				} catch (Exception e) {		
+					fail("unexpected error occurred when creating assignment then retrieving names");
+				}
+	}
+	
 	
 }

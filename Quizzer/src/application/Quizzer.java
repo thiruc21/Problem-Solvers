@@ -137,7 +137,7 @@ public class Quizzer extends Window{
 				int assignment_id = getAssignmentIdFromUser("Which assignment to view?\n");
 				if (-1 == assignment_id) return;
 				View_questions_gui aq = new View_questions_gui(assignment_id);
-				aq.student = false;
+				aq.student = !admin;
 				aq.frame.setVisible(true);
 				frame.dispose();
 			}
