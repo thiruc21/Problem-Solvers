@@ -61,7 +61,7 @@ public class DataFillTool {
 	      st.setString(1, title);
 	      st.setString(2, question);
 	      st.execute();
-	   // Find the latest inserted question 
+	      // Find the latest inserted question 
 	      int q_id = backend.DataQueryTool.question_query(title);
 	      // Insert the answer, an answer ID will be generated
 	      for(int i = 0; i < options.length; i++) {
@@ -95,7 +95,10 @@ public class DataFillTool {
 	  
 	  return true;
   }
-  
+  /*addAssignedQuestion
+   * int ass_id: the ID of the assignment to assign the question to
+   * String q_id: the ID of the question to assign
+   */
 public static void addAssignedQuestion(int ass_id, String q_id) {
 	  Connection conn;
 	  Statement st;
@@ -113,7 +116,12 @@ public static void addAssignedQuestion(int ass_id, String q_id) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
   }
-// Add user to database.
+
+/* addStudentUser
+ *  Add user to database.
+ *  String user: username of user to add as student
+ *  String pass: password of user to add as student
+ */
 public static void addStudentUser(String user, String pass) {
 	  Connection conn;
 	  PreparedStatement st;

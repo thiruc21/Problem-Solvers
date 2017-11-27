@@ -4,16 +4,23 @@ package application;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import frontend.View_questions_gui;
 
-public class QuizzerStudent {	
-  private boolean setup;
-  public JFrame frame;
+public class QuizzerStudent extends Window {	
+  //private boolean setup;
+  //public JFrame frame;
+
+	public QuizzerStudent() {
+		super();
+	}
+	
+	public QuizzerStudent(boolean set) {
+		super(set);
+	}
 
 	/**
 	 * Launch the application.
@@ -33,31 +40,9 @@ public class QuizzerStudent {
 	}
 
 	/**
-	 * Create the application.
-	 */
-	public QuizzerStudent() {
-    File chk_exist = new File("quizzer.db");
-    if (chk_exist.exists() && !chk_exist.isDirectory()) {
-      setup = true;
-    } else {
-      setup = false;
-    }
-		initialize();
-	}
-	/**
-	 * Create the application.
-	 */
-	public QuizzerStudent(boolean set) {
-		setup = set;
-		initialize();
-	}
-
-
-
-	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	protected void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Quizzer.BACKGROUND);
 		frame.setBounds(100, 100, 604, 402);

@@ -22,10 +22,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-import java.io.File;
 
-
-public class Quizzer {
+public class Quizzer extends Window {
 	
 	public final static Color FOREGROUND = new Color(124,252,0);
 	public final static Color BUTTON = Color.BLACK;
@@ -41,8 +39,6 @@ public class Quizzer {
 	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
 	public final static Font BIGBOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 18);
 		
-  private boolean setup;
-  public JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -65,21 +61,14 @@ public class Quizzer {
 	 * Create the application.
 	 */
 	public Quizzer() {
-    File chk_exist = new File("quizzer.db");
-    if (chk_exist.exists() && !chk_exist.isDirectory()) {
-      setup = true;
-    } else {
-      setup = false;
-    }
-		initialize();
+		super();
 	}
-	
+    
 	/**
 	 * Create the application given that the database already exists.
 	 */
 	public Quizzer(boolean set) {
-		setup = set;
-		initialize();
+		super(set);
 	}
 
 
@@ -87,7 +76,7 @@ public class Quizzer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	protected void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(BACKGROUND);
 		frame.setBounds(100, 100, 604, 402);
@@ -97,6 +86,8 @@ public class Quizzer {
 		// Helper function that creates KeyEvent listener to return to login if shift+Q is pressed.
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
+		
+		//btnSetup is a button that allows you to setup or clear the database
 		JButton btnSetup = new JButton("Setup Database");
 		btnSetup.setBackground(BUTTON);
 		btnSetup.setForeground(FOREGROUND);
@@ -104,31 +95,37 @@ public class Quizzer {
 		btnSetup.setFocusable(false);
 		frame.getContentPane().add(btnSetup);
 		
+		//btnCreate creates a button to let you create a new multiple choice question
 		final JButton btnCreate = new JButton("New MC Question");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			Create_mc mc = new Create_mc();
+			//create new window for MC question, then switch to it.
 			mc.frame.setVisible(true);
 			frame.dispose();
 			}
 		});
-		if (!setup)
-			btnCreate.setEnabled(false);
+		
+		//If the database hasn't been setup, btnCreate is greyed out to the user
+		btnCreate.setEnabled(setup);
 		btnCreate.setBackground(BUTTON);
 		btnCreate.setForeground(FOREGROUND);
 		btnCreate.setBounds(196, 130, BTN_X, BTN_Y);
 		btnCreate.setFocusable(false);
 		frame.getContentPane().add(btnCreate);
 		
+		//Title Label at top
 		JLabel lblQuizzer = new JLabel("Quizzer");
 		lblQuizzer.setFont(QUIZZERFONT);
 		lblQuizzer.setForeground(FOREGROUND);
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
+		//btnView creates a button that opens a new window to view assignment
 		final JButton btnView = new JButton("View Assignment");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//create new gui to view questions
 				View_questions_gui aq = new View_questions_gui();
 				aq.student = false;
 				aq.frame.setVisible(true);
@@ -136,6 +133,7 @@ public class Quizzer {
 			}
 		});
 		
+		//btnAssign creates a button that lets you assign questions to students
 		final JButton btnAssign = new JButton("Assign Questions");
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -145,13 +143,16 @@ public class Quizzer {
 			}
 		});
     
+		//btnView creates a button that lets you view assigned questions
 		btnView.setBackground(BUTTON);
 		btnView.setForeground(FOREGROUND);
 		btnView.setBounds(10, 230, BTN_X, BTN_Y);
 		btnView.setFocusable(false);
+		//If the database hasn't been setup, btnView is greyed out to the user
 		btnView.setEnabled(setup);
 		frame.getContentPane().add(btnView);  
 		
+		//If the database hasn't been setup, btnAssign is greyed out to the user
 		btnAssign.setEnabled(setup);
 		btnAssign.setBackground(BUTTON);
 		btnAssign.setForeground(FOREGROUND);
@@ -159,12 +160,14 @@ public class Quizzer {
 		btnAssign.setBounds(391, 130, 166, 53);
 		frame.getContentPane().add(btnAssign);
 		
+		//A label to tell the user how to return to login screen
 		JLabel lblReturn = new JLabel("Press Shift+Q to return to the Login screen.");
 		lblReturn.setBounds(10, 306, 454, 46);
 		lblReturn.setForeground(FOREGROUND);
 		lblReturn.setFont(BOLDQUIZZERFONT);
 		frame.getContentPane().add(lblReturn);
 	
+		//adds functionality to database setup button
 		btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {

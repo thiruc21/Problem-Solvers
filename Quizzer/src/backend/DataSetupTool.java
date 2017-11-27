@@ -60,6 +60,7 @@ public class DataSetupTool {
     }
   }
   
+  //Initializes the Database
   public static boolean initialize() {
 	  Connection conn;
 	    Statement st;
