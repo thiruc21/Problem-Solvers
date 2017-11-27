@@ -36,7 +36,7 @@ public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Quizzer app = new Quizzer();
+				Quizzer app = new Quizzer(true);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);

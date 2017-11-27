@@ -63,7 +63,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Quizzer app = new Quizzer();
+				Quizzer app = new Quizzer(true);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
@@ -111,7 +111,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Quizzer app = new Quizzer();
+				Quizzer app = new Quizzer(true);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
@@ -119,12 +119,13 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
-		assgn.click();
+		// Create assignment
+		this.frame.button(JButtonMatcher.withText("Create Assignment")).click();
+		this.frame.dialog().textBox().enterText("TestAssignment\n");
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Assign_questions_gui app = new Assign_questions_gui();
+				Assign_questions_gui app = new Assign_questions_gui(1);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 				assignList = app.list; 
@@ -142,7 +143,7 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				Quizzer app = new Quizzer();
+				Quizzer app = new Quizzer(true);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
@@ -156,10 +157,12 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
 	@Test
 	public void test_viewAssgn() {
 		viewQ.click();
+		// Click ok on the selected assignment
+		this.frame.dialog().button(JButtonMatcher.withText("OK")).click();
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				View_questions_gui app = new View_questions_gui();
+				View_questions_gui app = new View_questions_gui(1);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack(); 
 				viewList = app.list;

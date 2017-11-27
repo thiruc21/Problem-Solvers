@@ -86,7 +86,7 @@ public class DataQueryToolTest {
 		
 		int q1_id = DataQueryTool.question_query("Q1");
 		
-		DataFillTool.addAssignedQuestion(1, Integer.toString(q1_id));
+		DataFillTool.addAssignedQuestion(1, q1_id);
 		
 		List<String> result = DataQueryTool.get_assigned(1);
 		
@@ -103,9 +103,9 @@ public class DataQueryToolTest {
 		
 		int q2_id = DataQueryTool.question_query("Q2");
 		
-		DataFillTool.addAssignedQuestion(1, Integer.toString(q1_id));
+		DataFillTool.addAssignedQuestion(1, q1_id);
 		
-		DataFillTool.addAssignedQuestion(1, Integer.toString(q2_id));
+		DataFillTool.addAssignedQuestion(1, q2_id);
 		
 		List<String> result = DataQueryTool.get_assigned(1);
 		

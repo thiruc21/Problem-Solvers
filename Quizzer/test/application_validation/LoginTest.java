@@ -78,7 +78,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				QuizzerStudent app = new QuizzerStudent(true);
+				Quizzer app = new Quizzer(false);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
@@ -86,7 +86,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		this.frame.label(JLabelMatcher.withText("Quizzer (Student)")).requireVisible();
+		this.frame.label(JLabelMatcher.withText("Quizzer")).requireVisible();
 	}
 	
 	// Test that a student can login to the student GUI
@@ -105,7 +105,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
 			protected JFrame executeInEDT() throws Exception {
-				QuizzerStudent app = new QuizzerStudent(true);
+				Quizzer app = new Quizzer(false);
 				app.frame.setPreferredSize(new Dimension(604, 402));
 				app.frame.pack();
 		        app.frame.setVisible(true);
@@ -113,23 +113,14 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		JLabelFixture quizzer = this.frame.label(JLabelMatcher.withText("Quizzer (Student)"));
+		JLabelFixture quizzer = this.frame.label(JLabelMatcher.withText("Quizzer"));
 		JButtonFixture viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		quizzer.requireVisible();
 		viewQ.requireVisible().requireEnabled().click();
-		// Open View Assignment frame
-		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
-			@Override
-			protected JFrame executeInEDT() throws Exception {
-				View_questions_gui app = new View_questions_gui();
-				app.frame.setPreferredSize(new Dimension(604, 402));
-				app.frame.pack();
-		        app.frame.setVisible(true);
-				return app.frame;
-			}});
-		this.frame = new FrameFixture(this.robot(), gui);
-		this.frame.show();
-		this.frame.button(JButtonMatcher.withText("Start assignment")).requireVisible(); 
+		// Verify that assignment cannot be started until assignment is created.
+		this.frame.dialog().label(JLabelMatcher.withText("Please create an assignment first.")).requireVisible();
+
+		
 		
 	}
 	
@@ -158,7 +149,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 			this.frame = new FrameFixture(this.robot(), gui);
 			this.frame.show();
 			// Verify all admin components appear.
-			this.frame.label(JLabelMatcher.withText("Quizzer")).requireVisible();
+			this.frame.label(JLabelMatcher.withText("Quizzer (Admin)")).requireVisible();
 			this.setupDb = this.frame.button(JButtonMatcher.withText("Setup Database")).requireVisible().requireEnabled();
 			this.frame.button(JButtonMatcher.withText("New MC Question")).requireVisible().requireEnabled();
 			this.frame.button(JButtonMatcher.withText("Assign Questions")).requireVisible().requireEnabled();
