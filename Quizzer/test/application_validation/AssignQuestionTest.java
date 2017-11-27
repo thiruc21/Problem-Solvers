@@ -89,6 +89,7 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 				}});
 			this.frame = new FrameFixture(this.robot(), gui);
 			this.frame.show();
+			// Create question
 			this.createNew = this.frame.button(JButtonMatcher.withText("Create New"));
 			createNew.click();
 			
@@ -102,6 +103,7 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 			this.frame.dialog().textBox().enterText("Frank\n");
 			this.frame.dialog().textBox().enterText("3\n");
 			this.frame.dialog().button().click();
+			// Click back
 			this.back = this.frame.button(JButtonMatcher.withText("Back"));
 			back.click();
 			
@@ -121,6 +123,7 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 	
 	@Test
 	public void test_assign() {
+		// Open assign questions UI
 		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
 		assgn.click();
 		JFrame gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
@@ -135,7 +138,7 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 		}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		// Assigning what is your name? question
+		// Assigning 'what is your name?' question
 		this.assignListItem = new JListFixture(this.robot(), assignList).clickItem(0);
 		this.assignButton = this.frame.button(JButtonMatcher.withText("Assign questions"));
 		assignButton.click();

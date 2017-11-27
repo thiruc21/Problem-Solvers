@@ -91,10 +91,12 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 		this.back = this.frame.button(JButtonMatcher.withText("Back"));
 		this.question = this.frame.label(JLabelMatcher.withText("Question"));
 		this.answer = this.frame.label(JLabelMatcher.withText("Answer: "));
+		// Verify all buttons are visible
 		createNew.requireVisible().requireEnabled();
 		back.requireVisible().requireEnabled();
 		question.requireVisible().requireEnabled();
 		answer.requireVisible().requireEnabled();	
+		// Create question
 		createNew.click();
 		this.frame.dialog().textBox().enterText("0\n");
 		this.frame.dialog().textBox().enterText("What's your name?\n");
@@ -105,6 +107,7 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 		this.frame.dialog().textBox().enterText("Emily\n");
 		this.frame.dialog().textBox().enterText("Frank\n");
 		this.frame.dialog().textBox().enterText("3\n");
+		// Verify successful
 		this.frame.dialog().label(JLabelMatcher.withText("Question was successfully created")).requireVisible();
 		this.frame.dialog().button().click();
 	}

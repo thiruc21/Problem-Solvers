@@ -52,6 +52,7 @@ public class QuizzerTest extends AssertJSwingTestCaseTemplate {
 	
 	@Test
 	public void testMainMenu() {
+		// Verify all buttons are enabled after a successful database setup.
 		setupDb.requireVisible().requireEnabled().click();
 		frame.dialog(DialogMatcher.withTitle("Success"));
 		this.frame.dialog().button().click();

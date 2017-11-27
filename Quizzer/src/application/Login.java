@@ -18,10 +18,8 @@ import java.awt.Color;
 
 public class Login extends Window{
 
-	//public JFrame frame;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
-	//private boolean setup;
 	/**
 	 * Launch the application.
 	 */

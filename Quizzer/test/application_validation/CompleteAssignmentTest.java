@@ -79,7 +79,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.createMC = this.frame.button(JButtonMatcher.withText("New MC Question"));
 		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
 		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
-		
+		//Setup DB
 		setupDb.click();
 		this.frame.dialog().button().click();
 		createMC.click();
@@ -95,6 +95,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+		// Create question
 		this.createNew = this.frame.button(JButtonMatcher.withText("Create New"));
 		createNew.click();
 		
@@ -120,6 +121,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.frame.dialog().textBox().enterText("20\n");
 		this.frame.dialog().textBox().enterText("6\n");
 		this.frame.dialog().button().click();
+		// Go back to main menu
 		this.back = this.frame.button(JButtonMatcher.withText("Back"));
 		back.click();
 		
@@ -134,6 +136,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+		// Go to assign questions UI
 		this.assgn = this.frame.button(JButtonMatcher.withText("Assign Questions"));
 		assgn.click();
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
@@ -168,6 +171,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+		// Go to view assignment UI
 		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		viewQ.click();
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
@@ -190,6 +194,7 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 	
 	@Test
 	public void test_answering() {
+		// Do the assignment
 		startAssgn.requireVisible().requireEnabled().click();
 		List<Integer> q_ids = new ArrayList<Integer>();
 		q_ids.add(1);
@@ -210,12 +215,14 @@ public class CompleteAssignmentTest extends AssertJSwingTestCaseTemplate {
 		this.next = this.frame.button(JButtonMatcher.withText("Next"));
 		this.question = this.frame.label(JLabelMatcher.withName("lblQuestion"));
 		this.answer = this.frame.label(JLabelMatcher.withName("lblAnswer"));
+		// Verify all buttons appear
 		back.requireVisible().requireEnabled();
 		next.requireVisible().requireEnabled();
 		question.requireVisible().requireEnabled();
 		answer.requireVisible().requireEnabled();
 		rdb.doClick();
 		next.click();
+		// Verify the button is a submit button on last question
 		this.next = this.frame.button(JButtonMatcher.withText("Submit")).requireVisible();
 		
 	}

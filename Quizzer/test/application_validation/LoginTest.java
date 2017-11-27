@@ -129,6 +129,7 @@ public class LoginTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
+		// Verify assignment is startable.
 		this.frame.button(JButtonMatcher.withText("Start assignment")).requireVisible(); 
 		
 	}

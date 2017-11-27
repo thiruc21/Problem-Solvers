@@ -43,8 +43,6 @@ public class DataQueryToolTest {
 	public void answerQueryOneTest() {
 		
 		int result = DataQueryTool.answer_query("one", 1);
-		
-		//System.out.print(result);
 		//first answer is always void, so the second inserted answer has ID 2.
 		assertEquals("correct answer queried", result, 2);
 	}
@@ -53,8 +51,6 @@ public class DataQueryToolTest {
 	public void answerQueryTwoTest() {
 		
 		int result = DataQueryTool.answer_query("two2", 2);
-		
-		//System.out.print(result);
 		//since the first answer is void, Q1 has 6 answers, and Q2's correct answer is the second one, the correct answer of Q2 should be 9 = 1 + 6 + 2
 		assertEquals("correct answer queried", result, 9);
 	}
@@ -64,9 +60,6 @@ public class DataQueryToolTest {
 		
 		List<String> result_1 = DataQueryTool.get_unassigned(1);
 		List<String> result_2 = DataQueryTool.get_unassigned(2);
-		
-		//System.out.println(result_1);
-		//System.out.println(result_2);
 		
 		//since assignments start out empty, then for both assignments, the unassigned questions to each are the same
 		assertEquals("All questions start unassigned", result_1, result_2 );
@@ -91,9 +84,7 @@ public class DataQueryToolTest {
 		DataFillTool.addAssignedQuestion(1, Integer.toString(q1_id));
 		
 		List<String> result = DataQueryTool.get_assigned(1);
-		
-		//System.out.println(result);
-		
+				
 		//When a question is assigned, it appears in the list of questions that are assigned.
 		assertTrue("Questions are assigned correctly",result.contains(Integer.toString(q1_id)));
 		
@@ -110,10 +101,7 @@ public class DataQueryToolTest {
 		
 		DataFillTool.addAssignedQuestion(1, Integer.toString(q2_id));
 		
-		List<String> result = DataQueryTool.get_assigned(1);
-		
-		//System.out.println(result);
-		
+		List<String> result = DataQueryTool.get_assigned(1);		
 		//When two questions are assigned to an assignment, they both appear in the list of questions assigned.
 		assertTrue("Multiple Questions are assigned correctly",result.contains(Integer.toString(q1_id))&&result.contains(Integer.toString(q2_id)));
 		
@@ -147,10 +135,7 @@ public class DataQueryToolTest {
 		List<Integer> result = DataQueryTool.get_question_answer_ids(q1_id);
 		
 		List<Integer> expected_result = new ArrayList<Integer>();
-		expected_result = Arrays.asList(2, 3, 4, 5, 6, 7);
-		
-		//System.out.println(result);
-		
+		expected_result = Arrays.asList(2, 3, 4, 5, 6, 7);		
 		//since first answer is always void, the IDs for the first 6 answers are 2-7
 		assertEquals("All answer IDs are properly returned",result, expected_result);
 		
@@ -162,11 +147,7 @@ public class DataQueryToolTest {
 		try {
 			
 			int q1_id = DataQueryTool.question_query("Q1");
-			
-			List<Integer> result = DataQueryTool.get_question_answer_ids(q1_id);
-			
-			//System.out.println(result);
-			
+			List<Integer> result = DataQueryTool.get_question_answer_ids(q1_id);			
 			//get_question_answer_ids returns the text of all answers for Q1.
 			assertEquals("Answer 1 text properly queried",DataQueryTool.get_answer_text(result.get(0)),"one");
 			assertEquals("Answer 2 text properly queried",DataQueryTool.get_answer_text(result.get(1)),"two");
@@ -180,11 +161,7 @@ public class DataQueryToolTest {
 	
 	@Test
 	public void GetCorrectAnswerIDTest() {
-		
-		int q1_id = DataQueryTool.question_query("Q1");
-		
-		//System.out.println(DataQueryTool.get_correct_answer_id(q1_id));
-		
+		int q1_id = DataQueryTool.question_query("Q1");		
 		int result = DataQueryTool.get_correct_answer_id(q1_id);
 		//The correct answer for Q1 is it's first answer. Since the first answer is always void, it's ID is 2.
 		assertEquals("Correct answer ID is correct",result, 2);

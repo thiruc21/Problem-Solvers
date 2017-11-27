@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import frontend.View_questions_gui;
 
 public class QuizzerStudent extends Window {	
-  //private boolean setup;
-  //public JFrame frame;
 
 	public QuizzerStudent() {
 		super();

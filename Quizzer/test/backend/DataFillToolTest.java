@@ -87,9 +87,7 @@ public class DataFillToolTest {
 		
 		assertEquals("question assigned", assigned.get(0), Integer.toString(assigned_qid));
 		
-		} catch (Exception e) {
-		
-			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
+		} catch (Exception e) {		
 			fail("unexpected error occurred when question assigned");
 		
 		}
@@ -110,7 +108,6 @@ public class DataFillToolTest {
 		assertTrue("question (not) assigned", assigned.isEmpty());
 		
 		} catch (Exception e) {
-			//System.out.println( e.getClass().getName() + ": " + e.getMessage() );
 			fail("unexpected error occurred when retrieving from empty assigned questions table");
 		
 		}
@@ -120,7 +117,7 @@ public class DataFillToolTest {
 	@Test
 	public void assignMultipleTest() {
 		try {
-			//When one question is assigned to two assignments, it is assigned to both
+		//When one question is assigned to two assignments, it is assigned to both
 		String[] options = {"one", "two", "three", "four", "five", "six"};
 
 		String title = "Title"; 
@@ -139,12 +136,8 @@ public class DataFillToolTest {
 		
 		int assigned_qid = DataQueryTool.question_query(title);
 		
-		//System.out.println(assigned.size());
-		
-		//System.out.println(assigned.get(0));
-		
-			assertEquals("question assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
-			assertEquals("question assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
+		assertEquals("question assigned to A1", assigned_1.get(0), Integer.toString(assigned_qid));
+		assertEquals("question assigned to A2", assigned_2.get(0), Integer.toString(assigned_qid));
 		
 		} catch (Exception e) {
 			fail("unexpected error occurred when assigning question to multiple assignments");
