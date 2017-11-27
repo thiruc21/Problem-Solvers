@@ -30,9 +30,12 @@ public class View_questions_gui {
   public JLabel lblAnswer;
   
   public JList<String> list;
+  
+  private int assignment_id;
   /**
    * Launch the application.
    */
+   /*
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
@@ -44,12 +47,13 @@ public class View_questions_gui {
         }
       }
     });
-  }
+  }*/
 
   /**
    * Create the application.
    */
-  public View_questions_gui() {
+  public View_questions_gui(int ass_id) {
+	assignment_id = ass_id;
 	initialize();
   }
 
@@ -142,7 +146,7 @@ public class View_questions_gui {
   // Helper function to refresh the listbox with available questions.
   private void refreshList(){
 	    // Find all question IDs of questions already assigned to assignment id 1 and store in a list of strings
-	    List<String> all_assigned = DataQueryTool.get_assigned(1);
+	    List<String> all_assigned = DataQueryTool.get_assigned(assignment_id);
 	    // Append the question's text to each question in the list
 	    String[] questions = all_assigned.toArray(new String[all_assigned.size()]);
 	    // List of all q_ids
@@ -175,7 +179,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
    
     btnStart.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
-    	  Do_assignment app = new Do_assignment(q_ids);
+    	  Do_assignment app = new Do_assignment(assignment_id, q_ids);
           app.frame.setVisible(true);
           app.student = student;
           frame.dispose();

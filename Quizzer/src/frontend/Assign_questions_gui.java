@@ -17,9 +17,13 @@ public class Assign_questions_gui {
 
   public JFrame frame;
   public JList<String> list;
+  
+  private int assignment_id;
   /**
    * Launch the application.
    */
+   
+   /*
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
@@ -31,12 +35,13 @@ public class Assign_questions_gui {
         }
       }
     });
-  }
+  }*/
 
   /**
    * Create the application.
    */
-  public Assign_questions_gui() {
+  public Assign_questions_gui(int ass_id) {
+	assignment_id = ass_id;
     initialize();
   }
 
@@ -61,7 +66,7 @@ public class Assign_questions_gui {
   // Helper function to refresh the listbox with available questions.
   private void refreshList(){
 	    // Find all question IDs of questions not already assigned to assignment id 1 and store in a list of strings
-	    List<String> all_unassigned = DataQueryTool.get_unassigned(1);
+	    List<String> all_unassigned = DataQueryTool.get_unassigned(assignment_id);
 	    // Append the question's text to each question in the list
 	    String[] questions = all_unassigned.toArray(new String[all_unassigned.size()]);
 	    for(int i = 0; i < questions.length; i++) {
@@ -94,10 +99,10 @@ private void listBox(String questions[]) {
     			JOptionPane.showMessageDialog(new JLabel(), "Please select a question.", "Error", JOptionPane.INFORMATION_MESSAGE);
     		} else {
     			String selected_value = (String) list.getSelectedValue();
-    			String selected_qid = selected_value.substring(0, selected_value.indexOf(":"));
+    			int selected_qid = Integer.parseInt(selected_value.substring(0, selected_value.indexOf(":")));
     			// Insert Q_ID into the table assigned_questions here
     			// Make and invoke the function by DataFillTool.insertfunctionname(selected_qid)
-    			DataFillTool.addAssignedQuestion(1, selected_qid);
+    			DataFillTool.addAssignedQuestion(assignment_id, selected_qid);
     			listModel.removeElementAt(list.getSelectedIndex());
     			//list.remove(list.getSelectedIndex());
     		}

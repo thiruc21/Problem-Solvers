@@ -37,24 +37,24 @@ public class Quizzer {
 	public static final int DETAIL_BTN_X = 312;
 	public static final int DETAIL_BTN_Y = 23;
   
-  public static final int[] ROW_Y = {130, 230};
+	public static final int[] ROW_Y = {130, 230};
     
-  public static final int[] COLUMN_X = {10, 196, 391};
+	public static final int[] COLUMN_X = {10, 196, 391};
   
 	
 	public final static Font QUIZZERFONT = new Font("Centaur", Font.PLAIN, 40);
 	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
 	public final static Font BIGBOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 18);
 		
-  private boolean setup;
-  public JFrame frame;
+	private boolean setup;
+	public JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
     
-    EventQueue.invokeLater(new Runnable() {
+	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Quizzer window = new Quizzer();
@@ -70,12 +70,12 @@ public class Quizzer {
 	 * Create the application.
 	 */
 	public Quizzer() {
-    File chk_exist = new File("quizzer.db");
-    if (chk_exist.exists() && !chk_exist.isDirectory()) {
-      setup = true;
-    } else {
-      setup = false;
-    }
+	File chk_exist = new File("quizzer.db");
+	if (chk_exist.exists() && !chk_exist.isDirectory()) {
+		setup = true;
+	} else {
+		setup = false;
+	}
 		initialize();
 	}
 	
@@ -87,17 +87,25 @@ public class Quizzer {
 		initialize();
 	}
   
-  private JButton makeButton(JFrame target, String label, int x, int y, int w, int h, boolean enabled) {
-    JButton newButton = new JButton(label);
-    newButton.setBounds(x, y, w, h);
-    newButton.setBackground(BUTTON);
-    newButton.setForeground(FOREGROUND);
-    newButton.setFocusable(false);
-    newButton.setEnabled(enabled);
-    target.getContentPane().add(newButton);
-    return newButton;
-  }
+	//factory-like method to make buttons
+	private JButton makeButton(JFrame target, String label, int x, int y, int w, int h, boolean enabled) {
+		JButton newButton = new JButton(label);
+		newButton.setBounds(x, y, w, h);
+		newButton.setBackground(BUTTON);
+		newButton.setForeground(FOREGROUND);
+		newButton.setFocusable(false);
+		newButton.setEnabled(enabled);
+		target.getContentPane().add(newButton);
+		return newButton;
+	}
 
+	private int getAssignmentIdFromUser(String question) {
+		Object[] choices = backend.DataQueryTool.get_assignment_names().toArray();
+				
+		String assignmentName = (String)JOptionPane.showInputDialog(frame, question, "Choose assignment", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+        return backend.DataQueryTool.get_assignment_id(assignmentName);
+		
+	}
 
 
 	/**
@@ -113,39 +121,64 @@ public class Quizzer {
 		// Helper function that creates KeyEvent listener to return to login if shift+Q is pressed.
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
-    
+
 		JButton btnSetup = makeButton(frame, "Setup Database", COLUMN_X[0], ROW_Y[0], BTN_X, BTN_Y, true);
 		frame.getContentPane().add(btnSetup);
 		
 		final JButton btnCreate = makeButton(frame, "New MC Question", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
-    btnCreate.addActionListener(new ActionListener() {
+		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			Create_mc mc = new Create_mc();
 			mc.frame.setVisible(true);
 			frame.dispose();
 			}
-		});		
+		});
 		
 		JLabel lblQuizzer = new JLabel("Quizzer");
 		lblQuizzer.setFont(QUIZZERFONT);
 		lblQuizzer.setForeground(FOREGROUND);
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
+
+
 		
-		final JButton btnView = makeButton(frame, "View Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
+		final JButton btnView = makeButton(frame, "View Assignment", COLUMN_X[2], ROW_Y[1], BTN_X, BTN_Y, setup);
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				View_questions_gui aq = new View_questions_gui();
+				int assignment_id = getAssignmentIdFromUser("Which assignment to view?\n");
+				View_questions_gui aq = new View_questions_gui(assignment_id);
 				aq.student = false;
 				aq.frame.setVisible(true);
 				frame.dispose();
 			}
 		});
+		
+		final JButton btnCreateA = makeButton(frame, "Create Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
+		btnCreateA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String assignmentName = JOptionPane.showInputDialog(null, "What would you like to name the assignment??", "New assignment", JOptionPane.INFORMATION_MESSAGE);
+				if (null == assignmentName) {
+					JOptionPane.showMessageDialog(new JLabel(), "Please enter a name", "Name needed", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					try {
+						int new_ass_id = backend.DataFillTool.createAssignment(assignmentName);
+						
+						View_questions_gui aq = new View_questions_gui(new_ass_id);
+						aq.student = false;
+						aq.frame.setVisible(true);
+						frame.dispose();
+					} catch (IllegalArgumentException e){
+						JOptionPane.showMessageDialog(new JLabel(), "Unable to create assignment.", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}
+		});
     
-		final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[2], ROW_Y[0], BTN_X, BTN_Y, setup);
+		final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[1], ROW_Y[1], BTN_X, BTN_Y, setup);
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Assign_questions_gui aq = new Assign_questions_gui();
+				int assignment_id = getAssignmentIdFromUser("Which assignment to modify?\n");
+				Assign_questions_gui aq = new Assign_questions_gui(assignment_id);
 				aq.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -157,7 +190,7 @@ public class Quizzer {
 		lblReturn.setFont(BOLDQUIZZERFONT);
 		frame.getContentPane().add(lblReturn);
     
-    btnSetup.addActionListener(new ActionListener() {
+		btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					btnSetup.setFocusPainted(false);
@@ -180,9 +213,10 @@ public class Quizzer {
 	// Switch to a Quizzer frame.
 	public static void Start(JFrame old_frame, boolean setup) {
 		Quizzer app = new Quizzer(setup);
-        app.frame.setVisible(setup);
-        old_frame.dispose();
+		app.frame.setVisible(setup);
+		old_frame.dispose();
 	}
+	
 	
 	// Listen to key inputs to return to login screen.
 	public static void LoginListener(JFrame old_frame, boolean set) {

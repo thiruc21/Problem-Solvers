@@ -96,20 +96,24 @@ public class DataFillTool {
 	  return true;
   }
   
-public static void addAssignedQuestion(int ass_id, String q_id) {
+public static void addAssignedQuestion(int ass_id, int q_id) {
 	  Connection conn;
-	  Statement st;
+	  PreparedStatement st;
 	  String q;
 	  try {
 	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 
 	      q = "INSERT INTO ASSIGNED_QUESTIONS " +
-	          "VALUES(" + Integer.toString(ass_id) + ", " + q_id + ");";
-	      st = conn.createStatement();
-	      st.executeUpdate(q);
+	          "VALUES(?, ?)";
+	      st = conn.prepareStatement(q);
+		  st.setInt(1, ass_id);
+		  st.setInt(2, q_id);
+	      st.execute();
 	      st.close();
 		  conn.close();
 	    } catch (Exception e) {
+		  System.err.println( ass_id);
+		  System.err.println( q_id);
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
   }
@@ -132,5 +136,33 @@ public static void addStudentUser(String user, String pass) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    }
 }
+	public static int createAssignment(String assignmentName) {
+		int ass_id = -1;
+		Connection conn;
+	    PreparedStatement st;
+	    String q;
+		ResultSet rs;
+		try {
+	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+
+	      q = "INSERT INTO ASSIGNMENTS VALUES(NULL, ?)";
+		  //q = "INSERT INTO ASSIGNMENTS VALUES(0, 'abc')";
+	      st = conn.prepareStatement(q);
+		  st.setString(1, assignmentName);
+		  System.out.println(assignmentName + "!");
+		  st.execute();
+		  System.out.println("got here");
+		  
+		  st.close();
+		  conn.close();
+		  ass_id = DataQueryTool.get_assignment_id(assignmentName);
+		  System.out.println(ass_id);
+		  return ass_id;
+	    } catch (Exception e) {
+	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		  System.out.println("why");
+		  return ass_id;
+	    }
+	}
   
 }

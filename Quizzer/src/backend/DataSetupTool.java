@@ -3,6 +3,7 @@ package backend;
 import java.sql.*;
 
 public class DataSetupTool {
+	/*
   public static void main( String args[] ) {
     Connection conn;
     Statement st;
@@ -46,8 +47,17 @@ public class DataSetupTool {
 	  st.executeUpdate(q);
 	          
 	  q = "CREATE TABLE ASSIGNED_QUESTIONS" +
-	          "(Ass_ID INT, " +
-	          " Q_ID REFERENCES QUESTION(Q_ID))";
+	          "(ASS_ID INT NOT NULL, " +
+	          " Q_ID INT NOT NULL, " +
+			  " FOREIGN KEY (Ass_ID) REFERENCES ASSIGNMENTS (ASS_ID)," + 
+			  " FOREIGN KEY (Q_ID) REFERENCES QUESTION(Q_ID))";
+	  st.executeUpdate(q);
+	  
+	  q = "DROPTABLE IF EXISTS ASSIGNMENTS";
+	  st.executeUpdate(q);
+	  q = "CREATE TABLE ASSIGNMENTS" +
+	      "(ASS_ID INTEGER PRIMARY KEY, " +
+		  " NAME CHAR(30) UNIQUE)";
 	  st.executeUpdate(q);
 	  
       st.close();
@@ -59,6 +69,8 @@ public class DataSetupTool {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
     }
   }
+*/
+
   
   public static boolean initialize() {
 	  Connection conn;
@@ -103,8 +115,17 @@ public class DataSetupTool {
 		  st.executeUpdate(q);
 		          
 		  q = "CREATE TABLE ASSIGNED_QUESTIONS" +
-		          "(Ass_ID INT, " +
-		          " Q_ID REFERENCES QUESTION(Q_ID))";
+	          "(ASS_ID INT NOT NULL, " +
+	          " Q_ID INT NOT NULL, " +
+			  " FOREIGN KEY (ASS_ID) REFERENCES ASSIGNMENTS (ASS_ID)," + 
+			  " FOREIGN KEY (Q_ID) REFERENCES QUESTION(Q_ID))";
+		  st.executeUpdate(q);
+		  
+		  q = "DROP TABLE IF EXISTS ASSIGNMENTS";
+		  st.executeUpdate(q);
+		  q = "CREATE TABLE ASSIGNMENTS" +
+	      "(ASS_ID INTEGER PRIMARY KEY, " +
+		  " NAME CHAR(30) UNIQUE)";
 		  st.executeUpdate(q);
 		  
 		  // Create login_credentials table
@@ -135,4 +156,5 @@ public class DataSetupTool {
 	      return false;
 	    }
   }
+  
 }

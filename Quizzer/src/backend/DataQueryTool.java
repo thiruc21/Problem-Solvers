@@ -33,6 +33,16 @@ public class DataQueryTool {
         System.out.println("A_ID:" + a_id + " Q_ID:" + q_id + " ANSWER:" + answer_text);
       }
       
+	  q = "SELECT * FROM ASSIGNMENTS ";
+	  rs = st.executeQuery(q);
+      while (rs.next() ) {
+        System.out.println("ASS_ID:" + rs.getInt("ASS_ID") + " NAME:" + rs.getString("NAME"));
+      }
+      q = "SELECT * FROM ASSIGNED_QUESTIONS ";
+	  rs = st.executeQuery(q);
+      while (rs.next() ) {
+        System.out.println("ASS_ID:" + rs.getInt("ASS_ID") + " Q_ID:" + rs.getInt("Q_ID"));
+      }
       
       
       
@@ -81,9 +91,10 @@ public static List<String> get_unassigned(int ass_id) {
 	try {
 	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 	  q = "SELECT * FROM QUESTION WHERE Q_ID NOT IN"+
-			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS)";
+			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS WHERE ASS_ID = ?)";
 			  
-	  st = conn.prepareStatement(q);	
+	  st = conn.prepareStatement(q);
+	  st.setInt(1, ass_id);
       rs = st.executeQuery();
       while(rs.next()) {
         result.add(Integer.toString(rs.getInt("Q_ID")));
@@ -106,9 +117,10 @@ public static List<String> get_assigned(int ass_id) {
 	try {
 	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 	  q = "SELECT * FROM QUESTION WHERE Q_ID IN"+
-			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS)";
-			  
+			  " (SELECT Q_ID FROM ASSIGNED_QUESTIONS WHERE ASS_ID = ?)";
+		
 	  st = conn.prepareStatement(q);	
+	  st.setInt(1, ass_id);
       rs = st.executeQuery();
       while(rs.next()) {
         result.add(Integer.toString(rs.getInt("Q_ID")));
@@ -278,18 +290,79 @@ public static int get_correct_answer_id(int q_id) {
 	  ResultSet rs;
 	  boolean exists = false;
 	  try {
-	  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
-	  q = "SELECT * FROM LOGIN_CREDENTIALS WHERE USERNAME = ?";
-	  st = conn.prepareStatement(q);	
-	  st.setString(1, user);
-     rs = st.executeQuery();
-     exists = rs.next(); 
-     st.close();
-     conn.close();
+		  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+		  q = "SELECT * FROM LOGIN_CREDENTIALS WHERE USERNAME = ?";
+		  st = conn.prepareStatement(q);	
+		  st.setString(1, user);
+		 rs = st.executeQuery();
+		 exists = rs.next(); 
+		 st.close();
+		 conn.close();
 
 	  } catch (Exception e) {
 	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	  }
 	return exists;
+  }
+  public static int get_assignment_id(String name) {
+	  int ass_id = -1;
+	  
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  boolean exists = false;
+	  try {
+		  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+		
+		  q = "SELECT ASS_ID FROM ASSIGNMENTS WHERE NAME = ?";
+		  st = conn.prepareStatement(q);	
+		  st.setString(1, name);
+		  
+		  rs = st.executeQuery();
+		  if(rs.next()) {
+		
+			ass_id = rs.getInt("ASS_ID");
+		
+		  }
+		  st.close();
+		  conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	  
+	  return ass_id;
+  }
+  public static List<String> get_assignment_names() {
+	  List<String> result = new ArrayList<String>();
+	  
+	  Connection conn;
+	  PreparedStatement st;
+	  String q;
+	  ResultSet rs;
+	  boolean exists = false;
+	  try {
+		  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
+		
+		  q = "SELECT NAME FROM ASSIGNMENTS";
+		  
+		  st = conn.prepareStatement(q);
+		  rs = st.executeQuery();
+		  while (rs.next()) {
+		
+			result.add(rs.getString("NAME"));
+		
+		  }
+		
+		  st.close();
+		  conn.close();
+
+	  } catch (Exception e) {
+	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	  }
+	  
+	  
+	  return result;
   }
 }

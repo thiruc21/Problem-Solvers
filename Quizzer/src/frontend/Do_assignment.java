@@ -32,12 +32,14 @@ public class Do_assignment {
     public JLabel lblQuestion;
     public JLabel lblAnswer;
     public boolean student;
+	private int ass_id;
     
     /**
      * Create the application.
      */
-    public Do_assignment(List<Integer> q_ids) {
+    public Do_assignment(int ass_id, List<Integer> q_ids) {
     	this.q_ids = q_ids;
+		this.ass_id = ass_id;
     	answer_id = 0;
     	corrects = 0;
     	curr_question = 0;
@@ -127,7 +129,7 @@ public class Do_assignment {
         		btnBack.setFocusPainted(false);
         		int user_prompt = JOptionPane.showConfirmDialog(null, "Are you sure you wish to return to the assignment viewing menu? All progress will be lost.", "Warning", JOptionPane.YES_NO_OPTION);
                 if (user_prompt == JOptionPane.YES_OPTION) {
-                	View_questions_gui app = new View_questions_gui();
+                	View_questions_gui app = new View_questions_gui(ass_id);
                     app.frame.setVisible(true);
                     frame.dispose();
     	    		app.student = student;
