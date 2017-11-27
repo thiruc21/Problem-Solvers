@@ -337,6 +337,7 @@ public static int get_correct_answer_id(int q_id) {
 	  
 	  return ass_id;
   }
+  // Gets name of all assignments
   public static List<String> get_assignment_names() {
 	  List<String> result = new ArrayList<String>();
 	  
@@ -363,8 +364,6 @@ public static int get_correct_answer_id(int q_id) {
 	  } catch (Exception e) {
 	    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	  }
-	  
-	  
 	  return result;
   }
 }

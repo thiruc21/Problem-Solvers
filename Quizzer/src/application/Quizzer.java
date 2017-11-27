@@ -22,9 +22,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-import java.io.File;
 
-public class Quizzer {
+public class Quizzer extends Window{
 	
 	public final static Color FOREGROUND = new Color(124,252,0);
 	public final static Color BUTTON = Color.BLACK;
@@ -45,9 +44,6 @@ public class Quizzer {
 	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
 	public final static Font BIGBOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 18);
 		
-
-	private boolean setup;
-	public JFrame frame;
 	private boolean admin;
 
 	/**
@@ -72,13 +68,8 @@ public class Quizzer {
 	 */
 
 	public Quizzer(boolean admin) {
+		super();
 		this.admin = admin;
-		File chk_exist = new File("quizzer.db");
-		if (chk_exist.exists() && !chk_exist.isDirectory()) {
-			setup = true;
-		} else {
-			setup = false;
-		}
 		initialize();
 
 	}
@@ -87,8 +78,8 @@ public class Quizzer {
 	 * Create the application given that the database already exists.
 	 */
 	public Quizzer(boolean admin, boolean set) {
+		super(set);
 		this.admin = admin;
-		setup = set;
 		initialize();
 	}
   
@@ -103,7 +94,7 @@ public class Quizzer {
 		target.getContentPane().add(newButton);
 		return newButton;
 	}
-
+	// Java function to get assignment ID based on what user selects
 	private int getAssignmentIdFromUser(String question) {
 		Object[] choices = backend.DataQueryTool.get_assignment_names().toArray();
 		if (0 == choices.length) {
