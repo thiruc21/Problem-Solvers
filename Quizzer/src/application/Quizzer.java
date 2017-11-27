@@ -36,6 +36,11 @@ public class Quizzer {
 	
 	public static final int DETAIL_BTN_X = 312;
 	public static final int DETAIL_BTN_Y = 23;
+  
+  public static final int[] ROW_Y = {130, 230};
+    
+  public static final int[] COLUMN_X = {10, 196, 391};
+  
 	
 	public final static Font QUIZZERFONT = new Font("Centaur", Font.PLAIN, 40);
 	public final static Font BOLDQUIZZERFONT = new Font("Tahoma", Font.BOLD, 11);
@@ -81,6 +86,17 @@ public class Quizzer {
 		setup = set;
 		initialize();
 	}
+  
+  private JButton makeButton(JFrame target, String label, int x, int y, int w, int h, boolean enabled) {
+    JButton newButton = new JButton(label);
+    newButton.setBounds(x, y, w, h);
+    newButton.setBackground(BUTTON);
+    newButton.setForeground(FOREGROUND);
+    newButton.setFocusable(false);
+    newButton.setEnabled(enabled);
+    target.getContentPane().add(newButton);
+    return newButton;
+  }
 
 
 
@@ -97,28 +113,18 @@ public class Quizzer {
 		// Helper function that creates KeyEvent listener to return to login if shift+Q is pressed.
 		Quizzer.LoginListener(frame, setup);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(null);
-		JButton btnSetup = new JButton("Setup Database");
-		btnSetup.setBackground(BUTTON);
-		btnSetup.setForeground(FOREGROUND);
-		btnSetup.setBounds(10, 130, BTN_X, BTN_Y);
-		btnSetup.setFocusable(false);
+    
+		JButton btnSetup = makeButton(frame, "Setup Database", COLUMN_X[0], ROW_Y[0], BTN_X, BTN_Y, true);
 		frame.getContentPane().add(btnSetup);
 		
-		final JButton btnCreate = new JButton("New MC Question");
-		btnCreate.addActionListener(new ActionListener() {
+		final JButton btnCreate = makeButton(frame, "New MC Question", COLUMN_X[1], ROW_Y[0], BTN_X, BTN_Y, setup);
+    btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			Create_mc mc = new Create_mc();
 			mc.frame.setVisible(true);
 			frame.dispose();
 			}
-		});
-		if (!setup)
-			btnCreate.setEnabled(false);
-		btnCreate.setBackground(BUTTON);
-		btnCreate.setForeground(FOREGROUND);
-		btnCreate.setBounds(196, 130, BTN_X, BTN_Y);
-		btnCreate.setFocusable(false);
-		frame.getContentPane().add(btnCreate);
+		});		
 		
 		JLabel lblQuizzer = new JLabel("Quizzer");
 		lblQuizzer.setFont(QUIZZERFONT);
@@ -126,7 +132,7 @@ public class Quizzer {
 		lblQuizzer.setBounds(222, 11, 212, 65);
 		frame.getContentPane().add(lblQuizzer);
 		
-		final JButton btnView = new JButton("View Assignment");
+		final JButton btnView = makeButton(frame, "View Assignment", COLUMN_X[0], ROW_Y[1], BTN_X, BTN_Y, setup);
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				View_questions_gui aq = new View_questions_gui();
@@ -135,8 +141,8 @@ public class Quizzer {
 				frame.dispose();
 			}
 		});
-		
-		final JButton btnAssign = new JButton("Assign Questions");
+    
+		final JButton btnAssign = makeButton(frame, "Assign Questions", COLUMN_X[2], ROW_Y[0], BTN_X, BTN_Y, setup);
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Assign_questions_gui aq = new Assign_questions_gui();
@@ -145,27 +151,13 @@ public class Quizzer {
 			}
 		});
     
-		btnView.setBackground(BUTTON);
-		btnView.setForeground(FOREGROUND);
-		btnView.setBounds(10, 230, BTN_X, BTN_Y);
-		btnView.setFocusable(false);
-		btnView.setEnabled(setup);
-		frame.getContentPane().add(btnView);  
-		
-		btnAssign.setEnabled(setup);
-		btnAssign.setBackground(BUTTON);
-		btnAssign.setForeground(FOREGROUND);
-		btnAssign.setFocusable(false);
-		btnAssign.setBounds(391, 130, 166, 53);
-		frame.getContentPane().add(btnAssign);
-		
 		JLabel lblReturn = new JLabel("Press Shift+Q to return to the Login screen.");
 		lblReturn.setBounds(10, 306, 454, 46);
 		lblReturn.setForeground(FOREGROUND);
 		lblReturn.setFont(BOLDQUIZZERFONT);
 		frame.getContentPane().add(lblReturn);
-	
-		btnSetup.addActionListener(new ActionListener() {
+    
+    btnSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					btnSetup.setFocusPainted(false);
@@ -183,6 +175,7 @@ public class Quizzer {
 				}
 			}
 		});
+		
 	}
 	// Switch to a Quizzer frame.
 	public static void Start(JFrame old_frame, boolean setup) {
