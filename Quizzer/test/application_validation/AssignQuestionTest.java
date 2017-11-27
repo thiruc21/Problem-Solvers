@@ -32,12 +32,10 @@ import frontend.Create_mc;
 public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 
 		protected FrameFixture frame;
-		
 		private JButtonFixture assignQuestions;
 		private JButtonFixture back;
 		private JLabelFixture selectQuestions;
 		private JScrollPaneFixture questions;
-	    
 	    private JButtonFixture setupDb;
 	    private JButtonFixture createMC;
 		@SuppressWarnings("unused")

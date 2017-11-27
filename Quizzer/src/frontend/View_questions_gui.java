@@ -21,32 +21,11 @@ public class View_questions_gui {
 
   public JFrame frame;
   public boolean student;
-
   public JRadioButton[] rdbtn;
-  
   public JLabel lblQuestion;
-  
   public JLabel lblAnswer;
-  
   public JList<String> list;
-  
   private int assignment_id;
-  /**
-   * Launch the application.
-   */
-   /*
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          View_questions_gui window = new View_questions_gui();
-          window.frame.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }*/
 
   /**
    * Create the application.
@@ -72,7 +51,6 @@ public class View_questions_gui {
     frame.getContentPane().add(lblSelectTheQuestions);
     // Refresh the list
     refreshList();
-    
     ButtonGroup group = new ButtonGroup();
     // Create question display
 	rdbtn = new JRadioButton[6];
@@ -222,8 +200,6 @@ private void listBox(String questions[], List<Integer> q_ids) {
     	        	lblAnswer.setText("");
     	        else
     	        	lblAnswer.setText("<html><body style='width: 237px'>Answer: " + correct_answer_text);
-    	        
-    	        
 		}
 		}
     });
@@ -231,8 +207,7 @@ private void listBox(String questions[], List<Integer> q_ids) {
     btnBack.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		// Go to admin or student quizzer depending on role of user
-    		Quizzer.Start(frame, !student, true);
-    		
+    		Quizzer.Start(frame, !student, true);	
     	}
     });
     btnBack.setBackground(Quizzer.BUTTON);

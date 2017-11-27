@@ -17,25 +17,7 @@ public class Assign_questions_gui {
 
   public JFrame frame;
   public JList<String> list;
-  
   private int assignment_id;
-  /**
-   * Launch the application.
-   */
-   
-   /*
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          Assign_questions_gui window = new Assign_questions_gui();
-          window.frame.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }*/
 
   /**
    * Create the application.

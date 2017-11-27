@@ -28,11 +28,7 @@ import frontend.Create_mc;
 public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 	
 	protected FrameFixture frame;
-	
 	private JButtonFixture back;
-	
-
-    
     private JButtonFixture setupDb;
     private JButtonFixture createMC;
 	@SuppressWarnings("unused")
@@ -40,9 +36,7 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
     @SuppressWarnings("unused")
 	private JButtonFixture assgn;
     private JButtonFixture createNew;
-
 	private JLabelFixture question;
-
 	private JLabelFixture answer;
 
 
@@ -68,10 +62,8 @@ public class CreateMCTest extends AssertJSwingTestCaseTemplate {
 		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		
 		setupDb.click();
-		this.frame.dialog().button().click();
-		
+		this.frame.dialog().button().click();	
 	}
-	
 	@Test
 	public void test_create() {
 		createMC.click();

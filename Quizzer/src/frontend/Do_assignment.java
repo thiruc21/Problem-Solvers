@@ -22,7 +22,6 @@ import java.util.List;
 public class Do_assignment {
 
     public JFrame frame;
-
     public final List<Integer> q_ids;
     public Integer answer_id;
     public boolean user_correct;
@@ -208,8 +207,6 @@ public class Do_assignment {
           rdbtn[i].setText( answer_texts.get(i) );
           ++i;
         }
-        
-        
         lblQuestion.setText("<html><body style='width: 237px'>Q" + (curr_question+1) + ": " + question_text);
         lblQuestion.setName("lblQuestion");
         lblAnswer.setText("");
