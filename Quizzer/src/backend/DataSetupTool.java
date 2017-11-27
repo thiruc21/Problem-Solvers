@@ -58,6 +58,7 @@ public class DataSetupTool {
 	      "(ASS_ID INTEGER PRIMARY KEY, " +
 		  " NAME CHAR(30) UNIQUE)";
 		  st.executeUpdate(q);
+
 		  
 		  // Create login_credentials table
 		  q = "DROP TABLE IF EXISTS LOGIN_CREDENTIALS";
