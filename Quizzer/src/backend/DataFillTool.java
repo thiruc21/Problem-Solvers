@@ -149,9 +149,8 @@ public static void addStudentUser(String user, String pass) {
 		  //q = "INSERT INTO ASSIGNMENTS VALUES(0, 'abc')";
 	      st = conn.prepareStatement(q);
 		  st.setString(1, assignmentName);
-		  System.out.println(assignmentName + "!");
 		  st.execute();
-		  System.out.println("got here");
+		  
 		  
 		  st.close();
 		  conn.close();
@@ -160,7 +159,7 @@ public static void addStudentUser(String user, String pass) {
 		  return ass_id;
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-		  System.out.println("why");
+		  
 		  return ass_id;
 	    }
 	}

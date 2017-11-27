@@ -104,7 +104,10 @@ public class Quizzer {
 
 	private int getAssignmentIdFromUser(String question) {
 		Object[] choices = backend.DataQueryTool.get_assignment_names().toArray();
-				
+		if (0 == choices.length) {
+			JOptionPane.showMessageDialog(new JLabel(), "Please create an assignment first.", "Error", JOptionPane.INFORMATION_MESSAGE);
+			return -1;
+		}
 		String assignmentName = (String)JOptionPane.showInputDialog(frame, question, "Choose assignment", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
 		if (null == assignmentName) return -1;
         return backend.DataQueryTool.get_assignment_id(assignmentName);
@@ -162,11 +165,14 @@ public class Quizzer {
 					} else {
 						try {
 							int new_ass_id = backend.DataFillTool.createAssignment(assignmentName);
-							
+							if (-1 == new_ass_id) {
+								JOptionPane.showMessageDialog(new JLabel(), "Please give the assignment a unique name.", "Error", JOptionPane.INFORMATION_MESSAGE);
+								return;
+							}
 							Assign_questions_gui aq = new Assign_questions_gui(new_ass_id);
 							aq.frame.setVisible(true);
 							frame.dispose();
-						} catch (IllegalArgumentException e){
+						} catch (Exception e){
 							JOptionPane.showMessageDialog(new JLabel(), "Unable to create assignment.", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
