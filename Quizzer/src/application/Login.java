@@ -95,7 +95,7 @@ public class Login extends Window{
 				}
 			}
 		});
-		btnLogin.setBounds(420, 276, 158, 53);
+		btnLogin.setBounds(400, 276, 158, 53);
 		btnLogin.setBackground(Quizzer.BUTTON);
 		btnLogin.setForeground(Quizzer.FOREGROUND);
 		btnLogin.setFont(Quizzer.BOLDQUIZZERFONT);
@@ -133,7 +133,7 @@ public class Login extends Window{
 		btnSignUp.setForeground(new Color(124, 252, 0));
 		btnSignUp.setBackground(Color.BLACK);
 		btnSignUp.setFont(Quizzer.BOLDQUIZZERFONT);
-		btnSignUp.setBounds(235, 276, 158, 53);
+		btnSignUp.setBounds(215, 276, 158, 53);
 		btnSignUp.setEnabled(setup);
 		frame.getContentPane().add(btnSignUp);
 		
@@ -159,7 +159,7 @@ public class Login extends Window{
 		btnSetup.setForeground(new Color(124, 252, 0));
 		btnSetup.setBackground(Color.BLACK);
 		btnSetup.setFont(Quizzer.BOLDQUIZZERFONT);
-		btnSetup.setBounds(47, 276, 158, 53);
+		btnSetup.setBounds(27, 276, 158, 53);
 		frame.getContentPane().add(btnSetup);
 		
 	}

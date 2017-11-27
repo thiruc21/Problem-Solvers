@@ -38,7 +38,7 @@ public class Quizzer {
   
 	public static final int[] ROW_Y = {130, 230};
     
-	public static final int[] COLUMN_X = {10, 196, 391};
+	public static final int[] COLUMN_X = {30, 216, 411};
   
 	
 	public final static Font QUIZZERFONT = new Font("Centaur", Font.PLAIN, 40);
