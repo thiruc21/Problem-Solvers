@@ -1,6 +1,6 @@
 package frontend;
 
-import java.awt.EventQueue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +9,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import application.Quizzer;
-import application.QuizzerStudent;
 import backend.DataQueryTool;
 import frontend.Do_assignment;
 

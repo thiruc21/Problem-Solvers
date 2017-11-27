@@ -141,7 +141,6 @@ public static void addStudentUser(String user, String pass) {
 		Connection conn;
 	    PreparedStatement st;
 	    String q;
-		ResultSet rs;
 		try {
 	      conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 
@@ -155,7 +154,6 @@ public static void addStudentUser(String user, String pass) {
 		  st.close();
 		  conn.close();
 		  ass_id = DataQueryTool.get_assignment_id(assignmentName);
-		  System.out.println(ass_id);
 		  return ass_id;
 	    } catch (Exception e) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );

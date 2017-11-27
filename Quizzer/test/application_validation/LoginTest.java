@@ -19,8 +19,7 @@ import org.junit.Test;
 
 import application.Login;
 import application.Quizzer;
-import application.QuizzerStudent;
-import frontend.View_questions_gui;
+
 
 // This test will demonstrate that user story 7 is completed
 /** 1. Initialize database

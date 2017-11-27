@@ -311,7 +311,6 @@ public static int get_correct_answer_id(int q_id) {
 	  PreparedStatement st;
 	  String q;
 	  ResultSet rs;
-	  boolean exists = false;
 	  try {
 		  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 		
@@ -341,7 +340,6 @@ public static int get_correct_answer_id(int q_id) {
 	  PreparedStatement st;
 	  String q;
 	  ResultSet rs;
-	  boolean exists = false;
 	  try {
 		  conn = DriverManager.getConnection("jdbc:sqlite:quizzer.db");
 		

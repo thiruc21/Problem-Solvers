@@ -2,7 +2,7 @@ package frontend;
 
 import application.Quizzer;
 
-import java.awt.EventQueue;
+
 import java.util.List;
 
 import javax.swing.*;

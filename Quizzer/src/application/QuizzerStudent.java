@@ -80,7 +80,7 @@ public class QuizzerStudent {
 		btnView.setBounds(10, 130, 158, 53);
 	    btnView.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					View_questions_gui aq = new View_questions_gui();
+					View_questions_gui aq = new View_questions_gui(1);
 					aq.student = true;
 					aq.frame.setVisible(true);
 					frame.dispose();

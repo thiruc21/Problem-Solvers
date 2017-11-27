@@ -42,7 +42,8 @@ public class AssignQuestionTest extends AssertJSwingTestCaseTemplate {
 	    private JButtonFixture createMC;
 		@SuppressWarnings("unused")
 		private JButtonFixture viewQ;
-	    private JButtonFixture assgn;
+	    @SuppressWarnings("unused")
+		private JButtonFixture assgn;
 	    private JButtonFixture createNew;
 	    private JList<?> assignList;
 	    @SuppressWarnings("unused")

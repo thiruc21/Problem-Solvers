@@ -121,12 +121,16 @@ public class DataSetupTool {
 			  " FOREIGN KEY (Q_ID) REFERENCES QUESTION(Q_ID))";
 		  st.executeUpdate(q);
 		  
+		  // Create assignments table
 		  q = "DROP TABLE IF EXISTS ASSIGNMENTS";
 		  st.executeUpdate(q);
 		  q = "CREATE TABLE ASSIGNMENTS" +
 	      "(ASS_ID INTEGER PRIMARY KEY, " +
 		  " NAME CHAR(30) UNIQUE)";
 		  st.executeUpdate(q);
+		  // Add test assignment
+		  //q = "INSERT INTO ASSIGNMENTS VALUES(1, 'VOID0')";
+		  //st.executeUpdate(q);
 		  
 		  // Create login_credentials table
 		  q = "DROP TABLE IF EXISTS LOGIN_CREDENTIALS";

@@ -43,7 +43,8 @@ public class SubmitAssignmentTest extends AssertJSwingTestCaseTemplate {
     private JButtonFixture setupDb;
     private JButtonFixture createMC;
 	private JButtonFixture viewQ;
-    private JButtonFixture assgn;
+    @SuppressWarnings("unused")
+	private JButtonFixture assgn;
     private JButtonFixture createNew;
     private JButtonFixture back;
     private JButtonFixture next;

@@ -44,7 +44,8 @@ public class ViewAssignmentTest extends AssertJSwingTestCaseTemplate{
     private JButtonFixture setupDb;
     private JButtonFixture createMC;
 	private JButtonFixture viewQ;
-    private JButtonFixture assgn;
+    @SuppressWarnings("unused")
+	private JButtonFixture assgn;
     private JButtonFixture createNew;
     private JList<?> assignList;
     @SuppressWarnings("unused")
