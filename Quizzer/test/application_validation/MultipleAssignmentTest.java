@@ -1,21 +1,17 @@
 package application_validation;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JRadioButton;
 
 import org.assertj.swing.core.matcher.JButtonMatcher;
-import org.assertj.swing.core.matcher.JLabelMatcher;
 
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.edt.GuiQuery;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
-import org.assertj.swing.fixture.JLabelFixture;
 import org.assertj.swing.fixture.JListFixture;
 import org.assertj.swing.fixture.JRadioButtonFixture;
 import org.assertj.swing.testing.AssertJSwingTestCaseTemplate;
@@ -25,40 +21,30 @@ import org.junit.Test;
 
 import application.*;
 import frontend.Assign_questions_gui;
-import frontend.Create_mc;
-import frontend.Do_assignment;
-import frontend.View_questions_gui;
 
-// This test will verify that userstory 4 is working
-/** 1. Initialize database and create questions
- *  2. View questions, and assign one.
- * 	3. View the assignment.
- *  4. Start assignment and answer questions, verify submit button is visible. 
+
+// This test will verify that userstory 8 is working
+/** 1. Initialize database 
+ *  2. Create two assignments
+ * 	3. Click button to view assignment
+ *  4. Using the drop down menu, select the second assignment 
  */
 public class MultipleAssignmentTest extends AssertJSwingTestCaseTemplate {
 
 	protected FrameFixture frame;
 	
     private JButtonFixture setupDb;
-    private JButtonFixture createMC;
 	private JButtonFixture viewQ;
     @SuppressWarnings("unused")
 	private JButtonFixture assgn;
-    private JButtonFixture createNew;
     private JButtonFixture back;
-    private JButtonFixture next;
-    private JLabelFixture question;
-    private JLabelFixture answer;
-    private JList<?> assignList;
-    private JListFixture assignListItem;
-    private JButtonFixture assignButton;
-    private JList<String> viewList;
+    @SuppressWarnings("unused")
+	private JList<?> assignList;
     @SuppressWarnings("unused")
 	private JListFixture viewListItem;
-    private JRadioButton rdb;
 	@SuppressWarnings("unused")
 	private JRadioButtonFixture displayListItem;
-    private JButtonFixture startAssgn;
+
 	
 	private JButtonFixture createAssignment;
 
@@ -77,7 +63,7 @@ public class MultipleAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		
+		// Setup the database
 		this.setupDb = this.frame.button(JButtonMatcher.withText("Setup Database"));
 		
 		setupDb.click();
@@ -120,17 +106,17 @@ public class MultipleAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		
+		// Click view assignment, verify only one assignment shows.
 		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		viewQ.click();
 		this.frame.dialog().comboBox().requireItemCount(1);
 		this.frame.dialog().comboBox().requireSelection("Alpha");
 		this.frame.dialog().button(JButtonMatcher.withText("Cancel")).click();
 		
-		
+		// Create second assignment
 		this.createAssignment = this.frame.button(JButtonMatcher.withText("Create Assignment"));
 		this.createAssignment.requireVisible().requireEnabled().click();
-		
+		// Assign questions to second assignment
 		this.frame.dialog().textBox().enterText("Beta\n");
 		gui = GuiActionRunner.execute(new GuiQuery<JFrame>() {
 			@Override
@@ -157,7 +143,7 @@ public class MultipleAssignmentTest extends AssertJSwingTestCaseTemplate {
 			}});
 		this.frame = new FrameFixture(this.robot(), gui);
 		this.frame.show();
-		
+		// Select to view the second assignment, verify 2 options are available then finish.
 		this.viewQ = this.frame.button(JButtonMatcher.withText("View Assignment"));
 		viewQ.click();
 		this.frame.dialog().comboBox().requireItemCount(2);

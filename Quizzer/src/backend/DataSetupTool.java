@@ -128,10 +128,6 @@ public class DataSetupTool {
 	      "(ASS_ID INTEGER PRIMARY KEY, " +
 		  " NAME CHAR(30) UNIQUE)";
 		  st.executeUpdate(q);
-		  // Add test assignment
-		  //q = "INSERT INTO ASSIGNMENTS VALUES(1, 'VOID0')";
-		  //st.executeUpdate(q);
-		  
 		  // Create login_credentials table
 		  q = "DROP TABLE IF EXISTS LOGIN_CREDENTIALS";
 	      st.executeUpdate(q);
