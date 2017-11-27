@@ -16,7 +16,7 @@ import backend.DataQueryTool;
 
 import java.awt.Color;
 
-public class Login extends Window{
+public class Login extends Window {
 
 	private JTextField txtUsername;
 	private JTextField txtPassword;
