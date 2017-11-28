@@ -5,7 +5,7 @@ This is the repository for Problem Solvers. We have each introduced ourselves an
 
 **1:** Creation of multiple choice questions of 2-6 possible options.
 
-**2:** Assigning questions to an assignment.   
+**2:** Assigning questions to an assignment. 
 
 **3:** Menu to be able to select what tool the user wants to access.
 
@@ -20,10 +20,9 @@ This is the repository for Problem Solvers. We have each introduced ourselves an
 **8.** Adding assignments
 
 **How to Run:** 
+Must have JDK 1.8 or later installed with the environment path to the JDK already set.
 
 **Windows**
-
-Using Windows with JDK 1.7 or later installed with the environment path to the JDK already set.
 
 1. Navigate to L02_05/Quizzer/src via a windows command-line interface.
 2. Type "javac application/Login.java". If you receive " javac: command not found", your environment path to the JDK is probably not set correctly.
@@ -35,7 +34,7 @@ Alternatively, you can run L02_05/Quizzer/run.bat.
 **Linux**
 
 1. Navigate to L02_05/Quizzer
-2. Run the shellscript startup using the command ./startup.sh (root privledge not required)   
+2. Run the shellscript startup using the command ./startup.sh (root privledge not required) 
 3. You will be shown the login menu but cannot login or signup until you click "Setup" to initialize your database.
 
 **Logging in**
