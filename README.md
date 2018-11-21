@@ -1,4 +1,4 @@
-# L02_05
+# Problem Solvers
 This is the repository for Problem Solvers. We have each introduced ourselves and agreed on our team's guidelines. We are on version 4 of our product backlog which consists of personas that represent future users of our software, user stories that reflect their user requirements, and tasks to implement the requirements of a userstory. We have completed six sprints and have their sprint backlogs below. We have also had a code review session of which you can view the results for below.
 
 **Features implemented:** 
